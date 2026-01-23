@@ -17,6 +17,7 @@ This repository is a personal study project. Some content was written by me, som
 | [Git/](./Git/00_Overview.md) | Git, GitHub, Actions | 7개 |
 | [Linux/](./Linux/00_Overview.md) | Linux 기초 ~ 서버 관리 | 12개 |
 | [PostgreSQL/](./PostgreSQL/00_Overview.md) | SQL 기초 ~ DB 운영 | 13개 |
+| [Python/](./Python/00_Overview.md) | 파이썬 고급 문법 | 10개 |
 | [Spanish/](./Spanish/00_Overview.md) | 스페인어 문법/어휘 | 5개 |
 
 ---
