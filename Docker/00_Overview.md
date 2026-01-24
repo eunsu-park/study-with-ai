@@ -43,6 +43,10 @@ Docker 기초 ──────▶ Dockerfile ──────▶ Kubernetes 
 | [04_Docker_Compose.md](./04_Docker_Compose.md) | ⭐⭐ | 다중 컨테이너, docker-compose.yml |
 | [05_실전_예제.md](./05_실전_예제.md) | ⭐⭐⭐ | 웹앱 컨테이너화, DB 연동 |
 | [06_Kubernetes_입문.md](./06_Kubernetes_입문.md) | ⭐⭐⭐ | K8s 개념, Pod, Deployment, Service |
+| [07_Kubernetes_보안.md](./07_Kubernetes_보안.md) | ⭐⭐⭐⭐ | RBAC, NetworkPolicy, Secrets, PodSecurity |
+| [08_Kubernetes_심화.md](./08_Kubernetes_심화.md) | ⭐⭐⭐⭐ | Ingress, StatefulSet, DaemonSet, PV/PVC |
+| [09_Helm_패키지관리.md](./09_Helm_패키지관리.md) | ⭐⭐⭐ | Helm 차트, values.yaml, 릴리스 관리 |
+| [10_CI_CD_파이프라인.md](./10_CI_CD_파이프라인.md) | ⭐⭐⭐⭐ | GitHub Actions, 이미지 빌드, K8s 배포 |
 
 ---
 
@@ -55,7 +59,10 @@ Docker 기초 ──────▶ Dockerfile ──────▶ Kubernetes 
 2. Dockerfile → Docker Compose → 실전 예제
 
 ### 3단계: 오케스트레이션
-3. Kubernetes 입문
+3. Kubernetes 입문 → Kubernetes 보안 → Kubernetes 심화
+
+### 4단계: 배포 자동화
+4. Helm 패키지관리 → CI/CD 파이프라인
 
 ---
 

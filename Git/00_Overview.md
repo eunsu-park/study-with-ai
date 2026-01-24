@@ -43,6 +43,9 @@ Git 기초 ────────▶ GitHub 시작 ────▶ Git 고급
 | [05_GitHub_협업.md](./05_GitHub_협업.md) | ⭐⭐ | Pull Request, 코드 리뷰, Fork |
 | [06_Git_고급.md](./06_Git_고급.md) | ⭐⭐⭐ | rebase, cherry-pick, stash, reset |
 | [07_GitHub_Actions.md](./07_GitHub_Actions.md) | ⭐⭐⭐ | CI/CD, 워크플로우 자동화 |
+| [08_Git_워크플로우_전략.md](./08_Git_워크플로우_전략.md) | ⭐⭐⭐ | Git Flow, GitHub Flow, trunk-based |
+| [09_고급_Git_기법.md](./09_고급_Git_기법.md) | ⭐⭐⭐⭐ | hooks, submodules, worktrees |
+| [10_모노레포_관리.md](./10_모노레포_관리.md) | ⭐⭐⭐⭐ | Nx, Turborepo, 의존성 관리 |
 
 ---
 
@@ -55,7 +58,10 @@ Git 기초 ────────▶ GitHub 시작 ────▶ Git 고급
 2. GitHub 시작하기 → GitHub 협업
 
 ### 3단계: 고급 활용
-3. Git 고급 → GitHub Actions
+3. Git 고급 → GitHub Actions → Git 워크플로우 전략
+
+### 4단계: 전문가
+4. 고급 Git 기법 → 모노레포 관리
 
 ---
 
