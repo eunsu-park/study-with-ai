@@ -20,6 +20,7 @@ This repository is a personal study project. Some content was written by me, som
 | [Git/](./Git/00_Overview.md) | Git, GitHub, 워크플로우, 모노레포 | 10개 |
 | [Linux/](./Linux/00_Overview.md) | Linux 기초 ~ HA 클러스터, 트러블슈팅 | 26개 |
 | [Network/](./Network/00_Overview.md) | 네트워크, OSI/TCP-IP, 라우팅, 보안 | 17개 |
+| [OpenCV_ComputerVision/](./OpenCV_ComputerVision/00_Overview.md) | OpenCV, 이미지처리, 객체검출, 얼굴인식 | 20개 |
 | [PostgreSQL/](./PostgreSQL/00_Overview.md) | SQL 기초 ~ 복제, 파티셔닝 | 18개 |
 | [Python/](./Python/00_Overview.md) | 파이썬 고급 문법, 테스트, 패키징 | 14개 |
 | [Spanish/](./Spanish/00_Overview.md) | 스페인어 문법/어휘, 접속법, 지역 변형 | 9개 |
