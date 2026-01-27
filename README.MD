@@ -12,7 +12,7 @@ This repository is a personal study project. Some content was written by me, som
 
 | 폴더 | 내용 | 레슨 수 |
 |------|------|---------|
-| [Algorithm/](./Algorithm/00_Overview.md) | 알고리즘/자료구조, 코딩테스트 준비 | 16개 |
+| [Algorithm/](./Algorithm/00_Overview.md) | 알고리즘/자료구조, 코딩테스트 준비 | 30개 |
 | [C_Programming/](./C_Programming/00_Overview.md) | C 언어 기초 ~ 임베디드, 디버깅 | 19개 |
 | [CPP/](./CPP/00_Overview.md) | C++ 입문 ~ 모던 C++, 디자인패턴 | 18개 |
 | [Docker/](./Docker/00_Overview.md) | Docker, Kubernetes, Helm, CI/CD | 10개 |
