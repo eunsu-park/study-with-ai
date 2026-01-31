@@ -112,9 +112,50 @@ my-website/
 
 ---
 
+## 예제 코드 (examples/)
+
+각 레슨에 해당하는 실행 가능한 예제 코드가 포함되어 있습니다.
+
+```
+examples/
+├── 01_html_basics/       # HTML 기초 (index.html, semantic.html)
+├── 02_html_forms/        # 폼과 테이블
+├── 03_css_basics/        # CSS 기초 (선택자, 박스모델)
+├── 04_css_layout/        # Flexbox, Grid
+├── 05_css_responsive/    # 반응형 디자인
+├── 06_js_basics/         # JavaScript 기초
+├── 07_js_dom/            # DOM 조작, 이벤트
+├── 08_js_async/          # Promise, async/await, fetch
+├── 09_project_todo/      # Todo 앱 (CRUD, localStorage)
+├── 10_project_weather/   # 날씨 앱 (API 연동)
+├── 11_typescript/        # TypeScript (타입, 인터페이스)
+├── 12_accessibility/     # 웹 접근성 (ARIA, 키보드)
+├── 13_seo/               # SEO (메타태그, JSON-LD)
+├── 14_build_tools/       # Vite, Webpack
+└── README.md
+```
+
+### 예제 실행 방법
+
+```bash
+# HTML/CSS/JS 예제
+open examples/01_html_basics/index.html
+# 또는 VS Code Live Server 사용
+
+# TypeScript
+cd examples/11_typescript && npx tsc basics.ts
+
+# 빌드 도구
+cd examples/14_build_tools/vite-project
+npm install && npm run dev
+```
+
+---
+
 ## 학습 팁
 
 1. **직접 코딩**: 예제를 보고 따라 치면서 학습
 2. **개발자 도구 활용**: F12로 다른 사이트 분석
 3. **작은 프로젝트**: 배운 내용으로 간단한 페이지 만들기
 4. **반복 연습**: CSS 레이아웃은 여러 번 연습 필요
+5. **예제 활용**: examples/ 폴더의 코드를 직접 실행하고 수정해 보기
