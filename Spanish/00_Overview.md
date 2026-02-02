@@ -16,13 +16,15 @@
 | [02_Verbs.md](./02_Verbs.md) | 동사 활용, 시제, 불규칙 동사 | 270개 |
 | [03_Nouns.md](./03_Nouns.md) | 명사, 성/수 일치, 관사 | 860개+ |
 | [04_Adjectives.md](./04_Adjectives.md) | 형용사, 비교급, 최상급 | 215개 |
-| [05_Other_Parts_of_Speech.md](./05_Other_Parts_of_Speech.md) | 대명사, 부사, 전치사, 접속사, 관용어 | 315개+ |
+| [05_Other_Parts_of_Speech.md](./05_Other_Parts_of_Speech.md) | 대명사, 부사, 전치사, 접속사, 감탄사, 담화 표지 | 465개+ |
 | [06_Subjunctive_Advanced.md](./06_Subjunctive_Advanced.md) | Subjuntivo 사용 상황, 시제별 활용 | - |
 | [07_Verb_Conjugation_System.md](./07_Verb_Conjugation_System.md) | 불규칙 패턴, 어간 변화, 재귀 동사 | - |
 | [08_Regional_Variations_Dialects.md](./08_Regional_Variations_Dialects.md) | 스페인/멕시코/아르헨티나 차이 | - |
 | [09_Daily_Conversation_Idioms.md](./09_Daily_Conversation_Idioms.md) | 실용 표현, 관용구, 비즈니스 스페인어 | - |
+| [10_Advanced_Grammar_Topics.md](./10_Advanced_Grammar_Topics.md) | 관계절, 수동태, 고급 조건문 | - |
+| [11_Vocabulary_by_Theme.md](./11_Vocabulary_by_Theme.md) | 축소사/확대사, 주제별 관용어, 현대 어휘 | 380개+ |
 
-**총 어휘**: 약 2,100개+
+**총 어휘**: 약 2,530개+
 
 ---
 
@@ -30,8 +32,9 @@
 
 1. **문법 기초**: 01_Grammar → 03_Nouns → 04_Adjectives
 2. **동사 학습**: 02_Verbs → 07_Verb_Conjugation_System
-3. **기타 품사**: 05_Other_Parts_of_Speech (구어체/관용어 포함)
-4. **심화 학습**: 06_Subjunctive_Advanced → 08_Regional_Variations_Dialects → 09_Daily_Conversation_Idioms
+3. **기타 품사**: 05_Other_Parts_of_Speech (부사, 감탄사, 담화 표지 포함)
+4. **심화 문법**: 06_Subjunctive_Advanced → 10_Advanced_Grammar_Topics
+5. **실용 표현**: 08_Regional_Variations_Dialects → 09_Daily_Conversation_Idioms → 11_Vocabulary_by_Theme
 
 ---
 

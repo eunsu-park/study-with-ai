@@ -13,6 +13,9 @@
 5. [의문사 (Interrogatives)](#5-의문사)
 6. [관사 (Articles)](#6-관사)
 7. [수사 (Numerals)](#7-수사)
+8. [구어체 표현과 관용어 (Colloquial Expressions)](#8-구어체-표현과-관용어)
+9. [감탄사 (Interjections)](#9-감탄사)
+10. [담화 표지 (Discourse Markers)](#10-담화-표지)
 
 ---
 
@@ -467,6 +470,151 @@
 63. tal vez / perhaps / 아마도
 64. probablemente / probably / 아마
 
+### F. -mente 부사 형성 규칙 (Formation of -mente Adverbs)
+
+**기본 규칙:**
+형용사의 여성형 + -mente = 부사
+
+| 형용사 (남성) | 형용사 (여성) | 부사 | 의미 |
+|--------------|--------------|------|------|
+| lento | lenta | lentamente | 천천히 |
+| rápido | rápida | rápidamente | 빨리 |
+| tranquilo | tranquila | tranquilamente | 조용히 |
+| silencioso | silenciosa | silenciosamente | 조용히 |
+| cuidadoso | cuidadosa | cuidadosamente | 조심스럽게 |
+| perfecto | perfecta | perfectamente | 완벽하게 |
+| completo | completa | completamente | 완전히 |
+| absoluto | absoluta | absolutamente | 절대적으로 |
+| total | total | totalmente | 완전히 |
+| general | general | generalmente | 일반적으로 |
+| normal | normal | normalmente | 보통 |
+| especial | especial | especialmente | 특히 |
+| principal | principal | principalmente | 주로 |
+| final | final | finalmente | 마침내 |
+| real | real | realmente | 정말로 |
+
+**-e/-consonante로 끝나는 형용사:**
+그대로 + -mente
+- fácil → fácilmente / easily / 쉽게
+- difícil → difícilmente / with difficulty / 어렵게
+- frecuente → frecuentemente / frequently / 빈번히
+- probable → probablemente / probably / 아마도
+- posible → posiblemente / possibly / 아마도
+- horrible → horriblemente / horribly / 끔찍하게
+- terrible → terriblemente / terribly / 끔찍하게
+- simple → simplemente / simply / 단순히
+- feliz → felizmente / happily / 행복하게
+
+**두 개의 -mente 부사 연속 사용:**
+첫 번째 부사는 형용사 형태만, 두 번째만 -mente 붙임
+- Habla clara y lentamente / He speaks clearly and slowly / 그는 명확하고 천천히 말한다
+- Lo hizo rápida y eficientemente / She did it quickly and efficiently / 그녀는 빠르고 효율적으로 했다
+
+### G. 부사 비교급/최상급 (Comparative/Superlative Adverbs)
+
+**규칙적 비교:**
+| 원급 | 비교급 | 최상급 |
+|------|--------|--------|
+| claramente | más claramente | lo más claramente posible |
+| rápidamente | más rápidamente | lo más rápidamente posible |
+| lentamente | menos lentamente | lo menos lentamente posible |
+
+**불규칙 비교:**
+| 원급 | 비교급 | 최상급 | 의미 |
+|------|--------|--------|------|
+| bien | mejor | lo mejor | 잘 |
+| mal | peor | lo peor | 나쁘게 |
+| mucho | más | lo más | 많이 |
+| poco | menos | lo menos | 적게 |
+
+**예문:**
+- Habla mejor que yo / He speaks better than me / 그는 나보다 말을 잘 한다
+- Trabaja peor que antes / He works worse than before / 그는 전보다 일을 못 한다
+- Lo más posible / As much as possible / 가능한 한 많이
+
+### H. 부사구 (Adverbial Phrases / Locuciones Adverbiales)
+
+**시간 부사구 (Time):**
+
+| 부사구 | 영어 | 한국어 |
+|--------|------|--------|
+| a menudo | often | 자주 |
+| de vez en cuando | from time to time | 때때로 |
+| a veces | sometimes | 가끔 |
+| de repente | suddenly | 갑자기 |
+| en seguida | immediately | 즉시 |
+| poco a poco | little by little | 조금씩 |
+| de pronto | suddenly | 갑자기 |
+| por fin | finally | 마침내 |
+| al final | in the end | 결국 |
+| de momento | for now | 당분간 |
+| por ahora | for now | 지금은 |
+| a partir de ahora | from now on | 지금부터 |
+| de aquí en adelante | from now on | 앞으로 |
+| en aquel entonces | at that time | 그 당시에 |
+| hoy en día | nowadays | 요즘 |
+
+**장소 부사구 (Place):**
+
+| 부사구 | 영어 | 한국어 |
+|--------|------|--------|
+| por aquí | around here | 이쪽으로 |
+| por allí | around there | 저쪽으로 |
+| en todas partes | everywhere | 어디에나 |
+| en ninguna parte | nowhere | 아무 데도 |
+| a lo lejos | in the distance | 저 멀리 |
+
+**방식 부사구 (Manner):**
+
+| 부사구 | 영어 | 한국어 |
+|--------|------|--------|
+| a propósito | on purpose | 일부러 |
+| sin querer | unintentionally | 무심코 |
+| de buena gana | willingly | 기꺼이 |
+| de mala gana | unwillingly | 마지못해 |
+| a la vez | at the same time | 동시에 |
+| en voz alta | out loud | 큰 소리로 |
+| en voz baja | in a low voice | 작은 소리로 |
+| a escondidas | secretly | 몰래 |
+| al revés | the other way around | 거꾸로 |
+| en serio | seriously | 진지하게 |
+| de broma | jokingly | 농담으로 |
+
+**정도 부사구 (Degree):**
+
+| 부사구 | 영어 | 한국어 |
+|--------|------|--------|
+| más o menos | more or less | 대충 |
+| por lo menos | at least | 적어도 |
+| al menos | at least | 최소한 |
+| a lo sumo | at most | 기껏해야 |
+| ni siquiera | not even | ~조차 않다 |
+| sobre todo | above all | 무엇보다도 |
+| ante todo | first of all | 우선 |
+
+### I. 부사 위치 규칙 (Adverb Position Rules)
+
+**1. 일반적 규칙: 동사 뒤**
+- Habla español bien / He speaks Spanish well / 그는 스페인어를 잘 한다
+- Corre rápidamente / He runs quickly / 그는 빨리 뛴다
+
+**2. 강조할 때: 문장 앞**
+- Nunca he visto eso / I have never seen that / 나는 그것을 본 적이 없다
+- Siempre llega tarde / He always arrives late / 그는 항상 늦게 온다
+
+**3. 복합시제: haber와 과거분사 사이**
+- He comido bien / I have eaten well / 나는 잘 먹었다
+- Ya he terminado / I have already finished / 나는 이미 끝냈다
+
+**4. 빈도부사: 주어와 동사 사이**
+- Siempre estudia / He always studies / 그는 항상 공부한다
+- Nunca trabaja / He never works / 그는 결코 일하지 않는다
+
+**5. 형용사/부사 수식: 바로 앞**
+- muy bien / very well / 매우 잘
+- bastante rápido / quite fast / 꽤 빨리
+- demasiado tarde / too late / 너무 늦게
+
 ---
 
 ## 5. 의문사
@@ -692,6 +840,283 @@
 
 ---
 
+---
+
+## 9. 감탄사
+
+### A. 원초적 감탄사 (Primary Interjections)
+
+단독으로 감탄을 표현하는 순수 감탄사
+
+| 감탄사 | 표현 감정 | 영어 | 한국어 |
+|--------|----------|------|--------|
+| ¡Ay! | 고통, 놀람 | Ouch! Oh! | 아야!, 아이고! |
+| ¡Oh! | 놀람, 감탄 | Oh! | 오! |
+| ¡Ah! | 깨달음, 놀람 | Ah! | 아! |
+| ¡Uf! | 피곤, 안도 | Phew! | 휴! |
+| ¡Bah! | 경멸, 무시 | Bah! | 흥!, 에이! |
+| ¡Puf! | 혐오, 지침 | Ugh! | 에휴! |
+| ¡Eh! | 주의 환기 | Hey! | 어이!, 야! |
+| ¡Huy! | 놀람, 두려움 | Wow! Yikes! | 어머!, 앗! |
+| ¡Uy! | 놀람, 실수 | Oops! | 이런! |
+| ¡Ja! | 놀람, 비웃음 | Ha! | 하! |
+| ¡Ji, ji! | 웃음 | Hee hee! | 히히! |
+| ¡Ja, ja! | 웃음 | Ha ha! | 하하! |
+| ¡Puaj! | 역겨움 | Yuck! | 웩! |
+| ¡Psst! | 조용한 주의 환기 | Psst! | 잇! |
+| ¡Chis! / ¡Chitón! | 조용히 하라 | Shh! | 쉿! |
+| ¡Ojalá! | 희망 | I wish! | 제발!, 바라건대! |
+| ¡Hala! | 놀람, 격려 | Wow! Come on! | 와!, 자! |
+| ¡Arre! | 동물 격려 | Giddy up! | 이랴! |
+| ¡So! | 동물 멈춤 | Whoa! | 워! |
+| ¡Zas! | 빠른 동작 | Bam! | 짠! |
+
+### B. 파생 감탄사 (Secondary Interjections)
+
+다른 품사에서 유래한 감탄 표현
+
+| 감탄사 | 영어 | 한국어 | 유래 |
+|--------|------|--------|------|
+| ¡Dios mío! | My God! | 세상에!, 맙소사! | 명사 |
+| ¡Madre mía! | Oh my! | 어머나! | 명사 |
+| ¡Cielos! | Heavens! | 하늘이시여! | 명사 |
+| ¡Caramba! | Wow! Damn! | 이런!, 젠장! | - |
+| ¡Caray! | Gosh! | 이런! | - |
+| ¡Vaya! | Wow! Well! | 와!, 이런! | 동사 ir |
+| ¡Anda! | Come on! Really? | 진짜?, 어머! | 동사 andar |
+| ¡Mira! | Look! | 봐!, 이것 봐! | 동사 mirar |
+| ¡Toma! | Take that! | 자!, 이거! | 동사 tomar |
+| ¡Venga! | Come on! | 자!, 어서! | 동사 venir |
+| ¡Bravo! | Bravo! | 브라보! | 형용사 |
+| ¡Genial! | Great! | 굉장해! | 형용사 |
+| ¡Estupendo! | Wonderful! | 멋져! | 형용사 |
+| ¡Perfecto! | Perfect! | 완벽해! | 형용사 |
+| ¡Increíble! | Incredible! | 믿을 수 없어! | 형용사 |
+
+### C. 의성어 (Onomatopoeia)
+
+| 의성어 | 소리 | 영어 | 한국어 |
+|--------|------|------|--------|
+| ¡Pum! | 폭발, 충격 | Boom! Bang! | 펑!, 쾅! |
+| ¡Zas! | 빠른 타격 | Wham! | 탁!, 퍽! |
+| ¡Crac! | 부러지는 소리 | Crack! | 뚝!, 쩍! |
+| ¡Plaf! | 떨어지는 소리 | Splat! | 철퍽! |
+| ¡Plop! | 물에 빠지는 소리 | Plop! | 풍덩! |
+| ¡Tic-tac! | 시계 소리 | Tick-tock! | 똑딱! |
+| ¡Ring! | 전화벨 | Ring! | 따르릉! |
+| ¡Miau! | 고양이 | Meow! | 야옹! |
+| ¡Guau! | 개 | Woof! | 멍멍! |
+| ¡Pío pío! | 새 | Tweet! | 짹짹! |
+| ¡Croac! | 개구리 | Ribbit! | 개굴! |
+| ¡Muuu! | 소 | Moo! | 음메! |
+| ¡Cucú! | 뻐꾸기 | Cuckoo! | 뻐꾹! |
+| ¡Cataplum! | 큰 충돌 | Crash! | 쾅! |
+| ¡Achís! | 재채기 | Achoo! | 에취! |
+
+### D. 감정별 감탄사 정리
+
+**기쁨/흥분:**
+- ¡Viva! / Hooray! / 만세!
+- ¡Olé! / Bravo! / 올레!
+- ¡Hurra! / Hurrah! / 만세!
+- ¡Yupi! / Yippee! / 야호!
+
+**놀람:**
+- ¡Anda ya! / No way! / 말도 안 돼!
+- ¡No me digas! / You don't say! / 설마!
+- ¡Qué barbaridad! / How awful! / 어머나!
+- ¡Ostras! (Spain) / Wow! / 와! (스페인)
+
+**실망/짜증:**
+- ¡Vaya! / Oh well! / 에이!
+- ¡Menudo rollo! / What a drag! / 완전 짜증!
+- ¡Qué fastidio! / How annoying! / 짜증나!
+- ¡Qué lata! / What a pain! / 귀찮아!
+
+**격려:**
+- ¡Ánimo! / Cheer up! / 힘내!
+- ¡Adelante! / Go ahead! / 앞으로!
+- ¡Vamos! / Let's go! / 가자!
+- ¡Dale! / Go for it! / 해봐!
+
+---
+
+## 10. 담화 표지
+
+### A. 담화 조직 (Organizing Discourse)
+
+**서론/도입:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| En primer lugar | First of all | 첫째로, 우선 |
+| Para empezar | To begin with | 시작하자면 |
+| Ante todo | First and foremost | 무엇보다 먼저 |
+| En principio | In principle | 원칙적으로 |
+| Antes que nada | Before anything | 무엇보다 먼저 |
+
+**순서/나열:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| En segundo lugar | Secondly | 둘째로 |
+| A continuación | Next | 다음으로 |
+| Luego | Then | 그다음 |
+| Después | After that | 그 후에 |
+| Por último | Lastly | 마지막으로 |
+| Finalmente | Finally | 마침내 |
+
+**결론:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| En resumen | In summary | 요약하자면 |
+| En conclusión | In conclusion | 결론적으로 |
+| Para terminar | To finish | 끝으로 |
+| Para concluir | To conclude | 결론짓자면 |
+| En definitiva | Ultimately | 결국, 요컨대 |
+| Al fin y al cabo | After all | 결국에는 |
+
+### B. 정보 추가 (Adding Information)
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Además | Furthermore | 게다가 |
+| También | Also | 또한 |
+| Asimismo | Likewise | 마찬가지로 |
+| Incluso | Even | 심지어 |
+| Es más | What's more | 더구나 |
+| Aparte de eso | Apart from that | 그 외에 |
+| Por otra parte | On the other hand | 한편 |
+| Por cierto | By the way | 그런데 |
+| A propósito | By the way | 말 나온 김에 |
+| Encima | On top of that | 게다가, 더구나 |
+
+### C. 대조/반박 (Contrasting)
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Sin embargo | However | 그러나 |
+| No obstante | Nevertheless | 그럼에도 불구하고 |
+| En cambio | On the other hand | 반면에 |
+| Por el contrario | On the contrary | 반대로 |
+| A pesar de (que) | Despite | ~에도 불구하고 |
+| Aunque | Although | 비록 ~이지만 |
+| Con todo | Even so | 그래도 |
+| De todas formas | Anyway | 어쨌든 |
+| De todos modos | Anyway | 어찌됐든 |
+| Aun así | Even so | 그럼에도 |
+
+### D. 예시/명확화 (Exemplifying/Clarifying)
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Por ejemplo | For example | 예를 들어 |
+| Es decir | That is | 즉 |
+| O sea | In other words | 다시 말해 |
+| En otras palabras | In other words | 다른 말로 |
+| Dicho de otro modo | Put another way | 달리 말하면 |
+| A saber | Namely | 즉, 다름 아닌 |
+| Como | Such as | ~처럼 |
+| Concretamente | Specifically | 구체적으로 |
+
+### E. 태도 표현 (Showing Attitude)
+
+**확신:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Sin duda | Without a doubt | 의심할 여지 없이 |
+| Por supuesto | Of course | 물론 |
+| Desde luego | Of course | 당연히 |
+| Evidentemente | Obviously | 분명히 |
+| Claramente | Clearly | 명백히 |
+| Obviamente | Obviously | 당연히 |
+
+**불확실:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Quizá(s) | Perhaps | 아마도 |
+| Tal vez | Maybe | 어쩌면 |
+| A lo mejor | Maybe | 아마 |
+| Posiblemente | Possibly | 아마도 |
+| Probablemente | Probably | 아마 |
+| Aparentemente | Apparently | 보기에는 |
+
+**솔직함:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Sinceramente | Sincerely | 솔직히 |
+| Francamente | Frankly | 솔직하게 |
+| La verdad es que | The truth is | 사실은 |
+| En realidad | Actually | 실제로 |
+| De hecho | In fact | 사실 |
+| Para ser honesto | To be honest | 솔직히 말해서 |
+
+### F. 원인/결과 (Cause and Effect)
+
+**원인:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Porque | Because | 왜냐하면 |
+| Ya que | Since | ~이므로 |
+| Puesto que | Since | ~이기 때문에 |
+| Dado que | Given that | ~을 고려하면 |
+| Como | As | ~하기 때문에 |
+| Debido a (que) | Due to | ~ 때문에 |
+| A causa de | Because of | ~ 때문에 |
+| Gracias a | Thanks to | ~ 덕분에 |
+
+**결과:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Por lo tanto | Therefore | 따라서 |
+| Por eso | That's why | 그래서 |
+| Así que | So | 그래서 |
+| Por consiguiente | Consequently | 결과적으로 |
+| En consecuencia | As a result | 결과적으로 |
+| De ahí que | Hence | 그래서 |
+
+### G. 대화 전략 (Conversational Strategies)
+
+**시간 벌기:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Pues... | Well... | 음... |
+| Bueno... | Well... | 글쎄... |
+| A ver... | Let's see... | 어디 보자... |
+| Es que... | The thing is... | 그게... |
+| O sea... | I mean... | 그러니까... |
+| Digamos... | Let's say... | 말하자면... |
+
+**확인/동의:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| ¿Vale? | OK? | 알겠지? |
+| ¿Verdad? | Right? | 그렇지? |
+| ¿No? | Right? | 그렇지 않아? |
+| ¿Sabes? | You know? | 알겠어? |
+| ¿Entiendes? | Do you understand? | 이해해? |
+| ¿Ves? | See? | 봤지? |
+
+**주제 전환:**
+
+| 표현 | 영어 | 한국어 |
+|------|------|--------|
+| Bueno, ... | Well, ... | 자, ... |
+| Pues bien, ... | So then, ... | 그럼, ... |
+| Cambiando de tema | Changing the subject | 주제를 바꿔서 |
+| Hablando de otra cosa | Speaking of something else | 다른 얘기지만 |
+| A todo esto | By the way | 그런데 말이야 |
+
+---
+
 ## 학습 팁 (Study Tips)
 
 1. **대명사 순서**: 재귀 → 간접 → 직접 순서 암기
@@ -701,3 +1126,13 @@
 5. **의문사 연습**: 매일 질문 만들기
 6. **수사 실습**: 전화번호, 가격 등을 스페인어로 말하기
 7. **문장 속 학습**: 단독보다 문장에서 자연스럽게 익히기
+8. **감탄사 연습**: 감정 표현과 함께 억양도 익히기
+9. **담화 표지 활용**: 글쓰기와 말하기에서 자연스러운 연결 연습
+
+---
+
+## 관련 학습 자료
+
+- 이전 학습: [04_Adjectives.md](./04_Adjectives.md) - 형용사
+- 다음 학습: [06_Subjunctive_Advanced.md](./06_Subjunctive_Advanced.md) - 접속법 심화
+- 관련 자료: [09_Daily_Conversation_Idioms.md](./09_Daily_Conversation_Idioms.md) - 일상 회화와 관용어

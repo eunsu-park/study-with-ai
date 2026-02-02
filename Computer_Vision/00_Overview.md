@@ -108,6 +108,14 @@
 | [19_DNN_Module.md](./19_DNN_Module.md) | ⭐⭐⭐⭐ | cv2.dnn, readNet, blobFromImage, YOLO, SSD |
 | [20_Practical_Projects.md](./20_Practical_Projects.md) | ⭐⭐⭐⭐ | 문서스캐너, 차선검출, AR마커, 얼굴필터 |
 
+### 3D 비전 (21-23)
+
+| 파일명 | 난이도 | 주요 내용 |
+|--------|--------|----------|
+| [21_3D_Vision_Basics.md](./21_3D_Vision_Basics.md) | ⭐⭐⭐ | 스테레오 비전, 깊이 맵, 포인트 클라우드, 3D 재구성 |
+| [22_Depth_Estimation.md](./22_Depth_Estimation.md) | ⭐⭐⭐⭐ | 단안 깊이 추정, MiDaS, DPT, Structure from Motion |
+| [23_SLAM_Introduction.md](./23_SLAM_Introduction.md) | ⭐⭐⭐⭐ | Visual SLAM, ORB-SLAM, LiDAR SLAM, Loop Closure |
+
 ---
 
 ## 추천 학습 순서
@@ -130,6 +138,11 @@
 ### 전체 마스터 (6~8주)
 ```
 중급 완성 + 18 → 19 → 20
+```
+
+### 3D 비전 심화 (2주)
+```
+전체 마스터 + 21 → 22 → 23
 ```
 
 ---
