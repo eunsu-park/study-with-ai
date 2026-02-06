@@ -193,27 +193,6 @@ print(f"CUDA available: {torch.cuda.is_available()}")
 
 ---
 
-## 예제 코드
-
-`examples/` 폴더에 각 레슨별 실행 가능한 Python 코드가 있습니다.
-
-| 파일 | 설명 |
-|------|------|
-| `01_gridworld.py` | 그리드월드 환경 구현 |
-| `02_mdp_solver.py` | MDP 정의 및 가치 함수 계산 |
-| `03_value_iteration.py` | 가치 반복 알고리즘 |
-| `04_monte_carlo.py` | MC 정책 평가 및 제어 |
-| `05_td_learning.py` | TD(0) 학습 구현 |
-| `06_q_learning.py` | Q-Learning과 SARSA |
-| `07_dqn_cartpole.py` | DQN으로 CartPole 풀기 |
-| `08_reinforce.py` | REINFORCE 알고리즘 |
-| `09_a2c.py` | Advantage Actor-Critic |
-| `10_ppo.py` | PPO 구현 |
-| `11_multi_agent.py` | 다중 에이전트 환경 예제 |
-| `12_atari_project.py` | Atari 게임 학습 프로젝트 |
-
----
-
 ## 주요 알고리즘 비교
 
 | 알고리즘 | 유형 | On/Off Policy | 연속 행동 | 특징 |

@@ -1,6 +1,4 @@
-# Repository Notes
-
-## Personal Study Repository
+# Personal Study Repository
 
 이 레포지터리는 제가 스스로 공부하기 위해 만든 자료를 정리한 것입니다. 일부 내용은 제가 직접 작성했으며, 일부는 AI가 검수하거나 AI의 도움을 받아 작성되었습니다.
 
@@ -8,38 +6,67 @@ This repository is a personal study project. Some content was written by me, som
 
 ---
 
+## 프로젝트 구조
+
+```
+03_Study/
+├── content/          # 학습 자료 (한국어/영어 Markdown)
+│   ├── ko/           # 한국어 자료 (28개 토픽)
+│   └── en/           # 영어 자료 (17개 토픽, 번역 진행 중)
+│
+├── examples/         # 예제 코드 (14개 토픽)
+│   ├── Algorithm/    # Python, C, C++ 예제
+│   ├── C_Programming/
+│   └── ...
+│
+├── viewer/           # Flask 웹 뷰어 애플리케이션
+│
+└── translate/        # 번역 도구 (한국어 → 영어)
+```
+
+## 빠른 시작
+
+```bash
+# 웹 뷰어 실행
+cd viewer
+pip install -r requirements.txt
+flask run --port 5050
+
+# 브라우저에서 http://127.0.0.1:5050 접속
+```
+
 ## 목차 (Table of Contents)
 
 | 폴더 | 내용 | 레슨 수 |
 |------|------|---------|
-| [Algorithm/](./Algorithm/00_Overview.md) | 알고리즘/자료구조, 코딩테스트 준비 | 29개 |
-| [C_Programming/](./C_Programming/00_Overview.md) | C 언어 기초 ~ 임베디드, 디버깅, 포인터 심화 | 20개 |
-| [Cloud_Computing/](./Cloud_Computing/00_Overview.md) | AWS/GCP, EC2, Lambda, S3, VPC, IAM, Terraform | 17개 |
-| [Computer_Architecture/](./Computer_Architecture/00_Overview.md) | 컴퓨터 구조, CPU, 메모리, 병렬처리 | 18개 |
-| [Computer_Vision/](./Computer_Vision/00_Overview.md) | OpenCV, 이미지처리, 객체검출, 3D비전, SLAM | 23개 |
-| [CPP/](./CPP/00_Overview.md) | C++ 입문 ~ 모던 C++, 디자인패턴 | 18개 |
-| [Data_Analysis/](./Data_Analysis/00_Overview.md) | NumPy, Pandas, 시각화, 통계분석 | 11개 |
-| [Data_Engineering/](./Data_Engineering/00_Overview.md) | 데이터 파이프라인, Airflow, Spark, Kafka, dbt | 14개 |
-| [Deep_Learning/](./Deep_Learning/00_Overview.md) | PyTorch, CNN, RNN, Transformer, GAN, VAE, Diffusion, ViT | 22개 |
-| [Docker/](./Docker/00_Overview.md) | Docker, Kubernetes, Helm, CI/CD | 10개 |
-| [Foundation_Models/](./Foundation_Models/00_Overview.md) | Scaling Laws, LLaMA, Mistral, DINOv2, SAM, PEFT, RAG | 25개 |
-| [Git/](./Git/00_Overview.md) | Git, GitHub, 워크플로우, 모노레포 | 10개 |
-| [IoT_Embedded/](./IoT_Embedded/00_Overview.md) | Raspberry Pi, MQTT, Edge AI, 클라우드 IoT | 12개 |
-| [Linux/](./Linux/00_Overview.md) | Linux 기초 ~ HA 클러스터, 트러블슈팅 | 26개 |
-| [LLM_and_NLP/](./LLM_and_NLP/00_Overview.md) | NLP, BERT, GPT, HuggingFace, RAG, LangChain, RLHF, Agent | 16개 |
-| [Machine_Learning/](./Machine_Learning/00_Overview.md) | 회귀, 분류, 앙상블, 클러스터링, sklearn | 14개 |
-| [MLOps/](./MLOps/00_Overview.md) | MLflow, Kubeflow, 모델 서빙, 드리프트 감지 | 12개 |
-| [Model_Implementations/](./Model_Implementations/00_Overview.md) | 딥러닝 모델 from-scratch 구현 (NumPy, PyTorch) | 12개 모델 |
-| [Networking/](./Networking/00_Overview.md) | 네트워크, OSI/TCP-IP, 라우팅, 보안 | 17개 |
-| [Numerical_Simulation/](./Numerical_Simulation/00_Overview.md) | 수치해석, ODE/PDE, CFD, FDTD, MHD, 몬테카를로 | 20개 |
-| [OS_Theory/](./OS_Theory/00_Overview.md) | 운영체제, 프로세스, 메모리, 파일시스템 | 18개 |
-| [PostgreSQL/](./PostgreSQL/00_Overview.md) | SQL 기초 ~ 복제, 파티셔닝 | 18개 |
-| [Python/](./Python/00_Overview.md) | 파이썬 고급 문법, 테스트, 패키징 | 14개 |
-| [Reinforcement_Learning/](./Reinforcement_Learning/00_Overview.md) | MDP, Q-Learning, DQN, PPO, Multi-Agent RL | 12개 |
-| [Spanish/](./Spanish/00_Overview.md) | 스페인어 문법/어휘, 접속법, 지역 변형 | 11개 |
-| [Statistics/](./Statistics/00_Overview.md) | 심화통계, 베이지안, 시계열, 실험설계 | 14개 |
-| [System_Design/](./System_Design/00_Overview.md) | 시스템 설계, 확장성, 분산시스템 | 18개 |
-| [Web_Development/](./Web_Development/00_Overview.md) | HTML, CSS, JS, TypeScript, SEO | 13개 |
+| [Algorithm/](./content/ko/Algorithm/00_Overview.md) | 알고리즘/자료구조, 코딩테스트 준비 | 29개 |
+| [C_Programming/](./content/ko/C_Programming/00_Overview.md) | C 언어 기초 ~ 임베디드, 디버깅, 포인터 심화 | 20개 |
+| [Cloud_Computing/](./content/ko/Cloud_Computing/00_Overview.md) | AWS/GCP, EC2, Lambda, S3, VPC, IAM, Terraform | 17개 |
+| [Computer_Architecture/](./content/ko/Computer_Architecture/00_Overview.md) | 컴퓨터 구조, CPU, 메모리, 병렬처리 | 18개 |
+| [Computer_Vision/](./content/ko/Computer_Vision/00_Overview.md) | OpenCV, 이미지처리, 객체검출, 3D비전, SLAM | 23개 |
+| [CPP/](./content/ko/CPP/00_Overview.md) | C++ 입문 ~ 모던 C++, 디자인패턴 | 18개 |
+| [Data_Analysis/](./content/ko/Data_Analysis/00_Overview.md) | NumPy, Pandas, 시각화, 통계분석 | 11개 |
+| [Data_Engineering/](./content/ko/Data_Engineering/00_Overview.md) | 데이터 파이프라인, Airflow, Spark, Kafka, dbt | 14개 |
+| [Deep_Learning/](./content/ko/Deep_Learning/00_Overview.md) | PyTorch, CNN, RNN, Transformer, GAN, VAE, Diffusion, ViT | 22개 |
+| [Docker/](./content/ko/Docker/00_Overview.md) | Docker, Kubernetes, Helm, CI/CD | 10개 |
+| [Foundation_Models/](./content/ko/Foundation_Models/00_Overview.md) | Scaling Laws, LLaMA, Mistral, DINOv2, SAM, PEFT, RAG | 25개 |
+| [Git/](./content/ko/Git/00_Overview.md) | Git, GitHub, 워크플로우, 모노레포 | 10개 |
+| [IoT_Embedded/](./content/ko/IoT_Embedded/00_Overview.md) | Raspberry Pi, MQTT, Edge AI, 클라우드 IoT | 12개 |
+| [Linux/](./content/ko/Linux/00_Overview.md) | Linux 기초 ~ HA 클러스터, 트러블슈팅 | 26개 |
+| [LLM_and_NLP/](./content/ko/LLM_and_NLP/00_Overview.md) | NLP, BERT, GPT, HuggingFace, RAG, LangChain, RLHF, Agent | 16개 |
+| [Machine_Learning/](./content/ko/Machine_Learning/00_Overview.md) | 회귀, 분류, 앙상블, 클러스터링, sklearn | 14개 |
+| [MLOps/](./content/ko/MLOps/00_Overview.md) | MLflow, Kubeflow, 모델 서빙, 드리프트 감지 | 12개 |
+| [Model_Implementations/](./content/ko/Model_Implementations/00_Overview.md) | 딥러닝 모델 from-scratch 구현 (NumPy, PyTorch) | 12개 모델 |
+| [Networking/](./content/ko/Networking/00_Overview.md) | 네트워크, OSI/TCP-IP, 라우팅, 보안 | 17개 |
+| [Numerical_Simulation/](./content/ko/Numerical_Simulation/00_Overview.md) | 수치해석, ODE/PDE, CFD, FDTD, MHD, 몬테카를로 | 20개 |
+| [OS_Theory/](./content/ko/OS_Theory/00_Overview.md) | 운영체제, 프로세스, 메모리, 파일시스템 | 18개 |
+| [PostgreSQL/](./content/ko/PostgreSQL/00_Overview.md) | SQL 기초 ~ 복제, 파티셔닝 | 18개 |
+| [Python/](./content/ko/Python/00_Overview.md) | 파이썬 고급 문법, 테스트, 패키징 | 14개 |
+| [Reinforcement_Learning/](./content/ko/Reinforcement_Learning/00_Overview.md) | MDP, Q-Learning, DQN, PPO, Multi-Agent RL | 12개 |
+| [Spanish/](./content/ko/Spanish/00_Overview.md) | 스페인어 문법/어휘, 접속법, 지역 변형 | 11개 |
+| [Statistics/](./content/ko/Statistics/00_Overview.md) | 심화통계, 베이지안, 시계열, 실험설계 | 14개 |
+| [System_Design/](./content/ko/System_Design/00_Overview.md) | 시스템 설계, 확장성, 분산시스템 | 18개 |
+| [Web_Development/](./content/ko/Web_Development/00_Overview.md) | HTML, CSS, JS, TypeScript, SEO | 13개 |
 
 ---
 
@@ -52,10 +79,20 @@ This repository is a personal study project. Some content was written by me, som
 1. **프로그래밍 입문**: C_Programming (01~05)
 2. **C++ 학습**: CPP (01~09) - C 기초 후 진행 권장
 3. **알고리즘 기초**: Algorithm (01~05) - 복잡도, 배열/문자열, 정렬/탐색
-4. **웹 개발**: WebDev (01~09) - HTML/CSS/JS 입문
+4. **웹 개발**: Web_Development (01~09) - HTML/CSS/JS 입문
 5. **버전 관리**: Git (01~05)
 6. **리눅스 기초**: Linux (01~03)
 7. **개발 환경**: Docker (01~04)
 8. **데이터베이스**: PostgreSQL (01~07)
 9. **서버 관리**: Linux (06~12)
 10. **알고리즘 심화**: Algorithm (06~15) - 그래프, DP, 실전 문제풀이
+
+## 다국어 지원
+
+- 모든 학습 자료는 **한국어(ko)**와 **영어(en)** 두 버전으로 관리
+- 한국어 자료 작성 후 영어 번역 진행 (translate/ 도구 사용)
+- 향후 신규 자료 작성 시 한/영 동시 작성 원칙
+
+## 라이선스
+
+개인 학습용 자료입니다.

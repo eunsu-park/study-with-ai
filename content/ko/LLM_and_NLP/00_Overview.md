@@ -68,30 +68,6 @@ Transformer 복습 ──────▶ HuggingFace ──────▶ LangC
 
 ---
 
-## 예제 코드 구조
-
-```
-examples/
-├── 01_tokenization.py         # 토큰화 기법
-├── 02_word_embeddings.py      # Word2Vec, GloVe
-├── 03_transformer_nlp.py      # Transformer NLP 적용
-├── 04_bert_basics.py          # BERT 활용
-├── 05_gpt_generation.py       # GPT 텍스트 생성
-├── 06_huggingface_pipeline.py # HuggingFace Pipeline
-├── 07_finetuning.py           # 파인튜닝 예제
-├── 08_prompting.py            # 프롬프트 기법
-├── 09_rag_system.py           # RAG 구현
-├── 10_langchain_basics.py     # LangChain 사용
-├── 11_vector_db.py            # 벡터 DB 연동
-├── 12_chatbot.py              # 챗봇 구현
-├── 13_quantization_example.py # 모델 양자화
-├── 14_rlhf_reward_model.py    # RLHF 리워드 모델
-├── 15_agent_tools.py          # LLM Agent 도구
-└── 16_evaluation.py           # 평가 지표
-```
-
----
-
 ## 핵심 개념 미리보기
 
 ### NLP 파이프라인

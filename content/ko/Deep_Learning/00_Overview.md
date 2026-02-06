@@ -92,44 +92,6 @@
 
 ---
 
-## 예제 코드 구조
-
-```
-examples/
-├── pytorch/                     # PyTorch 구현
-│   ├── 01_tensor_autograd.py
-│   ├── 02_neural_network.py
-│   ├── 03_backprop.py
-│   ├── 04_training_techniques.py
-│   ├── 05_cnn_basic.py
-│   ├── 06_cnn_architectures.py
-│   ├── 07_transfer_learning.py
-│   ├── 08_rnn_basic.py
-│   ├── 09_lstm_gru.py
-│   ├── 10_attention_transformer.py
-│   ├── 11_training_optimization.py
-│   ├── 12_model_save_deploy.py
-│   ├── 13_cifar10_project.py
-│   ├── 14_text_classification.py
-│   ├── 15_gan_dcgan.py
-│   ├── 16_vae.py
-│   ├── 17_diffusion_simple.py
-│   ├── 18_efficient_attention.py
-│   ├── 19_vit_implementation.py
-│   ├── 20_clip_usage.py
-│   ├── 21_contrastive_learning.py
-│   └── 22_rl_basics.py
-│
-└── numpy/                       # NumPy 순수 구현 (기초 개념)
-    ├── 01_tensor_basics.py
-    ├── 02_neural_network_scratch.py
-    ├── 03_backprop_scratch.py
-    ├── 04_training_techniques.py
-    └── 05_conv_understanding.py # 마지막 NumPy 구현
-```
-
----
-
 ## NumPy vs PyTorch 비교 가이드
 
 | 주제 | NumPy 구현 | PyTorch 구현 | 비교 포인트 |

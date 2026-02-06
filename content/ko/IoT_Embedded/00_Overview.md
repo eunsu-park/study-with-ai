@@ -207,36 +207,6 @@ scp script.py pi@raspberrypi.local:~/projects/
 
 ---
 
-## 프로젝트 구조
-
-```
-IoT_Embedded/
-├── 00_Overview.md              # 개요 및 학습 가이드
-├── 01_IoT_Overview.md          # IoT 개념
-├── 02_Raspberry_Pi_Setup.md    # 라즈베리파이 설정
-├── 03_Python_GPIO_Control.md   # GPIO 제어
-├── 04_WiFi_Networking.md       # WiFi 네트워킹
-├── 05_BLE_Connectivity.md      # BLE 연결
-├── 06_MQTT_Protocol.md         # MQTT 프로토콜
-├── 07_HTTP_REST_for_IoT.md     # HTTP/REST API
-├── 08_Edge_AI_TFLite.md        # TensorFlow Lite
-├── 09_Edge_AI_ONNX.md          # ONNX Runtime
-├── 10_Home_Automation_Project.md  # 홈 자동화 프로젝트
-├── 11_Image_Analysis_Project.md   # 영상 분석 프로젝트
-├── 12_Cloud_IoT_Integration.md    # 클라우드 IoT 통합
-└── examples/                   # 예제 코드
-    ├── raspberry_pi/           # 라즈베리파이 예제
-    │   ├── blink_led.py
-    │   └── sensor_reading.py
-    ├── networking/             # 네트워킹 예제
-    │   ├── mqtt_publisher.py
-    │   └── mqtt_subscriber.py
-    └── edge_ai/                # Edge AI 예제
-        └── tflite_inference.py
-```
-
----
-
 ## 학습 팁
 
 1. **실습 환경 구축이 먼저**: 라즈베리파이 설정을 완료한 후 학습 시작

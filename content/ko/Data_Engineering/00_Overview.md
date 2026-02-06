@@ -128,37 +128,6 @@ pip install prefect
 
 ---
 
-## 실습 예제
-
-`examples/` 폴더에 주요 도구별 예제 코드가 있습니다.
-
-### 예제 파일 목록
-
-| 폴더 | 파일명 | 주제 |
-|------|--------|------|
-| airflow/ | [simple_dag.py](./examples/airflow/simple_dag.py) | 기본 DAG 작성 |
-| airflow/ | [etl_dag.py](./examples/airflow/etl_dag.py) | ETL 파이프라인 DAG |
-| spark/ | [word_count.py](./examples/spark/word_count.py) | Spark 기초 예제 |
-| spark/ | [data_processing.py](./examples/spark/data_processing.py) | DataFrame 처리 |
-| kafka/ | [producer.py](./examples/kafka/producer.py) | Kafka Producer |
-| kafka/ | [consumer.py](./examples/kafka/consumer.py) | Kafka Consumer |
-
-### 예제 실행 방법
-
-```bash
-# Airflow DAG 테스트
-airflow dags test simple_dag 2024-01-01
-
-# Spark 예제 실행
-spark-submit examples/spark/word_count.py
-
-# Kafka Producer/Consumer 실행
-python examples/kafka/producer.py
-python examples/kafka/consumer.py
-```
-
----
-
 ## 참고 자료
 
 ### 공식 문서
