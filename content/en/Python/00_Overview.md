@@ -1,10 +1,12 @@
-# Python Advanced Syntax Learning Guide
+# Python Study Guide
 
 ## Introduction
 
-This folder contains materials for learning advanced Python syntax and in-depth concepts. It covers essential topics needed for writing professional Python code beyond basic syntax.
+This folder contains materials for systematically learning Python from basics to advanced syntax.
 
-**Target Audience**: Developers familiar with Python basics (Intermediate ~ Advanced)
+**Target Audience**:
+- **Need basics review**: Start with lessons 15, 16 (basic syntax, OOP)
+- **Intermediate and above**: Start with lesson 01 (type hints)
 
 ---
 
@@ -54,10 +56,15 @@ Context Managers ──▶ Metaclasses ────▶ Functional
 | [12_Packaging_and_Distribution.md](./12_Packaging_and_Distribution.md) | ⭐⭐⭐ | pyproject.toml, Poetry, PyPI |
 | [13_Dataclasses.md](./13_Dataclasses.md) | ⭐⭐ | @dataclass, field(), frozen |
 | [14_Pattern_Matching.md](./14_Pattern_Matching.md) | ⭐⭐⭐ | match/case, structural patterns, guards |
+| [15_Python_Basics.md](./15_Python_Basics.md) | ⭐ | Variables, data types, control flow, functions, data structures (prerequisite review) |
+| [16_OOP_Basics.md](./16_OOP_Basics.md) | ⭐⭐ | Classes, inheritance, encapsulation, polymorphism (prerequisite review) |
 
 ---
 
 ## Recommended Learning Order
+
+### Basics Review (if needed)
+0. Basic syntax → OOP basics (15 → 16)
 
 ### Intermediate (Basic Advanced Syntax)
 1. Type Hints → Decorators → Context Managers

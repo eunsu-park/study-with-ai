@@ -245,6 +245,17 @@ if __name__ == "__main__":
 
 ## 3. GCP IoT (Pub/Sub)
 
+> **중요 안내**: GCP IoT Core 서비스는 2023년 8월 16일에 종료되었습니다.
+>
+> Google은 IoT Core를 대체하여 **Cloud Pub/Sub + Cloud Functions** 조합을 권장합니다.
+> 기존 IoT Core 사용자는 다음 대안을 고려하세요:
+> - **Cloud Pub/Sub**: 메시지 브로커 (아래 예제)
+> - **Clearblade IoT Core**: Google 파트너사의 IoT Core 호환 서비스
+> - **AWS IoT Core**: AWS 대안
+> - **Azure IoT Hub**: Microsoft 대안
+>
+> 이 레슨에서는 **Cloud Pub/Sub를 직접 사용**하는 방법을 다룹니다.
+
 ### 3.1 GCP Pub/Sub 아키텍처
 
 ```

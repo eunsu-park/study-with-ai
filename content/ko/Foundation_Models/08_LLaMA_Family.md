@@ -39,15 +39,19 @@
 
 ### 1.2 버전 비교
 
-| 특성 | LLaMA 1 | LLaMA 2 | LLaMA 3 |
-|------|---------|---------|---------|
-| 출시 | 2023.02 | 2023.07 | 2024.04 |
-| 크기 | 7/13/33/65B | 7/13/70B | 8/70/405B |
-| 토큰 | 1.4T | 2T | 15T+ |
-| Context | 2K | 4K | 8K (128K 확장) |
-| License | 연구용 | 상업적 (조건부) | 상업적 (완화) |
-| GQA | ❌ | ✅ (70B) | ✅ (전체) |
-| 특징 | 기본 아키텍처 | RLHF, Safety | 멀티모달, 코드 |
+| 특성 | LLaMA 1 | LLaMA 2 | LLaMA 3 | LLaMA 3.1 | LLaMA 3.2 |
+|------|---------|---------|---------|-----------|-----------|
+| 출시 | 2023.02 | 2023.07 | 2024.04 | 2024.07 | 2024.09 |
+| 크기 | 7/13/33/65B | 7/13/70B | 8/70B | 8/70/405B | 1/3/11/90B |
+| 토큰 | 1.4T | 2T | 15T+ | 15T+ | 15T+ |
+| Context | 2K | 4K | 8K | 128K | 128K |
+| License | 연구용 | 상업적 (조건부) | 상업적 (완화) | 상업적 (완화) | 상업적 (완화) |
+| GQA | ❌ | ✅ (70B) | ✅ (전체) | ✅ (전체) | ✅ (전체) |
+| 특징 | 기본 아키텍처 | RLHF, Safety | 개선된 추론 | 128K 네이티브, Tool Use | 비전 모델 추가 |
+
+> **LLaMA 3.1/3.2 주요 업데이트** (2024):
+> - **LLaMA 3.1**: 128K 네이티브 컨텍스트, 405B 플래그십 모델, Tool Use 기능
+> - **LLaMA 3.2**: 경량 모델(1B/3B)과 비전 모델(11B/90B) 추가
 
 ---
 
@@ -152,6 +156,44 @@ LLAMA_CONFIGS = {
         "vocab_size": 128256,
         "ffn_dim": 28672,
         "context_length": 8192,
+    },
+    # LLaMA 3.1 (2024.07)
+    "llama3.1-8b": {
+        "dim": 4096,
+        "n_layers": 32,
+        "n_heads": 32,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 14336,
+        "context_length": 131072,  # 128K 네이티브
+    },
+    "llama3.1-405b": {
+        "dim": 16384,
+        "n_layers": 126,
+        "n_heads": 128,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 53248,
+        "context_length": 131072,  # 128K 네이티브
+    },
+    # LLaMA 3.2 (2024.09) - 경량 텍스트 모델
+    "llama3.2-1b": {
+        "dim": 2048,
+        "n_layers": 16,
+        "n_heads": 32,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 8192,
+        "context_length": 131072,
+    },
+    "llama3.2-3b": {
+        "dim": 3072,
+        "n_layers": 28,
+        "n_heads": 24,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 8192,
+        "context_length": 131072,
     },
 }
 ```
@@ -685,6 +727,148 @@ What is the capital of France?<|eot_id|><|start_header_id|>assistant<|end_header
 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
 outputs = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+```
+
+---
+
+## 8. LLaMA 3.1/3.2 상세
+
+### 8.1 LLaMA 3.1 (2024년 7월)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    LLaMA 3.1 주요 특징                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. 128K 네이티브 컨텍스트                                        │
+│     • 학습 시부터 128K 토큰 지원                                  │
+│     • RoPE scaling 없이 긴 문맥 처리                             │
+│                                                                 │
+│  2. 405B 플래그십 모델                                           │
+│     • GPT-4 수준 성능                                            │
+│     • 126개 레이어, 16K 임베딩 차원                               │
+│                                                                 │
+│  3. Tool Use 기능                                                │
+│     • 함수 호출 (Function Calling)                               │
+│     • 코드 인터프리터                                            │
+│     • 검색 도구 통합                                             │
+│                                                                 │
+│  4. 다국어 지원 강화                                             │
+│     • 영어, 독일어, 프랑스어, 이탈리아어                          │
+│     • 포르투갈어, 힌디어, 스페인어, 태국어                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+```python
+# LLaMA 3.1 Tool Use 예제
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = "meta-llama/Llama-3.1-8B-Instruct"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# Tool Use 형식 (LLaMA 3.1 특화)
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Get current weather for a location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {"type": "string", "description": "City name"}
+                },
+                "required": ["location"]
+            }
+        }
+    }
+]
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant with access to tools."},
+    {"role": "user", "content": "What's the weather in Seoul?"}
+]
+
+# Tool 호출 생성
+inputs = tokenizer.apply_chat_template(
+    messages,
+    tools=tools,
+    return_tensors="pt"
+).to(model.device)
+
+outputs = model.generate(inputs, max_new_tokens=256)
+print(tokenizer.decode(outputs[0]))
+```
+
+### 8.2 LLaMA 3.2 (2024년 9월)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    LLaMA 3.2 모델 라인업                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  경량 텍스트 모델 (on-device 최적화):                             │
+│  ┌─────────────────────────────────────────────┐                │
+│  │  LLaMA 3.2 1B: 모바일/에지 디바이스용         │                │
+│  │  LLaMA 3.2 3B: 경량 애플리케이션용            │                │
+│  └─────────────────────────────────────────────┘                │
+│                                                                 │
+│  비전 모델 (멀티모달):                                            │
+│  ┌─────────────────────────────────────────────┐                │
+│  │  LLaMA 3.2 11B-Vision: 이미지 이해           │                │
+│  │  LLaMA 3.2 90B-Vision: 고성능 비전 태스크    │                │
+│  └─────────────────────────────────────────────┘                │
+│                                                                 │
+│  특징:                                                           │
+│  • 1B/3B: 128K 컨텍스트, on-device 추론 가능                     │
+│  • 11B/90B: 비전 인코더 통합, 이미지+텍스트 처리                   │
+│  • Qualcomm, MediaTek 하드웨어 최적화                            │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+```python
+# LLaMA 3.2 Vision 예제
+from transformers import MllamaForConditionalGeneration, AutoProcessor
+from PIL import Image
+import requests
+
+model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+
+model = MllamaForConditionalGeneration.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+)
+processor = AutoProcessor.from_pretrained(model_id)
+
+# 이미지 로드
+url = "https://example.com/image.jpg"
+image = Image.open(requests.get(url, stream=True).raw)
+
+# 비전 대화
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image"},
+            {"type": "text", "text": "이 이미지에서 무엇이 보이나요?"}
+        ]
+    }
+]
+
+input_text = processor.apply_chat_template(messages, add_generation_prompt=True)
+inputs = processor(image, input_text, return_tensors="pt").to(model.device)
+
+output = model.generate(**inputs, max_new_tokens=256)
+print(processor.decode(output[0]))
 ```
 
 ---

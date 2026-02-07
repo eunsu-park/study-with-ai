@@ -1,10 +1,20 @@
 # 01. Tensors and Autograd
 
+> **PyTorch 2.x Note**: This lesson is based on PyTorch 2.0+ (2023~).
+>
+> Key PyTorch 2.0 features:
+> - `torch.compile()`: Graph compilation for significant training/inference speedup
+> - `torch.func`: Function transforms (vmap, grad, jacrev, etc.)
+> - Enhanced CUDA graph support
+>
+> Installation: `pip install torch>=2.0`
+
 ## Learning Objectives
 
 - Understand the concept of tensors and their differences from NumPy arrays
 - Understand PyTorch's automatic differentiation (Autograd) system
 - Learn the basics of GPU operations
+- (PyTorch 2.x) torch.compile basics
 
 ---
 
@@ -217,6 +227,72 @@ y = x.detach()  # y does not track gradients
 
 ---
 
+## 8. PyTorch 2.x New Features
+
+### torch.compile()
+
+The flagship feature of PyTorch 2.0, compiling models for improved performance.
+
+```python
+import torch
+
+# Define model
+model = MyModel()
+
+# Compile the model (PyTorch 2.0+)
+compiled_model = torch.compile(model)
+
+# Usage is the same
+output = compiled_model(input_data)
+```
+
+### Compilation Modes
+
+```python
+# Default mode (balanced)
+model = torch.compile(model)
+
+# Maximum performance mode
+model = torch.compile(model, mode="max-autotune")
+
+# Memory-saving mode
+model = torch.compile(model, mode="reduce-overhead")
+```
+
+### torch.func (Function Transforms)
+
+```python
+from torch.func import vmap, grad, jacrev
+
+# vmap: Automatic batch operations
+def single_fn(x):
+    return x ** 2
+
+batched_fn = vmap(single_fn)
+result = batched_fn(torch.randn(10, 3))  # Batch processing
+
+# grad: Functional gradients
+def f(x):
+    return (x ** 2).sum()
+
+grad_f = grad(f)
+x = torch.randn(3)
+print(grad_f(x))  # 2 * x
+```
+
+### Notes
+
+```python
+# torch.compile has compilation overhead on first run
+# Warm-up recommended for production
+
+# Dynamic shapes may cause recompilation
+# Mitigate with dynamic=True option
+model = torch.compile(model, dynamic=True)
+```
+
+---
+
 ## Summary
 
 ### What to Understand from NumPy
@@ -228,6 +304,10 @@ y = x.detach()  # y does not track gradients
 - `backward()`: Perform backpropagation
 - `grad`: Computed gradients
 - GPU acceleration
+
+### PyTorch 2.x Additions
+- `torch.compile()`: Performance optimization
+- `torch.func`: Function transforms (vmap, grad)
 
 ---
 

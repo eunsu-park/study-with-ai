@@ -1,8 +1,14 @@
-# 17. GPT-4V & Gemini
+# 17. GPT-4V, GPT-4o, Gemini & Claude 3
 
 ## 개요
 
-GPT-4V(ision)와 Gemini는 현재 가장 강력한 상용 멀티모달 AI입니다. 이 레슨에서는 이들의 기능, API 사용법, 그리고 실전 응용 사례를 다룹니다.
+GPT-4V(ision), GPT-4o, Gemini, Claude 3는 현재 가장 강력한 상용 멀티모달 AI입니다. 이 레슨에서는 이들의 기능, API 사용법, 그리고 실전 응용 사례를 다룹니다.
+
+> **2024년 업데이트**:
+> - **GPT-4o** (2024.05): GPT-4의 "omni" 버전, 네이티브 멀티모달
+> - **Gemini 1.5 Pro**: 2M 토큰 컨텍스트, 비디오/오디오 네이티브
+> - **Claude 3 Family** (2024.03): Haiku, Sonnet, Opus 라인업
+> - **Claude 3.5 Sonnet** (2024.06): 비전 기능 강화
 
 ---
 
@@ -268,7 +274,132 @@ class GPT4VApplications:
 
 ---
 
-## 2. Google Gemini
+## 2. GPT-4o (Omni)
+
+### 2.1 GPT-4o 개요
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                    GPT-4o vs GPT-4V 비교                         │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  GPT-4V (기존):                                                  │
+│  - 텍스트 + 이미지 입력                                          │
+│  - 별도의 비전 인코더                                            │
+│  - 비교적 느린 응답                                              │
+│                                                                  │
+│  GPT-4o (2024.05):                                               │
+│  - 텍스트 + 이미지 + 오디오 네이티브                             │
+│  - 단일 모델에서 모든 모달리티 처리                              │
+│  - 2배 빠른 응답, 50% 저렴한 가격                                │
+│  - 실시간 음성 대화 가능                                         │
+│                                                                  │
+│  주요 개선점:                                                    │
+│  ✅ 속도: 평균 320ms 응답 (GPT-4V 대비 2배)                      │
+│  ✅ 비용: 입력 $5/1M, 출력 $15/1M                                │
+│  ✅ 비전: 향상된 OCR, 차트 해석                                  │
+│  ✅ 오디오: 실시간 음성 입출력                                   │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### 2.2 GPT-4o API 사용법
+
+```python
+from openai import OpenAI
+import base64
+
+client = OpenAI()
+
+def gpt4o_vision(image_path: str, prompt: str) -> str:
+    """GPT-4o 이미지 분석"""
+
+    with open(image_path, "rb") as f:
+        image_data = base64.b64encode(f.read()).decode()
+
+    response = client.chat.completions.create(
+        model="gpt-4o",  # GPT-4o 사용
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_data}",
+                            "detail": "high"
+                        }
+                    }
+                ]
+            }
+        ],
+        max_tokens=1024
+    )
+
+    return response.choices[0].message.content
+
+
+def gpt4o_audio(audio_path: str, prompt: str) -> str:
+    """GPT-4o 오디오 분석 (Realtime API)"""
+
+    # 오디오 파일 읽기
+    with open(audio_path, "rb") as f:
+        audio_data = base64.b64encode(f.read()).decode()
+
+    response = client.chat.completions.create(
+        model="gpt-4o-audio-preview",
+        modalities=["text"],
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "input_audio",
+                        "input_audio": {
+                            "data": audio_data,
+                            "format": "wav"
+                        }
+                    }
+                ]
+            }
+        ]
+    )
+
+    return response.choices[0].message.content
+
+
+# GPT-4o-mini: 저비용 버전
+def gpt4o_mini_vision(image_path: str, prompt: str) -> str:
+    """GPT-4o-mini: 빠르고 저렴한 비전 모델"""
+
+    with open(image_path, "rb") as f:
+        image_data = base64.b64encode(f.read()).decode()
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # 저비용 버전
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": f"data:image/jpeg;base64,{image_data}"}
+                    }
+                ]
+            }
+        ],
+        max_tokens=512
+    )
+
+    return response.choices[0].message.content
+```
+
+---
+
+## 3. Google Gemini
 
 ### 2.1 Gemini 모델 라인업
 
@@ -504,89 +635,389 @@ class GeminiApplications:
 
 ---
 
-## 3. 비교 및 선택 가이드
+## 4. Anthropic Claude 3
 
-### 3.1 GPT-4V vs Gemini 비교
+### 4.1 Claude 3 모델 라인업
 
 ```
-┌────────────────────────────────────────────────────────────────┐
-│              GPT-4V vs Gemini 비교                             │
-├────────────────────────────────────────────────────────────────┤
-│                                                                │
-│  기능              GPT-4V              Gemini 1.5 Pro          │
-│  ───────────────────────────────────────────────────────────  │
-│  이미지 이해       ★★★★★            ★★★★★                │
-│  비디오 분석       ✗ (프레임만)       ★★★★★ (네이티브)      │
-│  오디오 분석       ✗                  ★★★★☆                │
-│  컨텍스트 길이     128K               2M                       │
-│  코드 실행         ✗                  ★★★★☆ (내장)         │
-│  가격              높음               중간                     │
-│  속도              중간               Flash는 빠름             │
-│  일관성            높음               높음                     │
-│                                                                │
-│  추천 사용 사례:                                               │
-│  - GPT-4V: 복잡한 이미지 추론, UI 코드 생성, 정밀 OCR         │
-│  - Gemini: 비디오 분석, 초장문 문서, 멀티모달 복합 태스크     │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                    Claude 3 Family (2024.03)                     │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Claude 3 Haiku:                                                 │
+│  - 가장 빠르고 저렴                                              │
+│  - 실시간 응용, 대량 처리                                        │
+│  - 비전 지원                                                     │
+│                                                                  │
+│  Claude 3 Sonnet:                                                │
+│  - 속도와 성능의 균형                                            │
+│  - 대부분의 비즈니스 용도에 적합                                 │
+│  - 비전 지원                                                     │
+│                                                                  │
+│  Claude 3 Opus:                                                  │
+│  - 최고 성능                                                     │
+│  - 복잡한 추론, 분석 태스크                                      │
+│  - 비전 지원                                                     │
+│                                                                  │
+│  Claude 3.5 Sonnet (2024.06):                                    │
+│  - Opus 수준 성능, Sonnet 가격                                   │
+│  - 향상된 비전, 코딩 능력                                        │
+│  - 200K 토큰 컨텍스트                                            │
+│                                                                  │
+│  특징:                                                            │
+│  ✅ 200K 컨텍스트 윈도우 (전 모델)                                │
+│  ✅ 멀티모달: 이미지 이해                                         │
+│  ✅ 안전성: Constitutional AI 적용                                │
+│  ✅ 도구 사용: Function Calling 지원                              │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
-### 3.2 사용 사례별 선택
+### 4.2 Claude API 사용법
 
 ```python
-def select_model(use_case: str) -> str:
-    """사용 사례별 모델 선택"""
+import anthropic
+import base64
 
-    recommendations = {
-        # GPT-4V가 좋은 경우
-        "ui_to_code": "gpt-4-vision-preview",
-        "precise_ocr": "gpt-4-vision-preview",
-        "image_reasoning": "gpt-4-vision-preview",
-        "chart_analysis": "gpt-4-vision-preview",
+client = anthropic.Anthropic()
 
-        # Gemini가 좋은 경우
-        "video_analysis": "gemini-1.5-pro",
-        "long_document": "gemini-1.5-pro",
-        "audio_transcription": "gemini-1.5-pro",
-        "multimodal_app": "gemini-1.5-pro",
 
-        # 비용 최적화
-        "high_volume": "gemini-1.5-flash",
-        "quick_caption": "gemini-1.5-flash",
+def claude_vision(image_path: str, prompt: str, model: str = "claude-sonnet-4-20250514") -> str:
+    """Claude 비전 분석"""
+
+    # 이미지 인코딩
+    with open(image_path, "rb") as f:
+        image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+    # 미디어 타입 결정
+    if image_path.endswith(".png"):
+        media_type = "image/png"
+    elif image_path.endswith(".gif"):
+        media_type = "image/gif"
+    elif image_path.endswith(".webp"):
+        media_type = "image/webp"
+    else:
+        media_type = "image/jpeg"
+
+    message = client.messages.create(
+        model=model,
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": media_type,
+                            "data": image_data,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt
+                    }
+                ],
+            }
+        ],
+    )
+
+    return message.content[0].text
+
+
+def claude_multi_image(image_paths: list, prompt: str) -> str:
+    """Claude 다중 이미지 분석"""
+
+    content = []
+
+    for path in image_paths:
+        with open(path, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+        media_type = "image/png" if path.endswith(".png") else "image/jpeg"
+
+        content.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": media_type,
+                "data": image_data,
+            }
+        })
+
+    content.append({"type": "text", "text": prompt})
+
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=2048,
+        messages=[{"role": "user", "content": content}],
+    )
+
+    return message.content[0].text
+
+
+def claude_with_tools(prompt: str, image_path: str = None) -> dict:
+    """Claude Tool Use (Function Calling)"""
+
+    tools = [
+        {
+            "name": "get_weather",
+            "description": "Get current weather for a location",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "City name"
+                    }
+                },
+                "required": ["location"]
+            }
+        }
+    ]
+
+    content = [{"type": "text", "text": prompt}]
+
+    if image_path:
+        with open(image_path, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+        content.insert(0, {
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/jpeg",
+                "data": image_data,
+            }
+        })
+
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=1024,
+        tools=tools,
+        messages=[{"role": "user", "content": content}],
+    )
+
+    return {
+        "content": message.content,
+        "stop_reason": message.stop_reason
     }
+```
 
-    return recommendations.get(use_case, "gpt-4-vision-preview")
+### 4.3 Claude 특화 기능
+
+```python
+class ClaudeApplications:
+    """Claude 특화 응용"""
+
+    def __init__(self):
+        self.client = anthropic.Anthropic()
+
+    def long_document_analysis(self, document_text: str, query: str) -> str:
+        """긴 문서 분석 (200K 토큰)"""
+
+        message = self.client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=4096,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""다음 문서를 분석하고 질문에 답하세요.
+
+문서:
+{document_text}
+
+질문: {query}
+"""
+                }
+            ],
+        )
+
+        return message.content[0].text
+
+    def code_review(self, code: str, language: str = "python") -> str:
+        """코드 리뷰"""
+
+        message = self.client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2048,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""다음 {language} 코드를 리뷰해주세요.
+
+```{language}
+{code}
+```
+
+다음을 포함해주세요:
+1. 잠재적 버그
+2. 성능 개선 사항
+3. 코드 스타일 제안
+4. 보안 문제
+"""
+                }
+            ],
+        )
+
+        return message.content[0].text
+
+    def structured_output(self, image_path: str, schema: dict) -> dict:
+        """구조화된 출력 생성"""
+        import json
+
+        with open(image_path, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+        message = self.client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2048,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "image/jpeg",
+                                "data": image_data,
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": f"""이 이미지를 분석하고 다음 JSON 스키마에 맞춰 결과를 반환하세요:
+
+{json.dumps(schema, indent=2, ensure_ascii=False)}
+
+JSON만 반환하세요."""
+                        }
+                    ]
+                }
+            ],
+        )
+
+        return json.loads(message.content[0].text)
 ```
 
 ---
 
-## 4. 비용 최적화
+## 5. 비교 및 선택 가이드
 
-### 4.1 비용 계산
+### 5.1 멀티모달 모델 비교
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    2024 멀티모달 모델 비교                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  기능            GPT-4o      Gemini 1.5 Pro   Claude 3.5 Sonnet            │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  이미지 이해     ★★★★★     ★★★★★         ★★★★★                    │
+│  비디오 분석     ✗           ★★★★★ (네이티브) ✗                          │
+│  오디오 분석     ★★★★☆     ★★★★☆         ✗                          │
+│  컨텍스트        128K        2M               200K                         │
+│  코드 실행       ✗           ★★★★☆ (내장)  ✗                          │
+│  속도            ★★★★★     ★★★★☆ (Flash) ★★★★☆                    │
+│  가격            중간        낮음             중간                         │
+│  코딩 능력       ★★★★☆     ★★★★☆         ★★★★★                    │
+│  추론 능력       ★★★★★     ★★★★☆         ★★★★★                    │
+│                                                                             │
+│  추천 사용 사례:                                                            │
+│  - GPT-4o: 실시간 멀티모달, 음성 대화, 빠른 응답 필요 시                    │
+│  - Gemini: 비디오 분석, 초장문 문서, 멀티모달 복합 태스크                   │
+│  - Claude: 복잡한 추론, 코드 리뷰, 긴 문서 분석, 안전성 중요 시             │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 5.2 사용 사례별 선택
+
+```python
+def select_model(use_case: str) -> str:
+    """사용 사례별 모델 선택 (2024 업데이트)"""
+
+    recommendations = {
+        # GPT-4o가 좋은 경우
+        "ui_to_code": "gpt-4o",
+        "realtime_chat": "gpt-4o",
+        "voice_assistant": "gpt-4o-audio-preview",
+        "quick_vision": "gpt-4o",
+
+        # Gemini가 좋은 경우
+        "video_analysis": "gemini-1.5-pro",
+        "very_long_document": "gemini-1.5-pro",  # 2M 컨텍스트
+        "audio_transcription": "gemini-1.5-pro",
+        "multimodal_app": "gemini-1.5-pro",
+
+        # Claude가 좋은 경우
+        "complex_reasoning": "claude-sonnet-4-20250514",
+        "code_review": "claude-sonnet-4-20250514",
+        "long_document": "claude-sonnet-4-20250514",  # 200K 컨텍스트
+        "safety_critical": "claude-sonnet-4-20250514",
+
+        # 비용 최적화
+        "high_volume": "gemini-1.5-flash",
+        "quick_caption": "gpt-4o-mini",
+        "simple_classification": "claude-3-haiku-20240307",
+    }
+
+    return recommendations.get(use_case, "gpt-4o")
+```
+
+---
+
+## 6. 비용 최적화
+
+### 6.1 비용 계산
 
 ```python
 class CostEstimator:
     """API 비용 추정"""
 
-    # 2024년 기준 가격 (USD)
+    # 2024년 기준 가격 (USD per 1M tokens)
     PRICING = {
         "gpt-4-vision-preview": {
-            "input": 0.01,   # per 1K tokens
-            "output": 0.03,  # per 1K tokens
+            "input": 10.0,   # per 1M tokens
+            "output": 30.0,  # per 1M tokens
             "image_low": 85,   # tokens
             "image_high": 765, # tokens (base) + tiles
         },
+        "gpt-4o": {
+            "input": 5.0,    # per 1M tokens
+            "output": 15.0,  # per 1M tokens
+            "image_low": 85,
+            "image_high": 765,
+        },
+        "gpt-4o-mini": {
+            "input": 0.15,   # per 1M tokens
+            "output": 0.60,  # per 1M tokens
+            "image_low": 85,
+            "image_high": 765,
+        },
         "gemini-1.5-pro": {
-            "input": 0.00125,  # per 1K chars
-            "output": 0.00375,
+            "input": 1.25,   # per 1M tokens
+            "output": 5.0,
             "image": 258,  # tokens per image
             "video": 263,  # tokens per second
             "audio": 32,   # tokens per second
         },
         "gemini-1.5-flash": {
-            "input": 0.000125,
-            "output": 0.000375,
-        }
+            "input": 0.075,
+            "output": 0.30,
+        },
+        "claude-3-opus": {
+            "input": 15.0,   # per 1M tokens
+            "output": 75.0,
+        },
+        "claude-sonnet-4-20250514": {
+            "input": 3.0,    # per 1M tokens
+            "output": 15.0,
+        },
+        "claude-3-haiku": {
+            "input": 0.25,   # per 1M tokens
+            "output": 1.25,
+        },
     }
 
     def estimate_gpt4v_cost(
@@ -669,12 +1100,14 @@ print(f"Gemini Pro cost: ${gemini_cost:.2f}")
 ## 참고 자료
 
 ### 공식 문서
-- [OpenAI GPT-4V Documentation](https://platform.openai.com/docs/guides/vision)
+- [OpenAI GPT-4o Documentation](https://platform.openai.com/docs/guides/vision)
 - [Google Gemini API](https://ai.google.dev/docs)
+- [Anthropic Claude Documentation](https://docs.anthropic.com/)
 
 ### 벤치마크
 - [MMMU Benchmark](https://mmmu-benchmark.github.io/)
 - [VQA Challenge](https://visualqa.org/)
+- [LMSYS Chatbot Arena](https://chat.lmsys.org/)
 
 ### 관련 레슨
 - [16_Vision_Language_Advanced.md](16_Vision_Language_Advanced.md)

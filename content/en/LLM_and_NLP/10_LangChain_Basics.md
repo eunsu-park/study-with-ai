@@ -1,5 +1,14 @@
 # 10. LangChain Basics
 
+> **Version Info**: This lesson is based on LangChain 0.2+ (2024~).
+>
+> LangChain is a rapidly evolving library. Key changes:
+> - **LCEL (LangChain Expression Language)**: Recommended chain composition method
+> - **langchain-core, langchain-community**: Package separation
+> - **RunnableWithMessageHistory recommended over ConversationChain**
+>
+> Latest docs: https://python.langchain.com/docs/
+
 ## Learning Objectives
 
 - LangChain core concepts
@@ -14,6 +23,7 @@
 ### Installation
 
 ```bash
+# LangChain 0.2+
 pip install langchain langchain-openai langchain-community
 ```
 
@@ -334,7 +344,12 @@ class SearchTool(BaseTool):
 
 ## 7. Memory
 
-### Conversation Buffer Memory
+> **Recommended Approach Changed**: In LangChain 0.2+, `ConversationChain`, `ConversationBufferMemory`, etc. are
+> deprecated. For new projects, use **RunnableWithMessageHistory** (see below).
+
+### (Legacy) Conversation Buffer Memory
+
+> ⚠️ **Deprecated**: Use `RunnableWithMessageHistory` in "Memory with LCEL" section below
 
 ```python
 from langchain.memory import ConversationBufferMemory
@@ -354,7 +369,7 @@ response2 = conversation.predict(input="What's my name?")
 # "Your name is John"
 ```
 
-### Summary Memory
+### (Legacy) Summary Memory
 
 ```python
 from langchain.memory import ConversationSummaryMemory
@@ -364,7 +379,7 @@ memory = ConversationSummaryMemory(llm=llm)
 # Summarize and store long conversations
 ```
 
-### Window Memory
+### (Legacy) Window Memory
 
 ```python
 from langchain.memory import ConversationBufferWindowMemory
@@ -373,7 +388,7 @@ from langchain.memory import ConversationBufferWindowMemory
 memory = ConversationBufferWindowMemory(k=5)
 ```
 
-### Memory in LCEL
+### Memory in LCEL (Recommended)
 
 ```python
 from langchain_core.runnables.history import RunnableWithMessageHistory

@@ -103,8 +103,10 @@ git --version
 | 11 | 11_Web_Accessibility.md | Web accessibility (A11y) | ⭐⭐ | 2h |
 | 12 | 12_SEO_Basics.md | SEO fundamentals | ⭐⭐ | 2h |
 | 13 | 13_Build_Tools_Environment.md | Build tools and environment | ⭐⭐⭐ | 3h |
+| 14 | 14_CSS_Animations.md | CSS animations | ⭐⭐ | 2h |
+| 15 | 15_JS_Modules.md | JavaScript modules | ⭐⭐⭐ | 2h |
 
-**Total estimated learning time: ~38 hours**
+**Total estimated learning time: ~42 hours**
 
 ---
 

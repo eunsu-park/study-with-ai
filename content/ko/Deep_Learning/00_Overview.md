@@ -90,6 +90,12 @@
 | [21_Self_Supervised_Learning.md](./21_Self_Supervised_Learning.md) | ⭐⭐⭐⭐ | SimCLR, MoCo, BYOL, MAE, Contrastive Learning | PyTorch only |
 | [22_Reinforcement_Learning_Intro.md](./22_Reinforcement_Learning_Intro.md) | ⭐⭐⭐ | MDP 기초, Q-Learning 개념, Policy Gradient 개요 | PyTorch only |
 
+### 객체 탐지/분할 (PyTorch only)
+
+| 파일명 | 난이도 | 주요 내용 | 비고 |
+|--------|--------|----------|------|
+| [23_Object_Detection.md](./23_Object_Detection.md) | ⭐⭐⭐⭐ | YOLO, Faster R-CNN, DETR, Mask R-CNN, SAM | PyTorch only |
+
 ---
 
 ## NumPy vs PyTorch 비교 가이드

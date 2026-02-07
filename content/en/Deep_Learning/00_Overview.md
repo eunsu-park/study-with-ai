@@ -92,6 +92,12 @@ Understanding                                         ▼
 | [21_Self_Supervised_Learning.md](./21_Self_Supervised_Learning.md) | ⭐⭐⭐⭐ | SimCLR, MoCo, BYOL, MAE, Contrastive Learning | PyTorch only |
 | [22_Reinforcement_Learning_Intro.md](./22_Reinforcement_Learning_Intro.md) | ⭐⭐⭐ | MDP Basics, Q-Learning Concepts, Policy Gradient Overview | PyTorch only |
 
+### Object Detection/Segmentation (PyTorch only)
+
+| Filename | Difficulty | Key Topics | Notes |
+|----------|------------|------------|-------|
+| [23_Object_Detection.md](./23_Object_Detection.md) | ⭐⭐⭐⭐ | YOLO, Faster R-CNN, DETR, Mask R-CNN, SAM | PyTorch only |
+
 ---
 
 ## NumPy vs PyTorch Comparison Guide

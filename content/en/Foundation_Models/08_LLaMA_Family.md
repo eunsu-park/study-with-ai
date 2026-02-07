@@ -39,15 +39,19 @@
 
 ### 1.2 Version Comparison
 
-| Feature | LLaMA 1 | LLaMA 2 | LLaMA 3 |
-|---------|---------|---------|---------|
-| Release | 2023.02 | 2023.07 | 2024.04 |
-| Sizes | 7/13/33/65B | 7/13/70B | 8/70/405B |
-| Tokens | 1.4T | 2T | 15T+ |
-| Context | 2K | 4K | 8K (128K extended) |
-| License | Research | Commercial (conditional) | Commercial (relaxed) |
-| GQA | ❌ | ✅ (70B) | ✅ (all) |
-| Features | Base architecture | RLHF, Safety | Multimodal, Code |
+| Feature | LLaMA 1 | LLaMA 2 | LLaMA 3 | LLaMA 3.1 | LLaMA 3.2 |
+|---------|---------|---------|---------|-----------|-----------|
+| Release | 2023.02 | 2023.07 | 2024.04 | 2024.07 | 2024.09 |
+| Sizes | 7/13/33/65B | 7/13/70B | 8/70B | 8/70/405B | 1/3/11/90B |
+| Tokens | 1.4T | 2T | 15T+ | 15T+ | 15T+ |
+| Context | 2K | 4K | 8K | 128K | 128K |
+| License | Research | Commercial (conditional) | Commercial (relaxed) | Commercial (relaxed) | Commercial (relaxed) |
+| GQA | ❌ | ✅ (70B) | ✅ (all) | ✅ (all) | ✅ (all) |
+| Features | Base architecture | RLHF, Safety | Improved reasoning | 128K native, Tool Use | Vision models added |
+
+> **LLaMA 3.1/3.2 Major Updates** (2024):
+> - **LLaMA 3.1**: 128K native context, 405B flagship model, Tool Use capability
+> - **LLaMA 3.2**: Lightweight models (1B/3B) and Vision models (11B/90B) added
 
 ---
 
@@ -152,6 +156,44 @@ LLAMA_CONFIGS = {
         "vocab_size": 128256,
         "ffn_dim": 28672,
         "context_length": 8192,
+    },
+    # LLaMA 3.1 (2024.07)
+    "llama3.1-8b": {
+        "dim": 4096,
+        "n_layers": 32,
+        "n_heads": 32,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 14336,
+        "context_length": 131072,  # 128K native
+    },
+    "llama3.1-405b": {
+        "dim": 16384,
+        "n_layers": 126,
+        "n_heads": 128,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 53248,
+        "context_length": 131072,  # 128K native
+    },
+    # LLaMA 3.2 (2024.09) - Lightweight text models
+    "llama3.2-1b": {
+        "dim": 2048,
+        "n_layers": 16,
+        "n_heads": 32,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 8192,
+        "context_length": 131072,
+    },
+    "llama3.2-3b": {
+        "dim": 3072,
+        "n_layers": 28,
+        "n_heads": 24,
+        "n_kv_heads": 8,
+        "vocab_size": 128256,
+        "ffn_dim": 8192,
+        "context_length": 131072,
     },
 }
 ```
@@ -685,6 +727,148 @@ What is the capital of France?<|eot_id|><|start_header_id|>assistant<|end_header
 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
 outputs = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+```
+
+---
+
+## 8. LLaMA 3.1/3.2 Details
+
+### 8.1 LLaMA 3.1 (July 2024)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    LLaMA 3.1 Key Features                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. 128K Native Context                                         │
+│     • Supports 128K tokens from training                        │
+│     • Handles long context without RoPE scaling                 │
+│                                                                 │
+│  2. 405B Flagship Model                                         │
+│     • GPT-4 level performance                                   │
+│     • 126 layers, 16K embedding dimension                       │
+│                                                                 │
+│  3. Tool Use Capability                                         │
+│     • Function Calling                                          │
+│     • Code Interpreter                                          │
+│     • Search tool integration                                   │
+│                                                                 │
+│  4. Enhanced Multilingual Support                               │
+│     • English, German, French, Italian                          │
+│     • Portuguese, Hindi, Spanish, Thai                          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+```python
+# LLaMA 3.1 Tool Use Example
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = "meta-llama/Llama-3.1-8B-Instruct"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# Tool Use format (LLaMA 3.1 specialized)
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Get current weather for a location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {"type": "string", "description": "City name"}
+                },
+                "required": ["location"]
+            }
+        }
+    }
+]
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant with access to tools."},
+    {"role": "user", "content": "What's the weather in Seoul?"}
+]
+
+# Generate tool call
+inputs = tokenizer.apply_chat_template(
+    messages,
+    tools=tools,
+    return_tensors="pt"
+).to(model.device)
+
+outputs = model.generate(inputs, max_new_tokens=256)
+print(tokenizer.decode(outputs[0]))
+```
+
+### 8.2 LLaMA 3.2 (September 2024)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    LLaMA 3.2 Model Lineup                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Lightweight Text Models (on-device optimized):                 │
+│  ┌─────────────────────────────────────────────┐                │
+│  │  LLaMA 3.2 1B: For mobile/edge devices      │                │
+│  │  LLaMA 3.2 3B: For lightweight applications │                │
+│  └─────────────────────────────────────────────┘                │
+│                                                                 │
+│  Vision Models (multimodal):                                    │
+│  ┌─────────────────────────────────────────────┐                │
+│  │  LLaMA 3.2 11B-Vision: Image understanding  │                │
+│  │  LLaMA 3.2 90B-Vision: High-performance     │                │
+│  └─────────────────────────────────────────────┘                │
+│                                                                 │
+│  Features:                                                       │
+│  • 1B/3B: 128K context, on-device inference capable             │
+│  • 11B/90B: Vision encoder integrated, image+text processing    │
+│  • Optimized for Qualcomm, MediaTek hardware                    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+```python
+# LLaMA 3.2 Vision Example
+from transformers import MllamaForConditionalGeneration, AutoProcessor
+from PIL import Image
+import requests
+
+model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+
+model = MllamaForConditionalGeneration.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+)
+processor = AutoProcessor.from_pretrained(model_id)
+
+# Load image
+url = "https://example.com/image.jpg"
+image = Image.open(requests.get(url, stream=True).raw)
+
+# Vision conversation
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image"},
+            {"type": "text", "text": "What do you see in this image?"}
+        ]
+    }
+]
+
+input_text = processor.apply_chat_template(messages, add_generation_prompt=True)
+inputs = processor(image, input_text, return_tensors="pt").to(model.device)
+
+output = model.generate(**inputs, max_new_tokens=256)
+print(processor.decode(output[0]))
 ```
 
 ---

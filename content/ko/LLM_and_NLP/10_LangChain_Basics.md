@@ -1,5 +1,14 @@
 # 10. LangChain 기초
 
+> **버전 정보**: 이 레슨은 LangChain 0.2+ (2024년~) 기준으로 작성되었습니다.
+>
+> LangChain은 빠르게 발전하는 라이브러리입니다. 주요 변경사항:
+> - **LCEL (LangChain Expression Language)**: 권장 체인 구성 방식
+> - **langchain-core, langchain-community**: 패키지 분리
+> - **ConversationChain 대신 RunnableWithMessageHistory 권장**
+>
+> 최신 문서: https://python.langchain.com/docs/
+
 ## 학습 목표
 
 - LangChain 핵심 개념
@@ -14,6 +23,7 @@
 ### 설치
 
 ```bash
+# LangChain 0.2+
 pip install langchain langchain-openai langchain-community
 ```
 
@@ -334,7 +344,12 @@ class SearchTool(BaseTool):
 
 ## 7. 메모리 (Memory)
 
-### 대화 버퍼 메모리
+> **권장 방식 변경**: LangChain 0.2+에서는 `ConversationChain`, `ConversationBufferMemory` 등이
+> deprecated 되었습니다. 새 프로젝트에서는 **RunnableWithMessageHistory** (아래 참조)를 사용하세요.
+
+### (Legacy) 대화 버퍼 메모리
+
+> ⚠️ **Deprecated**: 아래 "LCEL에서 메모리" 섹션의 `RunnableWithMessageHistory` 사용 권장
 
 ```python
 from langchain.memory import ConversationBufferMemory
@@ -354,7 +369,7 @@ response2 = conversation.predict(input="What's my name?")
 # "Your name is John"
 ```
 
-### 요약 메모리
+### (Legacy) 요약 메모리
 
 ```python
 from langchain.memory import ConversationSummaryMemory
@@ -364,7 +379,7 @@ memory = ConversationSummaryMemory(llm=llm)
 # 긴 대화를 요약하여 저장
 ```
 
-### 윈도우 메모리
+### (Legacy) 윈도우 메모리
 
 ```python
 from langchain.memory import ConversationBufferWindowMemory
@@ -373,7 +388,7 @@ from langchain.memory import ConversationBufferWindowMemory
 memory = ConversationBufferWindowMemory(k=5)
 ```
 
-### LCEL에서 메모리
+### LCEL에서 메모리 (권장)
 
 ```python
 from langchain_core.runnables.history import RunnableWithMessageHistory

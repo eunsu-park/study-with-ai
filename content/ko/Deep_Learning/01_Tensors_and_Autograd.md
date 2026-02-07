@@ -1,10 +1,20 @@
 # 01. 텐서와 오토그래드
 
+> **PyTorch 2.x 안내**: 이 레슨은 PyTorch 2.0+ (2023년~)를 기준으로 합니다.
+>
+> PyTorch 2.0의 주요 기능:
+> - `torch.compile()`: 그래프 컴파일로 학습/추론 속도 대폭 향상
+> - `torch.func`: 함수 변환 (vmap, grad, jacrev 등)
+> - 향상된 CUDA 그래프 지원
+>
+> 설치: `pip install torch>=2.0`
+
 ## 학습 목표
 
 - 텐서(Tensor)의 개념과 NumPy 배열과의 차이점 이해
 - PyTorch의 자동 미분(Autograd) 시스템 이해
 - GPU 연산의 기초
+- (PyTorch 2.x) torch.compile 기초
 
 ---
 
@@ -217,6 +227,72 @@ y = x.detach()  # y는 기울기 추적 안 함
 
 ---
 
+## 8. PyTorch 2.x 새 기능
+
+### torch.compile()
+
+PyTorch 2.0의 핵심 기능으로, 모델을 컴파일하여 성능을 향상시킵니다.
+
+```python
+import torch
+
+# 모델 정의
+model = MyModel()
+
+# 모델 컴파일 (PyTorch 2.0+)
+compiled_model = torch.compile(model)
+
+# 사용법은 동일
+output = compiled_model(input_data)
+```
+
+### 컴파일 모드
+
+```python
+# 기본 모드 (균형)
+model = torch.compile(model)
+
+# 최대 성능 모드
+model = torch.compile(model, mode="max-autotune")
+
+# 메모리 절약 모드
+model = torch.compile(model, mode="reduce-overhead")
+```
+
+### torch.func (함수 변환)
+
+```python
+from torch.func import vmap, grad, jacrev
+
+# vmap: 배치 연산 자동화
+def single_fn(x):
+    return x ** 2
+
+batched_fn = vmap(single_fn)
+result = batched_fn(torch.randn(10, 3))  # 배치 처리
+
+# grad: 함수형 그래디언트
+def f(x):
+    return (x ** 2).sum()
+
+grad_f = grad(f)
+x = torch.randn(3)
+print(grad_f(x))  # 2 * x
+```
+
+### 주의사항
+
+```python
+# torch.compile은 첫 실행 시 컴파일 시간이 소요됨
+# 프로덕션에서는 warm-up 권장
+
+# 동적 shape에서 재컴파일 발생 가능
+# dynamic=True 옵션으로 완화
+model = torch.compile(model, dynamic=True)
+```
+
+---
+
 ## 정리
 
 ### NumPy에서 이해해야 할 것
@@ -228,6 +304,10 @@ y = x.detach()  # y는 기울기 추적 안 함
 - `backward()`: 역전파 수행
 - `grad`: 계산된 기울기
 - GPU 가속
+
+### PyTorch 2.x 추가 기능
+- `torch.compile()`: 성능 최적화
+- `torch.func`: 함수형 변환 (vmap, grad)
 
 ---
 

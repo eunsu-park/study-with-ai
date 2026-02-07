@@ -1,8 +1,14 @@
-# 17. GPT-4V & Gemini
+# 17. GPT-4V, GPT-4o, Gemini & Claude 3
 
 ## Overview
 
-GPT-4V(ision) and Gemini are currently the most powerful commercial multimodal AI systems. This lesson covers their features, API usage, and practical applications.
+GPT-4V(ision), GPT-4o, Gemini, and Claude 3 are currently the most powerful commercial multimodal AI systems. This lesson covers their features, API usage, and practical applications.
+
+> **2024 Updates**:
+> - **GPT-4o** (May 2024): "omni" version of GPT-4, native multimodal
+> - **Gemini 1.5 Pro**: 2M token context, native video/audio
+> - **Claude 3 Family** (March 2024): Haiku, Sonnet, Opus lineup
+> - **Claude 3.5 Sonnet** (June 2024): Enhanced vision capabilities
 
 ---
 
@@ -268,9 +274,134 @@ class GPT4VApplications:
 
 ---
 
-## 2. Google Gemini
+## 2. GPT-4o (Omni)
 
-### 2.1 Gemini Model Lineup
+### 2.1 GPT-4o Overview
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                    GPT-4o vs GPT-4V Comparison                   │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  GPT-4V (Previous):                                              │
+│  - Text + image input                                            │
+│  - Separate vision encoder                                       │
+│  - Relatively slower response                                    │
+│                                                                  │
+│  GPT-4o (May 2024):                                              │
+│  - Text + image + audio native                                   │
+│  - Single model handles all modalities                           │
+│  - 2x faster response, 50% cheaper                               │
+│  - Real-time voice conversation                                  │
+│                                                                  │
+│  Key Improvements:                                                │
+│  ✅ Speed: Average 320ms response (2x faster than GPT-4V)        │
+│  ✅ Cost: $5/1M input, $15/1M output                             │
+│  ✅ Vision: Improved OCR, chart interpretation                   │
+│  ✅ Audio: Real-time voice input/output                          │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### 2.2 GPT-4o API Usage
+
+```python
+from openai import OpenAI
+import base64
+
+client = OpenAI()
+
+def gpt4o_vision(image_path: str, prompt: str) -> str:
+    """GPT-4o image analysis"""
+
+    with open(image_path, "rb") as f:
+        image_data = base64.b64encode(f.read()).decode()
+
+    response = client.chat.completions.create(
+        model="gpt-4o",  # Use GPT-4o
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_data}",
+                            "detail": "high"
+                        }
+                    }
+                ]
+            }
+        ],
+        max_tokens=1024
+    )
+
+    return response.choices[0].message.content
+
+
+def gpt4o_audio(audio_path: str, prompt: str) -> str:
+    """GPT-4o audio analysis (Realtime API)"""
+
+    # Read audio file
+    with open(audio_path, "rb") as f:
+        audio_data = base64.b64encode(f.read()).decode()
+
+    response = client.chat.completions.create(
+        model="gpt-4o-audio-preview",
+        modalities=["text"],
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "input_audio",
+                        "input_audio": {
+                            "data": audio_data,
+                            "format": "wav"
+                        }
+                    }
+                ]
+            }
+        ]
+    )
+
+    return response.choices[0].message.content
+
+
+# GPT-4o-mini: Low-cost version
+def gpt4o_mini_vision(image_path: str, prompt: str) -> str:
+    """GPT-4o-mini: Fast and cheap vision model"""
+
+    with open(image_path, "rb") as f:
+        image_data = base64.b64encode(f.read()).decode()
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # Low-cost version
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": f"data:image/jpeg;base64,{image_data}"}
+                    }
+                ]
+            }
+        ],
+        max_tokens=512
+    )
+
+    return response.choices[0].message.content
+```
+
+---
+
+## 3. Google Gemini
+
+### 3.1 Gemini Model Lineup
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -299,7 +430,7 @@ class GPT4VApplications:
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-### 2.2 Gemini API Usage
+### 3.2 Gemini API Usage
 
 ```python
 import google.generativeai as genai
@@ -403,7 +534,7 @@ def gemini_with_code_execution(prompt: str) -> dict:
     return result
 ```
 
-### 2.3 Gemini Specialized Applications
+### 3.3 Gemini Specialized Applications
 
 ```python
 class GeminiApplications:
@@ -504,89 +635,389 @@ class GeminiApplications:
 
 ---
 
-## 3. Comparison and Selection Guide
+## 4. Anthropic Claude 3
 
-### 3.1 GPT-4V vs Gemini Comparison
+### 4.1 Claude 3 Model Lineup
 
 ```
-┌────────────────────────────────────────────────────────────────┐
-│              GPT-4V vs Gemini Comparison                       │
-├────────────────────────────────────────────────────────────────┤
-│                                                                │
-│  Feature           GPT-4V              Gemini 1.5 Pro          │
-│  ───────────────────────────────────────────────────────────  │
-│  Image Understanding ★★★★★            ★★★★★                │
-│  Video Analysis      ✗ (frames only)   ★★★★★ (native)       │
-│  Audio Analysis      ✗                  ★★★★☆                │
-│  Context Length      128K               2M                     │
-│  Code Execution      ✗                  ★★★★☆ (built-in)    │
-│  Price               High               Medium                 │
-│  Speed               Medium             Flash is fast          │
-│  Consistency         High               High                   │
-│                                                                │
-│  Recommended Use Cases:                                        │
-│  - GPT-4V: Complex image reasoning, UI code gen, precise OCR  │
-│  - Gemini: Video analysis, ultra-long docs, multimodal tasks  │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                    Claude 3 Family (March 2024)                  │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Claude 3 Haiku:                                                 │
+│  - Fastest and cheapest                                          │
+│  - Real-time applications, high-volume processing                │
+│  - Vision support                                                │
+│                                                                  │
+│  Claude 3 Sonnet:                                                │
+│  - Balance of speed and performance                              │
+│  - Suitable for most business use cases                          │
+│  - Vision support                                                │
+│                                                                  │
+│  Claude 3 Opus:                                                  │
+│  - Highest performance                                           │
+│  - Complex reasoning, analysis tasks                             │
+│  - Vision support                                                │
+│                                                                  │
+│  Claude 3.5 Sonnet (June 2024):                                  │
+│  - Opus-level performance at Sonnet pricing                      │
+│  - Enhanced vision, coding capabilities                          │
+│  - 200K token context                                            │
+│                                                                  │
+│  Features:                                                        │
+│  ✅ 200K context window (all models)                              │
+│  ✅ Multimodal: Image understanding                               │
+│  ✅ Safety: Constitutional AI applied                             │
+│  ✅ Tool use: Function Calling support                            │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
-### 3.2 Use Case Selection
+### 4.2 Claude API Usage
 
 ```python
-def select_model(use_case: str) -> str:
-    """Select model by use case"""
+import anthropic
+import base64
 
-    recommendations = {
-        # GPT-4V is better for
-        "ui_to_code": "gpt-4-vision-preview",
-        "precise_ocr": "gpt-4-vision-preview",
-        "image_reasoning": "gpt-4-vision-preview",
-        "chart_analysis": "gpt-4-vision-preview",
+client = anthropic.Anthropic()
 
-        # Gemini is better for
-        "video_analysis": "gemini-1.5-pro",
-        "long_document": "gemini-1.5-pro",
-        "audio_transcription": "gemini-1.5-pro",
-        "multimodal_app": "gemini-1.5-pro",
 
-        # Cost optimization
-        "high_volume": "gemini-1.5-flash",
-        "quick_caption": "gemini-1.5-flash",
+def claude_vision(image_path: str, prompt: str, model: str = "claude-sonnet-4-20250514") -> str:
+    """Claude vision analysis"""
+
+    # Encode image
+    with open(image_path, "rb") as f:
+        image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+    # Determine media type
+    if image_path.endswith(".png"):
+        media_type = "image/png"
+    elif image_path.endswith(".gif"):
+        media_type = "image/gif"
+    elif image_path.endswith(".webp"):
+        media_type = "image/webp"
+    else:
+        media_type = "image/jpeg"
+
+    message = client.messages.create(
+        model=model,
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": media_type,
+                            "data": image_data,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt
+                    }
+                ],
+            }
+        ],
+    )
+
+    return message.content[0].text
+
+
+def claude_multi_image(image_paths: list, prompt: str) -> str:
+    """Claude multi-image analysis"""
+
+    content = []
+
+    for path in image_paths:
+        with open(path, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+        media_type = "image/png" if path.endswith(".png") else "image/jpeg"
+
+        content.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": media_type,
+                "data": image_data,
+            }
+        })
+
+    content.append({"type": "text", "text": prompt})
+
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=2048,
+        messages=[{"role": "user", "content": content}],
+    )
+
+    return message.content[0].text
+
+
+def claude_with_tools(prompt: str, image_path: str = None) -> dict:
+    """Claude Tool Use (Function Calling)"""
+
+    tools = [
+        {
+            "name": "get_weather",
+            "description": "Get current weather for a location",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "City name"
+                    }
+                },
+                "required": ["location"]
+            }
+        }
+    ]
+
+    content = [{"type": "text", "text": prompt}]
+
+    if image_path:
+        with open(image_path, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+        content.insert(0, {
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/jpeg",
+                "data": image_data,
+            }
+        })
+
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=1024,
+        tools=tools,
+        messages=[{"role": "user", "content": content}],
+    )
+
+    return {
+        "content": message.content,
+        "stop_reason": message.stop_reason
     }
+```
 
-    return recommendations.get(use_case, "gpt-4-vision-preview")
+### 4.3 Claude Specialized Features
+
+```python
+class ClaudeApplications:
+    """Claude specialized applications"""
+
+    def __init__(self):
+        self.client = anthropic.Anthropic()
+
+    def long_document_analysis(self, document_text: str, query: str) -> str:
+        """Long document analysis (200K tokens)"""
+
+        message = self.client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=4096,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Analyze the following document and answer the question.
+
+Document:
+{document_text}
+
+Question: {query}
+"""
+                }
+            ],
+        )
+
+        return message.content[0].text
+
+    def code_review(self, code: str, language: str = "python") -> str:
+        """Code review"""
+
+        message = self.client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2048,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Please review the following {language} code.
+
+```{language}
+{code}
+```
+
+Include:
+1. Potential bugs
+2. Performance improvements
+3. Code style suggestions
+4. Security issues
+"""
+                }
+            ],
+        )
+
+        return message.content[0].text
+
+    def structured_output(self, image_path: str, schema: dict) -> dict:
+        """Generate structured output"""
+        import json
+
+        with open(image_path, "rb") as f:
+            image_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+        message = self.client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2048,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "image/jpeg",
+                                "data": image_data,
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": f"""Analyze this image and return results matching the following JSON schema:
+
+{json.dumps(schema, indent=2)}
+
+Return only JSON."""
+                        }
+                    ]
+                }
+            ],
+        )
+
+        return json.loads(message.content[0].text)
 ```
 
 ---
 
-## 4. Cost Optimization
+## 5. Comparison and Selection Guide
 
-### 4.1 Cost Calculation
+### 5.1 Multimodal Model Comparison
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    2024 Multimodal Model Comparison                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  Feature            GPT-4o      Gemini 1.5 Pro   Claude 3.5 Sonnet          │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  Image Understanding ★★★★★     ★★★★★         ★★★★★                  │
+│  Video Analysis      ✗           ★★★★★ (native) ✗                        │
+│  Audio Analysis      ★★★★☆     ★★★★☆         ✗                        │
+│  Context             128K        2M               200K                       │
+│  Code Execution      ✗           ★★★★☆ (built-in) ✗                       │
+│  Speed               ★★★★★     ★★★★☆ (Flash)  ★★★★☆                  │
+│  Price               Medium      Low              Medium                     │
+│  Coding Ability      ★★★★☆     ★★★★☆         ★★★★★                  │
+│  Reasoning Ability   ★★★★★     ★★★★☆         ★★★★★                  │
+│                                                                             │
+│  Recommended Use Cases:                                                      │
+│  - GPT-4o: Real-time multimodal, voice chat, fast response needed           │
+│  - Gemini: Video analysis, ultra-long docs, multimodal complex tasks        │
+│  - Claude: Complex reasoning, code review, long doc analysis, safety-critical│
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 5.2 Use Case Selection
+
+```python
+def select_model(use_case: str) -> str:
+    """Select model by use case (2024 update)"""
+
+    recommendations = {
+        # GPT-4o is better for
+        "ui_to_code": "gpt-4o",
+        "realtime_chat": "gpt-4o",
+        "voice_assistant": "gpt-4o-audio-preview",
+        "quick_vision": "gpt-4o",
+
+        # Gemini is better for
+        "video_analysis": "gemini-1.5-pro",
+        "very_long_document": "gemini-1.5-pro",  # 2M context
+        "audio_transcription": "gemini-1.5-pro",
+        "multimodal_app": "gemini-1.5-pro",
+
+        # Claude is better for
+        "complex_reasoning": "claude-sonnet-4-20250514",
+        "code_review": "claude-sonnet-4-20250514",
+        "long_document": "claude-sonnet-4-20250514",  # 200K context
+        "safety_critical": "claude-sonnet-4-20250514",
+
+        # Cost optimization
+        "high_volume": "gemini-1.5-flash",
+        "quick_caption": "gpt-4o-mini",
+        "simple_classification": "claude-3-haiku-20240307",
+    }
+
+    return recommendations.get(use_case, "gpt-4o")
+```
+
+---
+
+## 6. Cost Optimization
+
+### 6.1 Cost Calculation
 
 ```python
 class CostEstimator:
     """API cost estimation"""
 
-    # 2024 pricing (USD)
+    # 2024 pricing (USD per 1M tokens)
     PRICING = {
         "gpt-4-vision-preview": {
-            "input": 0.01,   # per 1K tokens
-            "output": 0.03,  # per 1K tokens
+            "input": 10.0,   # per 1M tokens
+            "output": 30.0,  # per 1M tokens
             "image_low": 85,   # tokens
             "image_high": 765, # tokens (base) + tiles
         },
+        "gpt-4o": {
+            "input": 5.0,    # per 1M tokens
+            "output": 15.0,  # per 1M tokens
+            "image_low": 85,
+            "image_high": 765,
+        },
+        "gpt-4o-mini": {
+            "input": 0.15,   # per 1M tokens
+            "output": 0.60,  # per 1M tokens
+            "image_low": 85,
+            "image_high": 765,
+        },
         "gemini-1.5-pro": {
-            "input": 0.00125,  # per 1K chars
-            "output": 0.00375,
+            "input": 1.25,   # per 1M tokens
+            "output": 5.0,
             "image": 258,  # tokens per image
             "video": 263,  # tokens per second
             "audio": 32,   # tokens per second
         },
         "gemini-1.5-flash": {
-            "input": 0.000125,
-            "output": 0.000375,
-        }
+            "input": 0.075,
+            "output": 0.30,
+        },
+        "claude-3-opus": {
+            "input": 15.0,   # per 1M tokens
+            "output": 75.0,
+        },
+        "claude-sonnet-4-20250514": {
+            "input": 3.0,    # per 1M tokens
+            "output": 15.0,
+        },
+        "claude-3-haiku": {
+            "input": 0.25,   # per 1M tokens
+            "output": 1.25,
+        },
     }
 
     def estimate_gpt4v_cost(
@@ -669,12 +1100,14 @@ print(f"Gemini Pro cost: ${gemini_cost:.2f}")
 ## References
 
 ### Official Documentation
-- [OpenAI GPT-4V Documentation](https://platform.openai.com/docs/guides/vision)
+- [OpenAI GPT-4o Documentation](https://platform.openai.com/docs/guides/vision)
 - [Google Gemini API](https://ai.google.dev/docs)
+- [Anthropic Claude Documentation](https://docs.anthropic.com/)
 
 ### Benchmarks
 - [MMMU Benchmark](https://mmmu-benchmark.github.io/)
 - [VQA Challenge](https://visualqa.org/)
+- [LMSYS Chatbot Arena](https://chat.lmsys.org/)
 
 ### Related Lessons
 - [16_Vision_Language_Advanced.md](16_Vision_Language_Advanced.md)
