@@ -85,23 +85,6 @@
 
 ---
 
-## 실습 코드
-
-예제 코드는 [examples/](./examples/) 폴더에서 확인할 수 있습니다.
-
-```bash
-# 전체 빌드
-cd examples
-make
-
-# 개별 실행
-make run-calculator
-make run-list
-make run-thread
-```
-
----
-
 ## 관련 자료
 
 - [Docker 학습](../Docker/00_Overview.md) - 개발 환경 컨테이너화

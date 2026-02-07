@@ -535,8 +535,6 @@ RLHF (Reinforcement Learning from Human Feedback)
 
 4. **보상 설계**: 미로 탈출 문제에서 적절한 보상 함수를 설계해보세요.
 
-5. **코드 실습**: `examples/01_gridworld.py`를 실행하고, 에이전트의 행동을 관찰하세요.
-
 ---
 
 ## 다음 단계

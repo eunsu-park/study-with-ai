@@ -673,8 +673,6 @@ $$\delta_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$$
 
 4. **Eligibility Trace**: 상태 s가 연속으로 2번 방문되면 accumulating trace의 값은?
 
-5. **코드 실습**: `examples/05_td_learning.py`로 Random Walk에서 TD와 MC를 비교하세요.
-
 ---
 
 ## 다음 단계

@@ -12,7 +12,7 @@ This repository is a personal study project. Some content was written by me, som
 03_Study/
 ├── content/          # 학습 자료 (한국어/영어 Markdown)
 │   ├── ko/           # 한국어 자료 (28개 토픽)
-│   └── en/           # 영어 자료 (17개 토픽, 번역 진행 중)
+│   └── en/           # 영어 자료 (28개 토픽)
 │
 ├── examples/         # 예제 코드 (14개 토픽)
 │   ├── Algorithm/    # Python, C, C++ 예제
@@ -90,8 +90,8 @@ flask run --port 5050
 ## 다국어 지원
 
 - 모든 학습 자료는 **한국어(ko)**와 **영어(en)** 두 버전으로 관리
-- 한국어 자료 작성 후 영어 번역 진행 (translate/ 도구 사용)
-- 향후 신규 자료 작성 시 한/영 동시 작성 원칙
+- 28개 토픽 모두 한/영 번역 완료
+- 신규 자료 작성 시 한/영 동시 작성 원칙
 
 ## 라이선스
 

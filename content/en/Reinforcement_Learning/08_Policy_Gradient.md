@@ -1,0 +1,461 @@
+# 08. Policy Gradient
+
+**Difficulty: ⭐⭐⭐⭐ (Advanced)**
+
+## Learning Objectives
+- Understand advantages and disadvantages of policy-based methods
+- Derive the Policy Gradient Theorem
+- Implement the REINFORCE algorithm
+- Variance reduction techniques with baselines
+- Connection to Actor-Critic
+
+---
+
+## 1. Value-Based vs Policy-Based
+
+### 1.1 Comparison
+
+| Feature | Value-Based (DQN) | Policy-Based |
+|---------|-------------------|--------------|
+| Learning Target | Q(s, a) | π(a\|s) |
+| Policy Derivation | Indirect from Q | Direct learning |
+| Action Space | Discrete (mainly) | Discrete + Continuous |
+| Stochastic Policy | Difficult | Natural |
+| Convergence | Can be unstable | Local optima |
+
+### 1.2 Advantages of Policy-Based
+
+```
+1. Handles continuous action spaces (robot control)
+2. Learns stochastic policies (rock-paper-scissors)
+3. Policy space can be simpler
+4. Better convergence guarantees (in some cases)
+```
+
+---
+
+## 2. Policy Parameterization
+
+### 2.1 Softmax Policy (Discrete Actions)
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class DiscretePolicy(nn.Module):
+    def __init__(self, state_dim, action_dim, hidden_dim=128):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(state_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, action_dim)
+        )
+
+    def forward(self, state):
+        logits = self.network(state)
+        return F.softmax(logits, dim=-1)
+
+    def get_action(self, state):
+        probs = self.forward(state)
+        dist = torch.distributions.Categorical(probs)
+        action = dist.sample()
+        log_prob = dist.log_prob(action)
+        return action.item(), log_prob
+```
+
+### 2.2 Gaussian Policy (Continuous Actions)
+
+```python
+class GaussianPolicy(nn.Module):
+    def __init__(self, state_dim, action_dim, hidden_dim=128):
+        super().__init__()
+        self.shared = nn.Sequential(
+            nn.Linear(state_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU()
+        )
+        self.mean_layer = nn.Linear(hidden_dim, action_dim)
+        self.log_std = nn.Parameter(torch.zeros(action_dim))
+
+    def forward(self, state):
+        features = self.shared(state)
+        mean = self.mean_layer(features)
+        std = self.log_std.exp()
+        return mean, std
+
+    def get_action(self, state):
+        mean, std = self.forward(state)
+        dist = torch.distributions.Normal(mean, std)
+        action = dist.sample()
+        log_prob = dist.log_prob(action).sum(-1)
+        return action, log_prob
+```
+
+---
+
+## 3. Policy Gradient Theorem
+
+### 3.1 Objective Function
+
+Maximize performance of policy π_θ:
+
+$$J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} [R(\tau)]$$
+
+where τ = (s₀, a₀, r₀, s₁, a₁, r₁, ...) is a trajectory
+
+### 3.2 Policy Gradient Theorem
+
+$$\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t) \cdot G_t \right]$$
+
+**Intuitive Interpretation:**
+- Increase probability of actions that led to good outcomes (high G_t)
+- Decrease probability of actions that led to bad outcomes
+
+### 3.3 Derivation (Log-derivative trick)
+
+```
+∇_θ π(a|s;θ) = π(a|s;θ) · ∇_θ log π(a|s;θ)
+
+Therefore:
+∇_θ J(θ) = E[R · ∇_θ log π(a|s;θ)]
+         = E[∇_θ log π(a|s;θ) · R]
+```
+
+---
+
+## 4. REINFORCE Algorithm
+
+### 4.1 Basic REINFORCE
+
+A Monte Carlo policy gradient method.
+
+```python
+class REINFORCE:
+    def __init__(self, state_dim, action_dim, lr=1e-3, gamma=0.99):
+        self.policy = DiscretePolicy(state_dim, action_dim)
+        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=lr)
+        self.gamma = gamma
+
+        # Episode storage
+        self.log_probs = []
+        self.rewards = []
+
+    def choose_action(self, state):
+        state_tensor = torch.FloatTensor(state).unsqueeze(0)
+        action, log_prob = self.policy.get_action(state_tensor)
+        self.log_probs.append(log_prob)
+        return action
+
+    def store_reward(self, reward):
+        self.rewards.append(reward)
+
+    def compute_returns(self):
+        """Compute discounted returns"""
+        returns = []
+        G = 0
+        for r in reversed(self.rewards):
+            G = r + self.gamma * G
+            returns.insert(0, G)
+
+        returns = torch.tensor(returns)
+        # Normalization (optional but recommended)
+        returns = (returns - returns.mean()) / (returns.std() + 1e-8)
+        return returns
+
+    def update(self):
+        returns = self.compute_returns()
+
+        # Compute policy loss
+        policy_loss = []
+        for log_prob, G in zip(self.log_probs, returns):
+            policy_loss.append(-log_prob * G)  # Negative (gradient ascent)
+
+        loss = torch.stack(policy_loss).sum()
+
+        # Update
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        # Reset episode data
+        self.log_probs = []
+        self.rewards = []
+
+        return loss.item()
+```
+
+### 4.2 Training Loop
+
+```python
+import gymnasium as gym
+import numpy as np
+
+def train_reinforce(env_name='CartPole-v1', n_episodes=1000):
+    env = gym.make(env_name)
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.n
+
+    agent = REINFORCE(state_dim, action_dim, lr=1e-3)
+
+    scores = []
+
+    for episode in range(n_episodes):
+        state, _ = env.reset()
+        total_reward = 0
+        done = False
+
+        while not done:
+            action = agent.choose_action(state)
+            next_state, reward, terminated, truncated, _ = env.step(action)
+            done = terminated or truncated
+
+            agent.store_reward(reward)
+            state = next_state
+            total_reward += reward
+
+        # Update after episode ends
+        loss = agent.update()
+        scores.append(total_reward)
+
+        if (episode + 1) % 100 == 0:
+            print(f"Episode {episode + 1}, Avg Score: {np.mean(scores[-100:]):.2f}")
+
+    return agent, scores
+```
+
+---
+
+## 5. Variance Reduction with Baseline
+
+### 5.1 Variance Problem
+
+REINFORCE gradients have high variance.
+
+```
+Var(∇_θ J) ∝ E[(G - b)²]
+```
+
+### 5.2 Introducing Baseline
+
+Subtracting a constant b doesn't change the expected value but reduces variance.
+
+$$\nabla_\theta J(\theta) = \mathbb{E} \left[ \nabla_\theta \log \pi_\theta(a_t|s_t) \cdot (G_t - b) \right]$$
+
+Best baseline: b = V(s)
+
+```python
+class REINFORCEWithBaseline:
+    def __init__(self, state_dim, action_dim, lr_policy=1e-3, lr_value=1e-3, gamma=0.99):
+        self.policy = DiscretePolicy(state_dim, action_dim)
+        self.value = nn.Sequential(
+            nn.Linear(state_dim, 128),
+            nn.ReLU(),
+            nn.Linear(128, 128),
+            nn.ReLU(),
+            nn.Linear(128, 1)
+        )
+
+        self.policy_optimizer = torch.optim.Adam(self.policy.parameters(), lr=lr_policy)
+        self.value_optimizer = torch.optim.Adam(self.value.parameters(), lr=lr_value)
+        self.gamma = gamma
+
+        self.log_probs = []
+        self.values = []
+        self.rewards = []
+        self.states = []
+
+    def choose_action(self, state):
+        state_tensor = torch.FloatTensor(state).unsqueeze(0)
+
+        # Sample action from policy
+        action, log_prob = self.policy.get_action(state_tensor)
+
+        # Value prediction
+        value = self.value(state_tensor)
+
+        self.log_probs.append(log_prob)
+        self.values.append(value)
+        self.states.append(state_tensor)
+
+        return action
+
+    def update(self):
+        returns = self.compute_returns()
+
+        values = torch.cat(self.values).squeeze()
+        log_probs = torch.stack(self.log_probs)
+
+        # Advantage = Return - Baseline (Value)
+        advantages = returns - values.detach()
+
+        # Policy loss
+        policy_loss = -(log_probs * advantages).mean()
+
+        # Value loss
+        value_loss = F.mse_loss(values, returns)
+
+        # Policy update
+        self.policy_optimizer.zero_grad()
+        policy_loss.backward()
+        self.policy_optimizer.step()
+
+        # Value update
+        self.value_optimizer.zero_grad()
+        value_loss.backward()
+        self.value_optimizer.step()
+
+        # Reset
+        self.log_probs = []
+        self.values = []
+        self.rewards = []
+        self.states = []
+
+        return policy_loss.item(), value_loss.item()
+```
+
+---
+
+## 6. Continuous Action Space Example
+
+### 6.1 Continuous Action REINFORCE
+
+```python
+class ContinuousREINFORCE:
+    def __init__(self, state_dim, action_dim, lr=1e-3, gamma=0.99):
+        self.policy = GaussianPolicy(state_dim, action_dim)
+        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=lr)
+        self.gamma = gamma
+
+        self.log_probs = []
+        self.rewards = []
+
+    def choose_action(self, state):
+        state_tensor = torch.FloatTensor(state).unsqueeze(0)
+        action, log_prob = self.policy.get_action(state_tensor)
+
+        self.log_probs.append(log_prob)
+        return action.detach().numpy().squeeze()
+
+    def update(self):
+        returns = self.compute_returns()
+
+        policy_loss = []
+        for log_prob, G in zip(self.log_probs, returns):
+            policy_loss.append(-log_prob * G)
+
+        loss = torch.stack(policy_loss).sum()
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        self.log_probs = []
+        self.rewards = []
+```
+
+### 6.2 MountainCarContinuous Example
+
+```python
+def train_continuous():
+    env = gym.make('MountainCarContinuous-v0')
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.shape[0]
+
+    agent = ContinuousREINFORCE(state_dim, action_dim, lr=1e-3)
+
+    for episode in range(500):
+        state, _ = env.reset()
+        total_reward = 0
+
+        while True:
+            action = agent.choose_action(state)
+            action = np.clip(action, env.action_space.low, env.action_space.high)
+
+            next_state, reward, done, truncated, _ = env.step(action)
+            agent.rewards.append(reward)
+
+            state = next_state
+            total_reward += reward
+
+            if done or truncated:
+                break
+
+        agent.update()
+        print(f"Episode {episode + 1}, Reward: {total_reward:.2f}")
+```
+
+---
+
+## 7. Advanced Techniques
+
+### 7.1 Entropy Regularization
+
+Add policy entropy to the loss to encourage exploration.
+
+```python
+def compute_entropy(probs):
+    """Compute policy entropy"""
+    return -(probs * probs.log()).sum(dim=-1).mean()
+
+# Loss function
+total_loss = policy_loss - entropy_coef * entropy
+```
+
+### 7.2 Reward Shaping
+
+Reward transformation to solve sparse reward problems:
+
+```python
+def shape_reward(reward, state, next_state, done):
+    """Reward shaping example"""
+    # Additional signal to original reward
+    position_reward = abs(next_state[0] - state[0])  # Encourage movement
+
+    if done and reward > 0:
+        bonus = 100  # Goal achievement bonus
+    else:
+        bonus = 0
+
+    return reward + 0.1 * position_reward + bonus
+```
+
+---
+
+## 8. Limitations of REINFORCE
+
+### 8.1 Problems
+
+1. **High Variance**: Uses entire episodes, resulting in high variance
+2. **Sample Inefficiency**: Must wait until episode ends
+3. **Credit Assignment**: Difficult to determine which actions led to good outcomes
+
+### 8.2 Solution → Actor-Critic
+
+- Combines TD learning with policy gradients
+- Reduces variance through bootstrapping
+- Allows per-step updates
+
+---
+
+## Summary
+
+| Algorithm | Update Timing | Baseline | Characteristics |
+|-----------|---------------|----------|-----------------|
+| REINFORCE | Episode end | None | Simple, high variance |
+| REINFORCE + Baseline | Episode end | V(s) | Lower variance |
+| Actor-Critic | Every step | V(s) or Q(s,a) | Efficient |
+
+**Key Formula:**
+```
+∇_θ J(θ) = E[∇_θ log π_θ(a|s) · (G - b)]
+```
+
+---
+
+## Next Steps
+
+- [09_Actor_Critic.md](./09_Actor_Critic.md) - Actor-Critic Methods

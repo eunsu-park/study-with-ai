@@ -706,8 +706,6 @@ def visualize_policy(grid, policy):
 
 4. **최적 정책**: Q*(s, left)=3, Q*(s, right)=5일 때 최적 행동은?
 
-5. **코드 실습**: `examples/02_mdp_solver.py`를 실행하여 MDP를 정의하고 가치 함수를 계산하세요.
-
 ---
 
 ## 다음 단계
