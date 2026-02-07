@@ -217,6 +217,7 @@ def brents_method(
         fa, fb = fb, fa
 
     c, fc = a, fa
+    d = c  # d 초기화 (첫 iteration에서 사용됨)
     mflag = True
 
     for i in range(max_iter):

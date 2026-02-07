@@ -241,8 +241,11 @@ def compare_methods():
     sys.path.insert(0, dirname(abspath(__file__)))
 
     try:
-        from _03_ode_euler import euler_forward
-    except ImportError:
+        # 03_ode_euler.py는 숫자로 시작하여 직접 import 불가
+        from importlib import import_module
+        euler_module = import_module("03_ode_euler")
+        euler_forward = euler_module.euler_forward
+    except (ImportError, ModuleNotFoundError):
         def euler_forward(f, y0, t_span, h):
             t0, tf = t_span
             n_steps = int((tf - t0) / h)
