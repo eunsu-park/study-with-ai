@@ -43,6 +43,7 @@ examples/
 │
 ├── LLM_and_NLP/            # NLP/HuggingFace 예제 / examples (15 files)
 ├── Machine_Learning/       # sklearn/Jupyter 예제 / examples (14 files)
+├── Math_for_AI/            # AI 수학 Python 예제 / AI math examples (12 files)
 ├── MLOps/                  # MLflow/서빙 예제 / serving examples (5 files)
 ├── Numerical_Simulation/   # 수치해석 Python 예제 / Numerical analysis examples (6 files)
 ├── PostgreSQL/             # SQL 예제 / examples (5 files)
@@ -50,7 +51,7 @@ examples/
 └── Web_Development/        # HTML/CSS/JS 프로젝트 / projects (17 files)
 ```
 
-**총 예제 파일 / Total example files: 267**
+**총 예제 파일 / Total example files: 279**
 
 ## 빌드 방법 / How to Build
 
@@ -100,6 +101,7 @@ jupyter notebook
 | IoT_Embedded | 12 | Python | Raspberry Pi, MQTT, Edge AI |
 | LLM_and_NLP | 15 | Python | BERT, GPT, RAG, LangChain |
 | Machine_Learning | 14 | Python/Jupyter | sklearn, 분류, 회귀, 클러스터링 / Classification, Regression, Clustering |
+| Math_for_AI | 12 | Python | 선형대수, SVD/PCA, 최적화, 확률, 정보이론, 텐서, 그래프, 어텐션 / Linear Algebra, Optimization, Probability, Attention |
 | MLOps | 5 | Python | MLflow, 모델 서빙, 드리프트 감지 / Model serving, Drift detection |
 | Numerical_Simulation | 6 | Python | 수치해석, ODE, Monte Carlo / Numerical analysis |
 | PostgreSQL | 5 | SQL | CRUD, JOIN, 윈도우 함수 / Window functions |

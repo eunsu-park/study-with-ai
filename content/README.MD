@@ -11,12 +11,12 @@ content/
 ├── ko/                    # 한국어 자료 (원본) / Korean (original)
 │   ├── Algorithm/         # 29개 레슨 / 29 lessons
 │   ├── C_Programming/     # 20개 레슨 / 20 lessons
-│   └── ...                # 총 28개 토픽 / 28 topics total
+│   └── ...                # 총 30개 토픽 / 30 topics total
 │
 └── en/                    # 영어 자료 (번역본) / English (translated)
     ├── Algorithm/
     ├── C_Programming/
-    └── ...                # 총 28개 토픽 (번역 완료) / 28 topics (fully translated)
+    └── ...                # 총 30개 토픽 (번역 완료) / 30 topics (fully translated)
 ```
 
 ## 토픽 목록 / Topic List
@@ -43,6 +43,8 @@ Check the `00_Overview.md` in each topic for learning roadmaps and detailed tabl
 | [Linux/](./ko/Linux/00_Overview.md) | Linux 기초 ~ HA 클러스터, 트러블슈팅 / HA Cluster, Troubleshooting | 26 |
 | [LLM_and_NLP/](./ko/LLM_and_NLP/00_Overview.md) | NLP, BERT, GPT, HuggingFace, RAG, LangChain, RLHF, Agent | 16 |
 | [Machine_Learning/](./ko/Machine_Learning/00_Overview.md) | 회귀, 분류, 앙상블, 클러스터링, sklearn / Regression, Classification | 14 |
+| [Math_for_AI/](./ko/Math_for_AI/00_Overview.md) | AI/ML/DL 수학, 선형대수, 최적화, 확률, 정보이론, Transformer 수학 / Math for AI/ML/DL | 18 |
+| [Mathematical_Methods/](./ko/Mathematical_Methods/00_Overview.md) | 물리과학 수학, 선형대수, 편미분, 푸리에, PDE, 구면조화함수, 텐서 / Math Methods for Physical Sciences | 18 |
 | [MLOps/](./ko/MLOps/00_Overview.md) | MLflow, Kubeflow, 모델 서빙, 드리프트 감지 / Model Serving, Drift | 12 |
 | [Model_Implementations/](./ko/Model_Implementations/00_Overview.md) | 딥러닝 모델 from-scratch 구현 / DL Models from Scratch | 12 |
 | [Networking/](./ko/Networking/00_Overview.md) | 네트워크, OSI/TCP-IP, 라우팅, 보안 / Routing, Security | 17 |
@@ -79,7 +81,7 @@ Example code files are located in the `examples/` folder at the project root.
 
 - **한국어(ko)**: 원본 자료. 모든 토픽에 존재
   **Korean (ko)**: Original materials. Present in all topics
-- **영어(en)**: 번역본. 28개 토픽 모두 번역 완료
-  **English (en)**: Translated. All 28 topics fully translated
+- **영어(en)**: 번역본. 30개 토픽 모두 번역 완료
+  **English (en)**: Translated. All 30 topics fully translated
 - 신규 자료 작성 시 한/영 두 버전 동시 작성 원칙
   New materials are written in both Korean and English simultaneously
