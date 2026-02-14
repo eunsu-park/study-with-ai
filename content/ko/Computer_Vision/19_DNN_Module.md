@@ -18,7 +18,8 @@ OpenCV의 DNN 모듈은 사전 학습된 딥러닝 모델을 로드하고 추론
 4. [YOLO 객체 검출](#4-yolo-객체-검출)
 5. [SSD (Single Shot Detector)](#5-ssd-single-shot-detector)
 6. [DNN 얼굴 검출](#6-dnn-얼굴-검출)
-7. [연습 문제](#7-연습-문제)
+7. [ONNX를 이용한 최신 객체 검출](#7-onnx를-이용한-최신-객체-검출)
+8. [연습 문제](#8-연습-문제)
 
 ---
 
@@ -1000,7 +1001,413 @@ def compare_face_detectors(img):
 
 ---
 
-## 7. 연습 문제
+## 7. ONNX를 이용한 최신 객체 검출
+
+### 7.1 YOLOv8을 OpenCV DNN으로 실행하기
+
+Ultralytics에서 2023년에 출시한 YOLOv8은 YOLO 계열의 큰 진전을 나타냅니다. ONNX 형식으로 내보내서 OpenCV의 DNN 모듈로 효율적으로 실행할 수 있습니다.
+
+```python
+import cv2
+import numpy as np
+
+class YOLOv8Detector:
+    """YOLOv8 ONNX 객체 검출기"""
+
+    def __init__(self, onnx_model_path, conf_threshold=0.5, iou_threshold=0.4):
+        """
+        YOLOv8 검출기 초기화
+
+        YOLOv8을 ONNX로 내보내기:
+        pip install ultralytics
+        yolo export model=yolov8n.pt format=onnx
+        """
+        self.net = cv2.dnn.readNetFromONNX(onnx_model_path)
+        self.conf_threshold = conf_threshold
+        self.iou_threshold = iou_threshold
+
+        # COCO 클래스 이름 (80개 클래스)
+        self.classes = [
+            "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train",
+            "truck", "boat", "traffic light", "fire hydrant", "stop sign",
+            "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow",
+            "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag",
+            "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite",
+            "baseball bat", "baseball glove", "skateboard", "surfboard",
+            "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon",
+            "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot",
+            "hot dog", "pizza", "donut", "cake", "chair", "couch", "potted plant",
+            "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote",
+            "keyboard", "cell phone", "microwave", "oven", "toaster", "sink",
+            "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
+            "hair drier", "toothbrush"
+        ]
+
+        # 각 클래스별 랜덤 색상 생성
+        np.random.seed(42)
+        self.colors = np.random.randint(0, 255, size=(len(self.classes), 3),
+                                        dtype=np.uint8)
+
+    def detect(self, img):
+        """
+        YOLOv8 객체 검출
+
+        YOLOv8 출력 형식 (YOLOv5와 다름):
+        - Shape: (1, 84, 8400) for 640x640 입력
+        - 첫 4개 행: [x_center, y_center, width, height]
+        - 4-83행: 클래스 확률 (80개 클래스)
+        - objectness score 없음 (YOLOv5와 차이점)
+        """
+        height, width = img.shape[:2]
+
+        # 전처리: letterbox resize
+        input_size = 640
+        blob = cv2.dnn.blobFromImage(
+            img,
+            scalefactor=1/255.0,
+            size=(input_size, input_size),
+            mean=(0, 0, 0),
+            swapRB=True,
+            crop=False
+        )
+
+        # 추론
+        self.net.setInput(blob)
+        outputs = self.net.forward()
+
+        # YOLOv8 출력 shape: (1, 84, 8400)
+        # 처리를 쉽게 하기 위해 (8400, 84)로 전치
+        outputs = outputs[0].transpose()  # (8400, 84)
+
+        boxes = []
+        confidences = []
+        class_ids = []
+
+        # 좌표 변환을 위한 스케일 팩터
+        x_scale = width / input_size
+        y_scale = height / input_size
+
+        for detection in outputs:
+            # 클래스 점수 추출 (4-83행)
+            class_scores = detection[4:]
+            class_id = np.argmax(class_scores)
+            confidence = class_scores[class_id]
+
+            if confidence > self.conf_threshold:
+                # 바운딩 박스 추출 (0-3행: cx, cy, w, h)
+                cx = detection[0] * x_scale
+                cy = detection[1] * y_scale
+                w = detection[2] * x_scale
+                h = detection[3] * y_scale
+
+                # 좌상단 좌표로 변환
+                x = int(cx - w / 2)
+                y = int(cy - h / 2)
+
+                boxes.append([x, y, int(w), int(h)])
+                confidences.append(float(confidence))
+                class_ids.append(class_id)
+
+        # Non-Maximum Suppression
+        indices = cv2.dnn.NMSBoxes(
+            boxes, confidences,
+            self.conf_threshold, self.iou_threshold
+        )
+
+        results = []
+        for i in indices:
+            results.append({
+                'box': boxes[i],
+                'confidence': confidences[i],
+                'class_id': class_ids[i],
+                'class_name': self.classes[class_ids[i]]
+            })
+
+        return results
+
+    def draw(self, img, results):
+        """검출 결과 시각화"""
+        for det in results:
+            x, y, w, h = det['box']
+            class_id = det['class_id']
+            confidence = det['confidence']
+
+            color = [int(c) for c in self.colors[class_id]]
+
+            # 바운딩 박스 그리기
+            cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
+
+            # 레이블 그리기
+            label = f"{det['class_name']}: {confidence:.2f}"
+            (label_w, label_h), _ = cv2.getTextSize(
+                label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1
+            )
+            cv2.rectangle(img, (x, y - label_h - 10), (x + label_w, y), color, -1)
+            cv2.putText(
+                img, label, (x, y - 5),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1
+            )
+
+        return img
+
+# 사용 예
+# 먼저 YOLOv8 모델을 내보내기:
+# pip install ultralytics
+# yolo export model=yolov8n.pt format=onnx
+# 이렇게 하면 yolov8n.onnx가 생성됨
+
+detector = YOLOv8Detector('yolov8n.onnx', conf_threshold=0.5)
+img = cv2.imread('street.jpg')
+results = detector.detect(img)
+output = detector.draw(img, results)
+
+print(f"{len(results)}개의 객체 검출:")
+for r in results:
+    print(f"  - {r['class_name']}: {r['confidence']:.2%}")
+
+cv2.imshow('YOLOv8 Detection', output)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+### 7.2 ONNX를 이용한 SAM (Segment Anything Model)
+
+Meta의 Segment Anything Model (SAM)은 강력한 이미지 분할을 가능하게 합니다. SAM은 일반적으로 PyTorch와 함께 사용되지만, 인코더와 디코더를 ONNX로 내보내고 OpenCV DNN으로 추론을 실행할 수 있습니다.
+
+```python
+import cv2
+import numpy as np
+
+class SAMONNXDetector:
+    """
+    OpenCV를 이용한 간소화된 SAM ONNX 추론
+
+    SAM은 두 가지 구성 요소로 이루어집니다:
+    1. Image Encoder: 입력 이미지를 임베딩으로 인코딩
+    2. Mask Decoder: 임베딩과 프롬프트로부터 마스크 생성
+
+    SAM을 ONNX로 내보내기:
+    https://github.com/facebookresearch/segment-anything
+    """
+
+    def __init__(self, encoder_path, decoder_path):
+        """
+        ONNX 모델로 SAM 초기화
+
+        Args:
+            encoder_path: 인코더 ONNX 모델 경로
+            decoder_path: 디코더 ONNX 모델 경로
+        """
+        self.encoder = cv2.dnn.readNetFromONNX(encoder_path)
+        self.decoder = cv2.dnn.readNetFromONNX(decoder_path)
+        self.image_size = 1024  # SAM 기본 크기
+
+    def preprocess(self, img):
+        """SAM 인코더용 이미지 전처리"""
+        # 1024x1024로 리사이즈
+        h, w = img.shape[:2]
+        scale = self.image_size / max(h, w)
+        new_h, new_w = int(h * scale), int(w * scale)
+
+        resized = cv2.resize(img, (new_w, new_h))
+
+        # 정사각형으로 패딩
+        padded = np.zeros((self.image_size, self.image_size, 3), dtype=np.uint8)
+        padded[:new_h, :new_w] = resized
+
+        # 정규화 (ImageNet 스타일)
+        normalized = padded.astype(np.float32) / 255.0
+        mean = np.array([0.485, 0.456, 0.406])
+        std = np.array([0.229, 0.224, 0.225])
+        normalized = (normalized - mean) / std
+
+        # blob으로 변환 (1, 3, 1024, 1024)
+        blob = cv2.dnn.blobFromImage(normalized, 1.0, swapRB=True)
+
+        return blob, scale
+
+    def encode_image(self, img):
+        """인코더를 사용하여 이미지 임베딩 생성"""
+        blob, scale = self.preprocess(img)
+        self.encoder.setInput(blob)
+        embeddings = self.encoder.forward()
+        return embeddings, scale
+
+    def segment_with_point(self, img, point_coords, point_labels):
+        """
+        포인트 프롬프트로 이미지 분할
+
+        Args:
+            img: 입력 이미지
+            point_coords: (x, y) 좌표 리스트
+            point_labels: 레이블 리스트 (1=전경, 0=배경)
+
+        Returns:
+            분할 마스크
+        """
+        # 이미지 임베딩 가져오기
+        embeddings, scale = self.encode_image(img)
+
+        # 포인트 좌표 스케일링
+        scaled_coords = np.array(point_coords) * scale
+
+        # 디코더 입력 준비
+        point_coords_input = scaled_coords.reshape(1, -1, 2).astype(np.float32)
+        point_labels_input = np.array(point_labels).reshape(1, -1).astype(np.float32)
+
+        # 디코더 실행
+        # 참고: 실제 SAM ONNX 디코더는 특정 입력 형식을 가짐
+        # 이것은 간소화된 버전 - 공식 SAM ONNX 내보내기 참조
+        self.decoder.setInput(embeddings, 'image_embeddings')
+        # 디코더를 위한 추가 입력이 여기에 설정됨
+
+        mask = self.decoder.forward()
+
+        return mask
+
+# 개념적 사용법 (실제 SAM ONNX 모델 필요)
+# sam = SAMONNXDetector('sam_vit_h_encoder.onnx', 'sam_vit_h_decoder.onnx')
+# img = cv2.imread('image.jpg')
+#
+# # 포인트 프롬프트로 분할
+# point_coords = [(100, 150)]  # 클릭 위치
+# point_labels = [1]  # 전경 포인트
+# mask = sam.segment_with_point(img, point_coords, point_labels)
+```
+
+**참고**: OpenCV DNN으로 SAM을 실행하는 것은 아키텍처가 복잡하기 때문에 까다롭습니다. 프로덕션 용도로는 공식 SAM 구현이나 미리 빌드된 추론 서버 사용을 고려하세요.
+
+### 7.3 모델 Zoo와 현재 상황 (2025)
+
+객체 검출과 분할 분야는 크게 발전했습니다. 다음은 인기 있는 모델들과 ONNX 가용성에 대한 개요입니다:
+
+| 모델 계열 | 최신 버전 | ONNX 지원 | 사용 사례 | 성능 |
+|-----------|-----------|-----------|-----------|------|
+| **YOLOv8** | v8.1 (2024) | ✅ 네이티브 | 실시간 검출 | mAP 53.9 (YOLOv8x) |
+| **YOLOv9** | v9.0 (2024) | ✅ 내보내기 | 향상된 정확도 | mAP 55.6 |
+| **YOLOv10** | v10.0 (2024) | ✅ 내보내기 | NMS 불필요 YOLO | 더 빠른 추론 |
+| **YOLOv11** | v11.0 (2024) | ✅ 내보내기 | 최신 Ultralytics | 최첨단 |
+| **RT-DETR** | v2 (2024) | ✅ 내보내기 | 트랜스포머 검출기 | mAP 53.1, NMS 없음 |
+| **SAM** | v1.0 (2023) | ✅ 복잡함 | 범용 분할 | 제로샷 가능 |
+| **SAM 2** | v2.0 (2024) | ✅ 복잡함 | 비디오 분할 | 시간적 추적 |
+| **Depth Anything** | v2 (2024) | ✅ 내보내기 | 단안 깊이 | 빠르고 정확함 |
+| **GroundingDINO** | v1.5 (2024) | ⚠️ 제한적 | 텍스트 프롬프트 검출 | 개방형 어휘 |
+| **DINO v2** | v2.0 (2024) | ✅ 내보내기 | 자가지도 특징 | 강력한 백본 |
+
+#### 7.3.1 빠른 시작: ONNX를 이용한 YOLOv11
+
+```python
+# Ultralytics 설치
+# pip install ultralytics
+
+# YOLOv11을 ONNX로 내보내기 (Python)
+from ultralytics import YOLO
+
+model = YOLO('yolov11n.pt')  # n, s, m, l, x 변형
+model.export(format='onnx', dynamic=False)  # yolov11n.onnx 생성
+
+# 그런 다음 OpenCV로 사용 (위의 YOLOv8 예제와 동일)
+# detector = YOLOv8Detector('yolov11n.onnx')  # API 호환
+```
+
+#### 7.3.2 RT-DETR: 트랜스포머 기반 검출
+
+RT-DETR (Real-Time DEtection TRansformer)은 트랜스포머 아키텍처를 사용하여 NMS의 필요성을 제거합니다:
+
+```python
+import cv2
+import numpy as np
+
+class RTDETRDetector:
+    """RT-DETR ONNX 검출기 (NMS 불필요)"""
+
+    def __init__(self, onnx_path, conf_threshold=0.5):
+        self.net = cv2.dnn.readNetFromONNX(onnx_path)
+        self.conf_threshold = conf_threshold
+
+        # COCO 클래스 (YOLO와 동일)
+        self.classes = ["person", "bicycle", "car", ...]  # 80개 클래스
+
+    def detect(self, img):
+        """
+        RT-DETR 검출 (NMS 불필요)
+
+        출력 형식: 직접 바운딩 박스와 점수
+        Shape: (1, 300, 6) - 상위 300개 검출
+        각 검출: [x1, y1, x2, y2, confidence, class_id]
+        """
+        height, width = img.shape[:2]
+
+        # 전처리 (RT-DETR은 640x640 사용)
+        blob = cv2.dnn.blobFromImage(
+            img, 1/255.0, (640, 640),
+            mean=(0, 0, 0), swapRB=True, crop=False
+        )
+
+        self.net.setInput(blob)
+        outputs = self.net.forward()
+
+        # 출력 파싱 (이미 모델이 NMS 필터링함)
+        results = []
+        for detection in outputs[0]:  # (300, 6)
+            confidence = detection[4]
+            if confidence > self.conf_threshold:
+                class_id = int(detection[5])
+
+                # 좌표 스케일링
+                x1 = int(detection[0] * width)
+                y1 = int(detection[1] * height)
+                x2 = int(detection[2] * width)
+                y2 = int(detection[3] * height)
+
+                results.append({
+                    'box': [x1, y1, x2-x1, y2-y1],
+                    'confidence': float(confidence),
+                    'class_id': class_id,
+                    'class_name': self.classes[class_id]
+                })
+
+        return results
+
+# RT-DETR을 ONNX로 내보내기:
+# pip install ultralytics
+# yolo export model=rtdetr-l.pt format=onnx
+```
+
+#### 7.3.3 모델 선택 가이드
+
+**실시간 애플리케이션용 (엣지 디바이스, 모바일)**:
+- YOLOv8n/s: 가장 빠름, 임베디드 시스템에 적합
+- YOLOv10n: NMS 오버헤드 없음, 더욱 빠름
+- RT-DETR-s: 최고의 정확도/속도 균형
+
+**고정확도용 (서버, 클라우드)**:
+- YOLOv11x: 최첨단 검출
+- RT-DETR-x: 트랜스포머의 장점
+- 여러 모델 앙상블
+
+**분할용**:
+- YOLOv8-seg: 인스턴스 분할 (ONNX 네이티브)
+- SAM/SAM2: 범용 분할 (프롬프트 기반)
+- Depth Anything: 깊이 추정
+
+**OpenCV DNN 호환성**:
+- ✅ 완전 지원: YOLOv8-11, RT-DETR, MobileNet-SSD
+- ⚠️ 부분적: SAM (복잡한 다단계 파이프라인)
+- ❌ 제한적: 커스텀 연산이 필요한 모델 (GroundingDINO)
+
+**성능 벤치마크 (RTX 4090, 2024)**:
+
+| 모델 | 입력 크기 | FPS (CUDA) | mAP | OpenCV DNN |
+|------|-----------|------------|-----|------------|
+| YOLOv8n | 640 | 450 | 37.3 | ✅ 우수 |
+| YOLOv11m | 640 | 200 | 51.5 | ✅ 우수 |
+| RT-DETR-l | 640 | 110 | 53.1 | ✅ 탁월 |
+| YOLOv8x | 640 | 80 | 53.9 | ✅ 우수 |
+
+---
+
+## 8. 연습 문제
 
 ### 문제 1: 객체 검출 성능 비교
 

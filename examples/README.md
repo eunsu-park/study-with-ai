@@ -8,12 +8,12 @@ A collection of executable example code corresponding to the study materials.
 
 ```
 examples/
-├── Algorithm/              # Python, C, C++ 예제 / examples (87 files)
+├── Algorithm/              # Python, C, C++ 예제 / examples (89 files)
 │   ├── python/             # Python 구현 / implementation (29)
 │   ├── c/                  # C 구현 / implementation (29 + Makefile)
 │   └── cpp/                # C++ 구현 / implementation (29 + Makefile)
 │
-├── C_Programming/          # C 프로젝트 예제 / C project examples (41 files)
+├── C_Programming/          # C 프로젝트 예제 / C project examples (56 files)
 │   ├── 02_calculator/
 │   ├── 03_number_guess/
 │   ├── 04_address_book/    # 주소록 관리 / Address book
@@ -26,14 +26,32 @@ examples/
 │   ├── 11_minishell/       # 미니 쉘 / Mini shell
 │   ├── 12_multithread/     # 멀티스레딩 / Multithreading
 │   ├── 13_embedded_basic/
-│   └── 14_bit_operations/
+│   ├── 14_bit_operations/
+│   ├── 15_gpio_control/    # GPIO 제어 / GPIO control
+│   └── 16_serial_comm/     # 시리얼 통신 / Serial communication
 │
-├── Computer_Vision/        # OpenCV/Python 예제 / examples (20 files)
+├── CPP/                    # C++ 고급 예제 / C++ advanced examples (9 files)
+│   ├── 01_modern_cpp.cpp       # Modern C++ (C++17/20)
+│   ├── 02_stl_containers.cpp   # STL containers & algorithms
+│   ├── 03_smart_pointers.cpp   # Smart pointers
+│   ├── 04_threading.cpp        # Multithreading
+│   ├── 05_design_patterns.cpp  # Design patterns
+│   ├── 06_templates.cpp        # Template metaprogramming
+│   ├── 07_move_semantics.cpp   # Move semantics
+│   └── Makefile                # Build system
+│
+├── Computer_Vision/        # OpenCV/Python 예제 / examples (21 files)
 ├── Data_Analysis/          # Pandas/NumPy 예제 / examples (5 files)
 ├── Data_Engineering/       # Airflow/Spark/Kafka 예제 / examples (6 files)
-├── Deep_Learning/          # PyTorch 예제 / examples (24 files)
+├── Deep_Learning/          # PyTorch 예제 / examples (28 files)
 │   ├── numpy/              # NumPy 기초 구현 / basic implementation (5)
-│   └── pytorch/            # PyTorch 구현 / implementation (19)
+│   └── pytorch/            # PyTorch 구현 / implementation (22)
+│
+├── Docker/                 # Docker/Kubernetes 예제 / examples (15 files)
+│   ├── 01_multi_stage/     # Multi-stage Docker build
+│   ├── 02_compose/         # Docker Compose 3-tier stack
+│   ├── 03_k8s/             # Kubernetes manifests
+│   └── 04_ci_cd/           # GitHub Actions CI/CD pipeline
 │
 ├── IoT_Embedded/           # Raspberry Pi/MQTT 예제 / examples (12 files)
 │   ├── edge_ai/            # TFLite, ONNX 추론 / inference
@@ -42,12 +60,29 @@ examples/
 │   └── raspberry_pi/       # GPIO, 센서 / sensors
 │
 ├── LLM_and_NLP/            # NLP/HuggingFace 예제 / examples (15 files)
-├── Machine_Learning/       # sklearn/Jupyter 예제 / examples (14 files)
-├── Math_for_AI/            # AI 수학 Python 예제 / AI math examples (12 files)
+├── Machine_Learning/       # sklearn/Jupyter 예제 / examples (15 files)
+├── Math_for_AI/            # AI 수학 Python 예제 / AI math examples (13 files)
 ├── MLOps/                  # MLflow/서빙 예제 / serving examples (5 files)
 ├── Numerical_Simulation/   # 수치해석 Python 예제 / Numerical analysis examples (6 files)
 ├── PostgreSQL/             # SQL 예제 / examples (5 files)
 ├── Reinforcement_Learning/ # RL Python 예제 / examples (10 files)
+├── Foundation_Models/      # 파운데이션 모델 예제 / Foundation model examples (8 files)
+├── Mathematical_Methods/  # 물리수학 Python 예제 / Math methods examples (13 files)
+├── Python/                # Python 고급 예제 / Advanced Python examples (16 files)
+├── Security/              # 보안 Python 예제 / Security examples (12 files)
+│   ├── 02_cryptography/       # AES, RSA, ECDSA
+│   ├── 03_hashing/            # SHA, bcrypt, HMAC
+│   ├── 04_tls/                # TLS 클라이언트, 인증서 / TLS client, certificates
+│   ├── 05_authentication/     # OAuth2, JWT, TOTP
+│   ├── 06_authorization/      # RBAC 미들웨어 / RBAC middleware
+│   ├── 07_owasp/              # 취약 코드 + 수정 / Vulnerable + fixed code
+│   ├── 08_injection/          # SQL injection, XSS 방어 / defense
+│   ├── 10_api_security/       # Rate limiter, CORS
+│   ├── 11_secrets/            # Vault, .env 관리 / management
+│   ├── 13_testing/            # Bandit, 보안 테스트 / security testing
+│   ├── 15_secure_api/         # Flask 보안 API 프로젝트 / Secure API project
+│   └── 16_scanner/            # 취약점 스캐너 / Vulnerability scanner
+│
 ├── Shell_Script/           # Bash 스크립팅 예제 / scripting examples (27 files)
 │   ├── 02_parameter_expansion/  # 매개변수 확장 / Parameter expansion
 │   ├── 03_arrays/               # 배열 / Arrays
@@ -62,10 +97,11 @@ examples/
 │   ├── 15_deployment/           # 배포 자동화 / Deployment
 │   └── 16_monitoring/           # 모니터링 / Monitoring
 │
-└── Web_Development/        # HTML/CSS/JS 프로젝트 / projects (17 files)
+├── Statistics/             # 통계학 Python 예제 / Statistics examples (11 files)
+└── Web_Development/        # HTML/CSS/JS 프로젝트 / projects (46 files)
 ```
 
-**총 예제 파일 / Total example files: 306**
+**총 예제 파일 / Total example files: 443**
 
 ## 빌드 방법 / How to Build
 
@@ -88,6 +124,16 @@ make          # 프로젝트별 빌드 / Build per project
 make clean    # 정리 / Clean
 ```
 
+### C++ 예제 / C++ Examples
+
+```bash
+cd examples/CPP
+make          # 전체 빌드 / Build all
+make modern   # Modern C++ 빌드 / Build modern C++
+make run-01_modern_cpp  # 실행 / Run example
+make clean    # 정리 / Clean
+```
+
 ### Python 예제 / Python Examples
 
 ```bash
@@ -106,22 +152,29 @@ jupyter notebook
 
 | 토픽 / Topic | 파일 수 / Files | 언어 / Language | 설명 / Description |
 |--------------|-----------------|-----------------|-------------------|
-| Algorithm | 87 | Python, C, C++ | 자료구조, 알고리즘 / Data structures, Algorithms |
-| C_Programming | 41 | C | 시스템 프로그래밍 프로젝트 / System programming projects |
-| Computer_Vision | 20 | Python | OpenCV, 이미지 처리 / Image processing |
+| Algorithm | 89 | Python, C, C++ | 자료구조, 알고리즘 / Data structures, Algorithms |
+| C_Programming | 56 | C | 시스템 프로그래밍 프로젝트 / System programming projects |
+| CPP | 9 | C++ | Modern C++, STL, 스마트 포인터, 스레딩, 디자인 패턴, 템플릿, 이동 시맨틱 / Modern C++, STL, Smart Pointers, Threading, Design Patterns, Templates, Move Semantics |
+| Computer_Vision | 21 | Python | OpenCV, 이미지 처리 / Image processing |
 | Data_Analysis | 5 | Python | NumPy, Pandas, 시각화 / Visualization |
 | Data_Engineering | 6 | Python | Airflow, Spark, Kafka |
-| Deep_Learning | 24 | Python | PyTorch, CNN, RNN, Transformer |
+| Deep_Learning | 28 | Python | PyTorch, CNN, RNN, Transformer |
+| Docker | 15 | Docker/YAML | Multi-stage build, Compose, Kubernetes, CI/CD |
+| Foundation_Models | 8 | Python | Scaling Laws, 토크나이저, LoRA, RAG, 양자화, 증류 / Tokenizer, LoRA, RAG, Quantization, Distillation |
 | IoT_Embedded | 12 | Python | Raspberry Pi, MQTT, Edge AI |
 | LLM_and_NLP | 15 | Python | BERT, GPT, RAG, LangChain |
-| Machine_Learning | 14 | Python/Jupyter | sklearn, 분류, 회귀, 클러스터링 / Classification, Regression, Clustering |
-| Math_for_AI | 12 | Python | 선형대수, SVD/PCA, 최적화, 확률, 정보이론, 텐서, 그래프, 어텐션 / Linear Algebra, Optimization, Probability, Attention |
+| Machine_Learning | 15 | Python/Jupyter | sklearn, 분류, 회귀, 클러스터링 / Classification, Regression, Clustering |
+| Math_for_AI | 13 | Python | 선형대수, SVD/PCA, 최적화, 확률, 정보이론, 텐서, 그래프, 어텐션 / Linear Algebra, Optimization, Probability, Attention |
+| Mathematical_Methods | 13 | Python | 급수, 복소수, 선형대수, 푸리에, ODE/PDE, 특수함수, 텐서 / Series, Complex, Linear Algebra, Fourier, ODE/PDE, Special Functions, Tensors |
 | MLOps | 5 | Python | MLflow, 모델 서빙, 드리프트 감지 / Model serving, Drift detection |
 | Numerical_Simulation | 6 | Python | 수치해석, ODE, Monte Carlo / Numerical analysis |
 | PostgreSQL | 5 | SQL | CRUD, JOIN, 윈도우 함수 / Window functions |
+| Python | 16 | Python | 타입 힌트, 데코레이터, 제너레이터, 비동기, 메타클래스, 테스팅 / Type Hints, Decorators, Generators, Async, Metaclasses, Testing |
 | Reinforcement_Learning | 10 | Python | Q-Learning, DQN, PPO, A2C |
+| Security | 12 | Python | 암호학, 해싱, TLS, 인증, OWASP, 인젝션 방어, API 보안, 취약점 스캐너 / Cryptography, Hashing, TLS, Auth, OWASP, Injection defense, API Security, Vulnerability Scanner |
 | Shell_Script | 27 | Bash | 매개변수 확장, 배열, I/O, 정규식, 프로세스, 에러처리, 테스팅, 배포, 모니터링 / Parameter expansion, Arrays, I/O, Regex, Process, Error handling, Testing, Deployment, Monitoring |
-| Web_Development | 17 | HTML/CSS/JS/TS | 웹 프로젝트, TypeScript / Web projects |
+| Statistics | 11 | Python | 확률, 추론, 회귀, 베이지안, 시계열, 다변량 / Probability, Inference, Regression, Bayesian, Time Series, Multivariate |
+| Web_Development | 46 | HTML/CSS/JS/TS | 웹 프로젝트, TypeScript / Web projects |
 
 ## 예제와 학습 자료 매핑 / Mapping Examples to Study Materials
 

@@ -104,6 +104,14 @@ Understanding                                         ▼
 |----------|------------|------------|-------|
 | [24_TensorBoard.md](./24_TensorBoard.md) | ⭐⭐ | Training visualization, metric logging, hyperparameter tracking, profiling | PyTorch only |
 
+### Training Components (PyTorch only)
+
+| Filename | Difficulty | Key Topics | Notes |
+|----------|------------|------------|-------|
+| [25_Loss_Functions.md](./25_Loss_Functions.md) | ⭐⭐⭐ | MSE, Cross-Entropy, Focal, Dice, Contrastive, Triplet, InfoNCE | PyTorch only |
+| [26_Optimizers.md](./26_Optimizers.md) | ⭐⭐⭐ | SGD, Adam, AdamW, LAMB, LR Schedulers, Gradient Clipping | PyTorch only |
+| [27_Normalization_Layers.md](./27_Normalization_Layers.md) | ⭐⭐⭐ | BatchNorm, LayerNorm, GroupNorm, RMSNorm, InstanceNorm | PyTorch only |
+
 ---
 
 ## NumPy vs PyTorch Comparison Guide

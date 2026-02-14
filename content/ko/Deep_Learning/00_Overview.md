@@ -102,6 +102,14 @@
 |--------|--------|----------|------|
 | [24_TensorBoard.md](./24_TensorBoard.md) | ⭐⭐ | 학습 시각화, 메트릭 로깅, 하이퍼파라미터 추적, 프로파일링 | PyTorch only |
 
+### 학습 구성요소 (PyTorch only)
+
+| 파일명 | 난이도 | 주요 내용 | 비고 |
+|--------|--------|----------|------|
+| [25_Loss_Functions.md](./25_Loss_Functions.md) | ⭐⭐⭐ | MSE, Cross-Entropy, Focal, Dice, Contrastive, Triplet, InfoNCE | PyTorch only |
+| [26_Optimizers.md](./26_Optimizers.md) | ⭐⭐⭐ | SGD, Adam, AdamW, LAMB, 학습률 스케줄러, 그래디언트 클리핑 | PyTorch only |
+| [27_Normalization_Layers.md](./27_Normalization_Layers.md) | ⭐⭐⭐ | BatchNorm, LayerNorm, GroupNorm, RMSNorm, InstanceNorm | PyTorch only |
+
 ---
 
 ## NumPy vs PyTorch 비교 가이드

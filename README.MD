@@ -11,10 +11,10 @@ This repository is a personal study project. Some content was written by me, som
 ```
 03_Study/
 ├── content/          # 학습 자료 (한국어/영어 Markdown)
-│   ├── ko/           # 한국어 자료 (30개 토픽)
-│   └── en/           # 영어 자료 (30개 토픽)
+│   ├── ko/           # 한국어 자료 (32개 토픽)
+│   └── en/           # 영어 자료 (32개 토픽)
 │
-├── examples/         # 예제 코드 (15개 토픽)
+├── examples/         # 예제 코드 (23개 토픽)
 │   ├── Algorithm/    # Python, C, C++ 예제
 │   ├── C_Programming/
 │   └── ...
@@ -25,10 +25,10 @@ This repository is a personal study project. Some content was written by me, som
 ```
 03_Study/
 ├── content/          # Study materials (Korean/English Markdown)
-│   ├── ko/           # Korean materials (30 topics)
-│   └── en/           # English materials (30 topics)
+│   ├── ko/           # Korean materials (32 topics)
+│   └── en/           # English materials (32 topics)
 │
-├── examples/         # Example code (15 topics)
+├── examples/         # Example code (23 topics)
 │   ├── Algorithm/    # Python, C, C++ examples
 │   ├── C_Programming/
 │   └── ...
@@ -60,7 +60,7 @@ flask run --port 5050
 | [CPP/](./content/ko/CPP/00_Overview.md) | C++ 입문 ~ 모던 C++, 디자인패턴 / C++ Intro to Modern C++, Design Patterns | 18 |
 | [Data_Analysis/](./content/ko/Data_Analysis/00_Overview.md) | NumPy, Pandas, 시각화, 통계분석 / NumPy, Pandas, Visualization, Statistics | 11 |
 | [Data_Engineering/](./content/ko/Data_Engineering/00_Overview.md) | 데이터 파이프라인, Airflow, Spark, Kafka, dbt / Data Pipelines | 14 |
-| [Deep_Learning/](./content/ko/Deep_Learning/00_Overview.md) | PyTorch, CNN, RNN, Transformer, GAN, VAE, Diffusion, ViT | 24 |
+| [Deep_Learning/](./content/ko/Deep_Learning/00_Overview.md) | PyTorch, CNN, RNN, Transformer, GAN, VAE, Diffusion, ViT | 27 |
 | [Docker/](./content/ko/Docker/00_Overview.md) | Docker, Kubernetes, Helm, CI/CD | 10 |
 | [Foundation_Models/](./content/ko/Foundation_Models/00_Overview.md) | Scaling Laws, LLaMA, Mistral, DINOv2, SAM, PEFT, RAG | 25 |
 | [Git/](./content/ko/Git/00_Overview.md) | Git, GitHub, 워크플로우, 모노레포 / Git, GitHub, Workflows, Monorepo | 10 |
@@ -78,6 +78,7 @@ flask run --port 5050
 | [PostgreSQL/](./content/ko/PostgreSQL/00_Overview.md) | SQL 기초 ~ 복제, 파티셔닝 / SQL Basics to Replication, Partitioning | 18 |
 | [Python/](./content/ko/Python/00_Overview.md) | 파이썬 고급 문법, 테스트, 패키징 / Advanced Python, Testing, Packaging | 16 |
 | [Reinforcement_Learning/](./content/ko/Reinforcement_Learning/00_Overview.md) | MDP, Q-Learning, DQN, PPO, Multi-Agent RL | 12 |
+| [Security/](./content/ko/Security/00_Overview.md) | 보안, 암호학, OWASP, 인증/인가, 취약점 스캐너 / Security, Cryptography, OWASP, Auth, Vulnerability Scanner | 16 |
 | [Shell_Script/](./content/ko/Shell_Script/00_Overview.md) | Bash 심화, 매개변수 확장, 프로세스 관리, 테스팅, 배포 자동화 / Advanced Bash, Parameter Expansion, Process Mgmt, Testing, Deployment | 16 |
 | [Spanish/](./content/ko/Spanish/00_Overview.md) | 스페인어 문법/어휘, 접속법, 지역 변형 / Spanish Grammar, Vocabulary, Subjunctive | 11 |
 | [Statistics/](./content/ko/Statistics/00_Overview.md) | 심화통계, 베이지안, 시계열, 실험설계 / Advanced Stats, Bayesian, Time Series | 14 |
@@ -109,8 +110,8 @@ Check the `00_Overview.md` file in each folder for learning roadmaps and detaile
 
 - 모든 학습 자료는 **한국어(ko)**와 **영어(en)** 두 버전으로 관리
   All study materials are maintained in both **Korean (ko)** and **English (en)**
-- 31개 토픽 모두 한/영 번역 완료
-  All 31 topics fully translated to Korean/English
+- 32개 토픽 모두 한/영 번역 완료
+  All 32 topics fully translated to Korean/English
 - 신규 자료는 영문 원본 작성 후 한국어 번역
   New materials are authored in English, then translated to Korean
 

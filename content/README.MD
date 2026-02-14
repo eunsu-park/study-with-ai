@@ -11,12 +11,12 @@ content/
 ├── ko/                    # 한국어 자료 (번역본) / Korean (translated)
 │   ├── Algorithm/         # 29개 레슨 / 29 lessons
 │   ├── C_Programming/     # 20개 레슨 / 20 lessons
-│   └── ...                # 총 31개 토픽 / 31 topics total
+│   └── ...                # 총 32개 토픽 / 32 topics total
 │
 └── en/                    # 영어 자료 (원본) / English (original)
     ├── Algorithm/
     ├── C_Programming/
-    └── ...                # 총 31개 토픽 / 31 topics total
+    └── ...                # 총 32개 토픽 / 32 topics total
 ```
 
 ## 토픽 목록 / Topic List
@@ -58,3 +58,5 @@ Example code files are located in the [`examples/`](../examples/README.md) folde
   New materials are authored in English, then translated to Korean
 - 기존 30개 토픽은 한국어 원본 기반으로 작성됨 (Shell_Script부터 영문 원본)
   Existing 30 topics were originally authored in Korean (Shell_Script onwards in English)
+- Security 토픽 추가 완료 (영문 원본, 16개 레슨)
+  Security topic added (English-first, 16 lessons)

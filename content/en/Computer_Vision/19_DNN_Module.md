@@ -18,7 +18,8 @@ OpenCV's DNN module provides functionality to load and run inference with pre-tr
 4. [YOLO Object Detection](#4-yolo-object-detection)
 5. [SSD (Single Shot Detector)](#5-ssd-single-shot-detector)
 6. [DNN Face Detection](#6-dnn-face-detection)
-7. [Exercises](#7-exercises)
+7. [Modern Object Detection with ONNX](#7-modern-object-detection-with-onnx)
+8. [Exercises](#8-exercises)
 
 ---
 
@@ -1000,7 +1001,413 @@ def compare_face_detectors(img):
 
 ---
 
-## 7. Exercises
+## 7. Modern Object Detection with ONNX
+
+### 7.1 Running YOLOv8 with OpenCV DNN
+
+YOLOv8, released by Ultralytics in 2023, represents a significant advancement in the YOLO family. It can be exported to ONNX format and run efficiently with OpenCV's DNN module.
+
+```python
+import cv2
+import numpy as np
+
+class YOLOv8Detector:
+    """YOLOv8 ONNX Object Detector"""
+
+    def __init__(self, onnx_model_path, conf_threshold=0.5, iou_threshold=0.4):
+        """
+        Initialize YOLOv8 detector
+
+        To export YOLOv8 to ONNX:
+        pip install ultralytics
+        yolo export model=yolov8n.pt format=onnx
+        """
+        self.net = cv2.dnn.readNetFromONNX(onnx_model_path)
+        self.conf_threshold = conf_threshold
+        self.iou_threshold = iou_threshold
+
+        # COCO class names (80 classes)
+        self.classes = [
+            "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train",
+            "truck", "boat", "traffic light", "fire hydrant", "stop sign",
+            "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow",
+            "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag",
+            "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite",
+            "baseball bat", "baseball glove", "skateboard", "surfboard",
+            "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon",
+            "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot",
+            "hot dog", "pizza", "donut", "cake", "chair", "couch", "potted plant",
+            "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote",
+            "keyboard", "cell phone", "microwave", "oven", "toaster", "sink",
+            "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
+            "hair drier", "toothbrush"
+        ]
+
+        # Generate random colors for each class
+        np.random.seed(42)
+        self.colors = np.random.randint(0, 255, size=(len(self.classes), 3),
+                                        dtype=np.uint8)
+
+    def detect(self, img):
+        """
+        YOLOv8 object detection
+
+        YOLOv8 output format (different from YOLOv5):
+        - Shape: (1, 84, 8400) for 640x640 input
+        - First 4 rows: [x_center, y_center, width, height]
+        - Rows 4-83: class probabilities (80 classes)
+        - No objectness score (unlike YOLOv5)
+        """
+        height, width = img.shape[:2]
+
+        # Preprocessing: letterbox resize
+        input_size = 640
+        blob = cv2.dnn.blobFromImage(
+            img,
+            scalefactor=1/255.0,
+            size=(input_size, input_size),
+            mean=(0, 0, 0),
+            swapRB=True,
+            crop=False
+        )
+
+        # Inference
+        self.net.setInput(blob)
+        outputs = self.net.forward()
+
+        # YOLOv8 output shape: (1, 84, 8400)
+        # Transpose to (8400, 84) for easier processing
+        outputs = outputs[0].transpose()  # (8400, 84)
+
+        boxes = []
+        confidences = []
+        class_ids = []
+
+        # Scale factors for coordinate conversion
+        x_scale = width / input_size
+        y_scale = height / input_size
+
+        for detection in outputs:
+            # Extract class scores (rows 4-83)
+            class_scores = detection[4:]
+            class_id = np.argmax(class_scores)
+            confidence = class_scores[class_id]
+
+            if confidence > self.conf_threshold:
+                # Extract bounding box (rows 0-3: cx, cy, w, h)
+                cx = detection[0] * x_scale
+                cy = detection[1] * y_scale
+                w = detection[2] * x_scale
+                h = detection[3] * y_scale
+
+                # Convert to top-left corner format
+                x = int(cx - w / 2)
+                y = int(cy - h / 2)
+
+                boxes.append([x, y, int(w), int(h)])
+                confidences.append(float(confidence))
+                class_ids.append(class_id)
+
+        # Non-Maximum Suppression
+        indices = cv2.dnn.NMSBoxes(
+            boxes, confidences,
+            self.conf_threshold, self.iou_threshold
+        )
+
+        results = []
+        for i in indices:
+            results.append({
+                'box': boxes[i],
+                'confidence': confidences[i],
+                'class_id': class_ids[i],
+                'class_name': self.classes[class_ids[i]]
+            })
+
+        return results
+
+    def draw(self, img, results):
+        """Visualize detection results"""
+        for det in results:
+            x, y, w, h = det['box']
+            class_id = det['class_id']
+            confidence = det['confidence']
+
+            color = [int(c) for c in self.colors[class_id]]
+
+            # Draw bounding box
+            cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
+
+            # Draw label
+            label = f"{det['class_name']}: {confidence:.2f}"
+            (label_w, label_h), _ = cv2.getTextSize(
+                label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1
+            )
+            cv2.rectangle(img, (x, y - label_h - 10), (x + label_w, y), color, -1)
+            cv2.putText(
+                img, label, (x, y - 5),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1
+            )
+
+        return img
+
+# Usage example
+# First, export YOLOv8 model:
+# pip install ultralytics
+# yolo export model=yolov8n.pt format=onnx
+# This creates yolov8n.onnx
+
+detector = YOLOv8Detector('yolov8n.onnx', conf_threshold=0.5)
+img = cv2.imread('street.jpg')
+results = detector.detect(img)
+output = detector.draw(img, results)
+
+print(f"Detected {len(results)} objects:")
+for r in results:
+    print(f"  - {r['class_name']}: {r['confidence']:.2%}")
+
+cv2.imshow('YOLOv8 Detection', output)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+### 7.2 SAM (Segment Anything Model) with ONNX
+
+Meta's Segment Anything Model (SAM) enables powerful image segmentation. While SAM is typically used with PyTorch, the encoder and decoder can be exported to ONNX and run with OpenCV DNN for inference.
+
+```python
+import cv2
+import numpy as np
+
+class SAMONNXDetector:
+    """
+    Simplified SAM ONNX inference with OpenCV
+
+    SAM consists of two components:
+    1. Image Encoder: Encodes input image to embeddings
+    2. Mask Decoder: Generates masks from embeddings and prompts
+
+    To export SAM to ONNX, see:
+    https://github.com/facebookresearch/segment-anything
+    """
+
+    def __init__(self, encoder_path, decoder_path):
+        """
+        Initialize SAM with ONNX models
+
+        Args:
+            encoder_path: Path to encoder ONNX model
+            decoder_path: Path to decoder ONNX model
+        """
+        self.encoder = cv2.dnn.readNetFromONNX(encoder_path)
+        self.decoder = cv2.dnn.readNetFromONNX(decoder_path)
+        self.image_size = 1024  # SAM default size
+
+    def preprocess(self, img):
+        """Preprocess image for SAM encoder"""
+        # Resize to 1024x1024
+        h, w = img.shape[:2]
+        scale = self.image_size / max(h, w)
+        new_h, new_w = int(h * scale), int(w * scale)
+
+        resized = cv2.resize(img, (new_w, new_h))
+
+        # Pad to square
+        padded = np.zeros((self.image_size, self.image_size, 3), dtype=np.uint8)
+        padded[:new_h, :new_w] = resized
+
+        # Normalize (ImageNet style)
+        normalized = padded.astype(np.float32) / 255.0
+        mean = np.array([0.485, 0.456, 0.406])
+        std = np.array([0.229, 0.224, 0.225])
+        normalized = (normalized - mean) / std
+
+        # Convert to blob (1, 3, 1024, 1024)
+        blob = cv2.dnn.blobFromImage(normalized, 1.0, swapRB=True)
+
+        return blob, scale
+
+    def encode_image(self, img):
+        """Generate image embeddings using encoder"""
+        blob, scale = self.preprocess(img)
+        self.encoder.setInput(blob)
+        embeddings = self.encoder.forward()
+        return embeddings, scale
+
+    def segment_with_point(self, img, point_coords, point_labels):
+        """
+        Segment image with point prompts
+
+        Args:
+            img: Input image
+            point_coords: List of (x, y) coordinates
+            point_labels: List of labels (1=foreground, 0=background)
+
+        Returns:
+            Segmentation mask
+        """
+        # Get image embeddings
+        embeddings, scale = self.encode_image(img)
+
+        # Scale point coordinates
+        scaled_coords = np.array(point_coords) * scale
+
+        # Prepare decoder inputs
+        point_coords_input = scaled_coords.reshape(1, -1, 2).astype(np.float32)
+        point_labels_input = np.array(point_labels).reshape(1, -1).astype(np.float32)
+
+        # Run decoder
+        # Note: Actual SAM ONNX decoder has specific input format
+        # This is simplified - refer to official SAM ONNX export
+        self.decoder.setInput(embeddings, 'image_embeddings')
+        # Additional inputs for decoder would be set here
+
+        mask = self.decoder.forward()
+
+        return mask
+
+# Conceptual usage (requires actual SAM ONNX models)
+# sam = SAMONNXDetector('sam_vit_h_encoder.onnx', 'sam_vit_h_decoder.onnx')
+# img = cv2.imread('image.jpg')
+#
+# # Segment with point prompt
+# point_coords = [(100, 150)]  # Click location
+# point_labels = [1]  # Foreground point
+# mask = sam.segment_with_point(img, point_coords, point_labels)
+```
+
+**Note**: Running SAM with OpenCV DNN is complex due to its architecture. For production use, consider using the official SAM implementation or pre-built inference servers.
+
+### 7.3 Model Zoo and Current Landscape (2025)
+
+The object detection and segmentation landscape has evolved significantly. Here's an overview of popular models and their ONNX availability:
+
+| Model Family | Latest Version | ONNX Support | Use Case | Performance |
+|--------------|----------------|--------------|----------|-------------|
+| **YOLOv8** | v8.1 (2024) | ✅ Native | Real-time detection | mAP 53.9 (YOLOv8x) |
+| **YOLOv9** | v9.0 (2024) | ✅ Export | Improved accuracy | mAP 55.6 |
+| **YOLOv10** | v10.0 (2024) | ✅ Export | NMS-free YOLO | Faster inference |
+| **YOLOv11** | v11.0 (2024) | ✅ Export | Latest Ultralytics | State-of-the-art |
+| **RT-DETR** | v2 (2024) | ✅ Export | Transformer detector | mAP 53.1, no NMS |
+| **SAM** | v1.0 (2023) | ✅ Complex | Universal segmentation | Zero-shot capable |
+| **SAM 2** | v2.0 (2024) | ✅ Complex | Video segmentation | Temporal tracking |
+| **Depth Anything** | v2 (2024) | ✅ Export | Monocular depth | Fast, accurate |
+| **GroundingDINO** | v1.5 (2024) | ⚠️ Limited | Text-prompted detection | Open-vocabulary |
+| **DINO v2** | v2.0 (2024) | ✅ Export | Self-supervised features | Strong backbone |
+
+#### 7.3.1 Quick Start: YOLOv11 with ONNX
+
+```python
+# Install Ultralytics
+# pip install ultralytics
+
+# Export YOLOv11 to ONNX (Python)
+from ultralytics import YOLO
+
+model = YOLO('yolov11n.pt')  # n, s, m, l, x variants
+model.export(format='onnx', dynamic=False)  # Creates yolov11n.onnx
+
+# Then use with OpenCV (same as YOLOv8 example above)
+# detector = YOLOv8Detector('yolov11n.onnx')  # API compatible
+```
+
+#### 7.3.2 RT-DETR: Transformer-based Detection
+
+RT-DETR (Real-Time DEtection TRansformer) eliminates the need for NMS by using a transformer architecture:
+
+```python
+import cv2
+import numpy as np
+
+class RTDETRDetector:
+    """RT-DETR ONNX Detector (NMS-free)"""
+
+    def __init__(self, onnx_path, conf_threshold=0.5):
+        self.net = cv2.dnn.readNetFromONNX(onnx_path)
+        self.conf_threshold = conf_threshold
+
+        # COCO classes (same as YOLO)
+        self.classes = ["person", "bicycle", "car", ...]  # 80 classes
+
+    def detect(self, img):
+        """
+        RT-DETR detection (no NMS required)
+
+        Output format: Direct bounding boxes and scores
+        Shape: (1, 300, 6) - top 300 detections
+        Each detection: [x1, y1, x2, y2, confidence, class_id]
+        """
+        height, width = img.shape[:2]
+
+        # Preprocessing (RT-DETR uses 640x640)
+        blob = cv2.dnn.blobFromImage(
+            img, 1/255.0, (640, 640),
+            mean=(0, 0, 0), swapRB=True, crop=False
+        )
+
+        self.net.setInput(blob)
+        outputs = self.net.forward()
+
+        # Parse outputs (already NMS-filtered by model)
+        results = []
+        for detection in outputs[0]:  # (300, 6)
+            confidence = detection[4]
+            if confidence > self.conf_threshold:
+                class_id = int(detection[5])
+
+                # Scale coordinates
+                x1 = int(detection[0] * width)
+                y1 = int(detection[1] * height)
+                x2 = int(detection[2] * width)
+                y2 = int(detection[3] * height)
+
+                results.append({
+                    'box': [x1, y1, x2-x1, y2-y1],
+                    'confidence': float(confidence),
+                    'class_id': class_id,
+                    'class_name': self.classes[class_id]
+                })
+
+        return results
+
+# Export RT-DETR to ONNX:
+# pip install ultralytics
+# yolo export model=rtdetr-l.pt format=onnx
+```
+
+#### 7.3.3 Model Selection Guide
+
+**For Real-time Applications (Edge Devices, Mobile)**:
+- YOLOv8n/s: Fastest, good for embedded systems
+- YOLOv10n: No NMS overhead, even faster
+- RT-DETR-s: Best accuracy/speed trade-off
+
+**For High Accuracy (Server, Cloud)**:
+- YOLOv11x: State-of-the-art detection
+- RT-DETR-x: Transformer advantages
+- Ensemble multiple models
+
+**For Segmentation**:
+- YOLOv8-seg: Instance segmentation (ONNX native)
+- SAM/SAM2: Universal segmentation (prompt-based)
+- Depth Anything: Depth estimation
+
+**OpenCV DNN Compatibility**:
+- ✅ Full support: YOLOv8-11, RT-DETR, MobileNet-SSD
+- ⚠️ Partial: SAM (complex multi-stage pipeline)
+- ❌ Limited: Models requiring custom ops (GroundingDINO)
+
+**Performance Benchmarks (on RTX 4090, 2024)**:
+
+| Model | Input Size | FPS (CUDA) | mAP | OpenCV DNN |
+|-------|------------|------------|-----|------------|
+| YOLOv8n | 640 | 450 | 37.3 | ✅ Good |
+| YOLOv11m | 640 | 200 | 51.5 | ✅ Good |
+| RT-DETR-l | 640 | 110 | 53.1 | ✅ Excellent |
+| YOLOv8x | 640 | 80 | 53.9 | ✅ Good |
+
+---
+
+## 8. Exercises
 
 ### Exercise 1: Object Detection Performance Comparison
 
