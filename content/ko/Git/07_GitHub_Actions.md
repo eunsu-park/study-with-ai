@@ -204,16 +204,19 @@ jobs:
       - run: npm test
 ```
 
-### 매트릭스 전략
+### 매트릭스 전략(Matrix Strategy)
+
+매트릭스 빌드를 사용하면 여러 구성에서 자동으로 작업을 실행할 수 있습니다.
 
 ```yaml
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [16, 18, 20]
-        os: [ubuntu-latest, macos-latest]
+        node-version: [18, 20, 22]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # 9개의 작업 생성 (3개 버전 × 3개 OS)
 
     steps:
       - uses: actions/checkout@v4
@@ -221,6 +224,54 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm test
+```
+
+#### 고급 매트릭스 옵션
+
+```yaml
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node-version: [18, 20]
+        include:
+          # 특정 조합 추가
+          - os: windows-latest
+            node-version: 20
+        exclude:
+          # 특정 조합 제외
+          - os: macos-latest
+            node-version: 18
+      fail-fast: false  # 하나가 실패해도 다른 작업 계속 실행
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm test
+```
+
+#### Python 매트릭스 예제
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: |
+          pip install -r requirements.txt
+          pytest
 ```
 
 ### 조건부 실행 (if)
@@ -306,9 +357,372 @@ steps:
 
 ---
 
-## 6. 실습 예제
+## 6. 고급 기능
 
-### 예제 1: Node.js 테스트 자동화
+### 의존성 캐싱(Dependency Caching)
+
+캐싱을 통해 실행 간 의존성을 저장하여 워크플로우 속도를 높입니다.
+
+#### actions/cache 사용
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # npm 캐시
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm ci
+      - run: npm test
+```
+
+#### Python pip 캐시
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+
+  - uses: actions/setup-python@v5
+    with:
+      python-version: '3.11'
+      cache: 'pip'  # 내장 캐싱 지원
+
+  - run: pip install -r requirements.txt
+```
+
+#### Go 모듈 캐시
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+
+  - uses: actions/setup-go@v5
+    with:
+      go-version: '1.21'
+      cache: true  # Go 모듈 자동 캐싱
+
+  - run: go build
+```
+
+#### 여러 캐시 경로
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: |
+      ~/.npm
+      ~/.cache
+      node_modules
+    key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-deps-
+```
+
+### 재사용 가능한 워크플로(Reusable Workflows)
+
+다른 워크플로에서 호출할 수 있는 워크플로를 생성합니다.
+
+#### 호출 가능한 워크플로
+
+```yaml
+# .github/workflows/reusable-deploy.yml
+
+name: Reusable Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+        default: 'latest'
+    secrets:
+      deploy-token:
+        required: true
+    outputs:
+      deployment-url:
+        description: "Deployed application URL"
+        value: ${{ jobs.deploy.outputs.url }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to ${{ inputs.environment }}
+        id: deploy
+        run: |
+          echo "Deploying version ${{ inputs.version }} to ${{ inputs.environment }}"
+          # Deployment logic here
+          echo "url=https://${{ inputs.environment }}.example.com" >> $GITHUB_OUTPUT
+        env:
+          DEPLOY_TOKEN: ${{ secrets.deploy-token }}
+```
+
+#### 재사용 가능한 워크플로 호출
+
+```yaml
+# .github/workflows/main.yml
+
+name: Main Pipeline
+
+on: push
+
+jobs:
+  deploy-staging:
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      environment: staging
+      version: ${{ github.sha }}
+    secrets:
+      deploy-token: ${{ secrets.DEPLOY_TOKEN }}
+
+  deploy-production:
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      environment: production
+      version: ${{ github.sha }}
+    secrets:
+      deploy-token: ${{ secrets.DEPLOY_TOKEN }}
+
+  notify:
+    needs: deploy-production
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deployed to ${{ needs.deploy-production.outputs.deployment-url }}"
+```
+
+### 복합 액션(Composite Actions)
+
+여러 단계로 구성된 사용자 정의 액션을 생성합니다.
+
+```yaml
+# .github/actions/setup-app/action.yml
+
+name: 'Setup Application'
+description: 'Install and configure application'
+
+inputs:
+  node-version:
+    description: 'Node.js version'
+    required: false
+    default: '20'
+  install-deps:
+    description: 'Install dependencies'
+    required: false
+    default: 'true'
+
+outputs:
+  cache-hit:
+    description: 'Whether cache was restored'
+    value: ${{ steps.cache.outputs.cache-hit }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install dependencies
+      if: inputs.install-deps == 'true' && steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: npm ci
+
+    - name: Display info
+      shell: bash
+      run: |
+        echo "Node version: $(node --version)"
+        echo "npm version: $(npm --version)"
+```
+
+#### 복합 액션 사용
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup application
+        uses: ./.github/actions/setup-app
+        with:
+          node-version: '20'
+          install-deps: 'true'
+
+      - run: npm test
+      - run: npm run build
+```
+
+### 클라우드 제공자 OIDC 인증
+
+OpenID Connect(OIDC)를 사용하면 자격 증명을 저장하지 않고도 클라우드 제공자에 키 없이 인증할 수 있습니다.
+
+#### AWS OIDC
+
+```yaml
+jobs:
+  deploy-to-aws:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/GitHubActionsRole
+          aws-region: us-east-1
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./build s3://my-bucket
+```
+
+#### GCP OIDC
+
+```yaml
+jobs:
+  deploy-to-gcp:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/github/providers/github-provider'
+          service_account: 'github-actions@my-project.iam.gserviceaccount.com'
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy my-service --image gcr.io/my-project/my-image
+```
+
+#### Azure OIDC
+
+```yaml
+jobs:
+  deploy-to-azure:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure
+        run: |
+          az webapp deploy --resource-group myRG --name myApp
+```
+
+### 동시성 제어(Concurrency Control)
+
+여러 워크플로 실행이 서로 간섭하는 것을 방지합니다.
+
+```yaml
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+# 한 번에 하나의 배포만
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false  # 현재 배포가 완료될 때까지 대기
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./deploy.sh
+```
+
+#### 브랜치별 동시성
+
+```yaml
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true  # 새 푸시가 도착하면 이전 실행 취소
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./deploy.sh
+```
+
+#### PR별 동시성
+
+```yaml
+name: CI
+
+on:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true  # 오래된 PR 빌드 취소
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm test
+```
+
+---
+
+## 7. 실습 예제
+
+### 예제 1: Node.js 테스트 자동화 (최신 버전)
 
 ```yaml
 # .github/workflows/node-ci.yml
@@ -321,13 +735,17 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [18, 20, 22]
 
     steps:
       - name: Checkout
@@ -352,7 +770,7 @@ jobs:
         run: npm run build
 ```
 
-### 예제 2: Docker 이미지 빌드 & 푸시
+### 예제 2: Docker 이미지 빌드 & 푸시 (최신 버전)
 
 ```yaml
 # .github/workflows/docker.yml
@@ -379,6 +797,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Login to Container Registry
         uses: docker/login-action@v3
         with:
@@ -397,12 +818,14 @@ jobs:
             type=sha
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 ```
 
 ### 예제 3: PR 자동 라벨링
@@ -519,16 +942,21 @@ jobs:
 
 ---
 
-## 7. 유용한 Actions
+## 8. 유용한 Actions (최신 버전)
 
-| Action | 용도 |
-|--------|------|
-| `actions/checkout@v4` | 코드 체크아웃 |
-| `actions/setup-node@v4` | Node.js 설정 |
-| `actions/setup-python@v5` | Python 설정 |
-| `actions/cache@v4` | 의존성 캐싱 |
-| `docker/build-push-action@v5` | Docker 빌드/푸시 |
-| `aws-actions/configure-aws-credentials@v4` | AWS 인증 |
+| Action | 용도 | 최신 버전 |
+|--------|------|----------------|
+| `actions/checkout@v4` | 코드 체크아웃 | v4 |
+| `actions/setup-node@v4` | Node.js 설정 | v4 |
+| `actions/setup-python@v5` | Python 설정 | v5 |
+| `actions/setup-go@v5` | Go 설정 | v5 |
+| `actions/cache@v4` | 의존성 캐싱 | v4 |
+| `docker/setup-buildx-action@v3` | Docker Buildx 설정 | v3 |
+| `docker/build-push-action@v6` | Docker 빌드/푸시 | v6 |
+| `docker/login-action@v3` | Docker 레지스트리 로그인 | v3 |
+| `aws-actions/configure-aws-credentials@v4` | AWS 인증 (OIDC) | v4 |
+| `google-github-actions/auth@v2` | GCP 인증 (OIDC) | v2 |
+| `azure/login@v2` | Azure 인증 (OIDC) | v2 |
 
 ### 캐싱으로 속도 향상
 
@@ -538,7 +966,7 @@ steps:
 
   - uses: actions/setup-node@v4
     with:
-      node-version: '18'
+      node-version: '20'
       cache: 'npm'           # npm 캐시 자동 처리
 
   - run: npm ci
@@ -546,7 +974,7 @@ steps:
 
 ---
 
-## 8. 디버깅
+## 9. 디버깅
 
 ### 로그 확인
 

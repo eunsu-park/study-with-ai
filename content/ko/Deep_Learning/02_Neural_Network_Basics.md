@@ -1,5 +1,9 @@
 # 02. 신경망 기초
 
+[이전: 텐서와 오토그래드](./01_Tensors_and_Autograd.md) | [다음: 역전파](./03_Backpropagation.md)
+
+---
+
 ## 학습 목표
 
 - 퍼셉트론과 다층 퍼셉트론(MLP) 이해

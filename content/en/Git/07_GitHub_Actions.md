@@ -206,14 +206,17 @@ jobs:
 
 ### Matrix Strategy
 
+Matrix builds allow you to run jobs across multiple configurations automatically.
+
 ```yaml
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [16, 18, 20]
-        os: [ubuntu-latest, macos-latest]
+        node-version: [18, 20, 22]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # Creates 9 jobs (3 versions × 3 OSes)
 
     steps:
       - uses: actions/checkout@v4
@@ -221,6 +224,54 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm test
+```
+
+#### Advanced Matrix Options
+
+```yaml
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node-version: [18, 20]
+        include:
+          # Add specific combination
+          - os: windows-latest
+            node-version: 20
+        exclude:
+          # Exclude specific combination
+          - os: macos-latest
+            node-version: 18
+      fail-fast: false  # Continue other jobs if one fails
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm test
+```
+
+#### Python Matrix Example
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: |
+          pip install -r requirements.txt
+          pytest
 ```
 
 ### Conditional Execution (if)
@@ -306,9 +357,372 @@ steps:
 
 ---
 
-## 6. Practice Examples
+## 6. Advanced Features
 
-### Example 1: Node.js Test Automation
+### Dependency Caching
+
+Caching speeds up workflows by storing dependencies between runs.
+
+#### Using actions/cache
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # npm cache
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm ci
+      - run: npm test
+```
+
+#### Python pip cache
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+
+  - uses: actions/setup-python@v5
+    with:
+      python-version: '3.11'
+      cache: 'pip'  # Built-in caching support
+
+  - run: pip install -r requirements.txt
+```
+
+#### Go modules cache
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+
+  - uses: actions/setup-go@v5
+    with:
+      go-version: '1.21'
+      cache: true  # Caches go modules automatically
+
+  - run: go build
+```
+
+#### Multiple cache paths
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: |
+      ~/.npm
+      ~/.cache
+      node_modules
+    key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-deps-
+```
+
+### Reusable Workflows
+
+Create workflows that can be called by other workflows.
+
+#### Callable Workflow
+
+```yaml
+# .github/workflows/reusable-deploy.yml
+
+name: Reusable Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+        default: 'latest'
+    secrets:
+      deploy-token:
+        required: true
+    outputs:
+      deployment-url:
+        description: "Deployed application URL"
+        value: ${{ jobs.deploy.outputs.url }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to ${{ inputs.environment }}
+        id: deploy
+        run: |
+          echo "Deploying version ${{ inputs.version }} to ${{ inputs.environment }}"
+          # Deployment logic here
+          echo "url=https://${{ inputs.environment }}.example.com" >> $GITHUB_OUTPUT
+        env:
+          DEPLOY_TOKEN: ${{ secrets.deploy-token }}
+```
+
+#### Calling the Reusable Workflow
+
+```yaml
+# .github/workflows/main.yml
+
+name: Main Pipeline
+
+on: push
+
+jobs:
+  deploy-staging:
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      environment: staging
+      version: ${{ github.sha }}
+    secrets:
+      deploy-token: ${{ secrets.DEPLOY_TOKEN }}
+
+  deploy-production:
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      environment: production
+      version: ${{ github.sha }}
+    secrets:
+      deploy-token: ${{ secrets.DEPLOY_TOKEN }}
+
+  notify:
+    needs: deploy-production
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deployed to ${{ needs.deploy-production.outputs.deployment-url }}"
+```
+
+### Composite Actions
+
+Create custom actions from multiple steps.
+
+```yaml
+# .github/actions/setup-app/action.yml
+
+name: 'Setup Application'
+description: 'Install and configure application'
+
+inputs:
+  node-version:
+    description: 'Node.js version'
+    required: false
+    default: '20'
+  install-deps:
+    description: 'Install dependencies'
+    required: false
+    default: 'true'
+
+outputs:
+  cache-hit:
+    description: 'Whether cache was restored'
+    value: ${{ steps.cache.outputs.cache-hit }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install dependencies
+      if: inputs.install-deps == 'true' && steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: npm ci
+
+    - name: Display info
+      shell: bash
+      run: |
+        echo "Node version: $(node --version)"
+        echo "npm version: $(npm --version)"
+```
+
+#### Using the Composite Action
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup application
+        uses: ./.github/actions/setup-app
+        with:
+          node-version: '20'
+          install-deps: 'true'
+
+      - run: npm test
+      - run: npm run build
+```
+
+### OIDC Authentication to Cloud Providers
+
+OpenID Connect (OIDC) allows keyless authentication to cloud providers without storing credentials.
+
+#### AWS OIDC
+
+```yaml
+jobs:
+  deploy-to-aws:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/GitHubActionsRole
+          aws-region: us-east-1
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./build s3://my-bucket
+```
+
+#### GCP OIDC
+
+```yaml
+jobs:
+  deploy-to-gcp:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/github/providers/github-provider'
+          service_account: 'github-actions@my-project.iam.gserviceaccount.com'
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy my-service --image gcr.io/my-project/my-image
+```
+
+#### Azure OIDC
+
+```yaml
+jobs:
+  deploy-to-azure:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure
+        run: |
+          az webapp deploy --resource-group myRG --name myApp
+```
+
+### Concurrency Control
+
+Prevent multiple workflow runs from interfering with each other.
+
+```yaml
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+# Only one deployment at a time
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false  # Wait for current deployment to finish
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./deploy.sh
+```
+
+#### Branch-specific Concurrency
+
+```yaml
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true  # Cancel old runs when new push arrives
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./deploy.sh
+```
+
+#### PR-specific Concurrency
+
+```yaml
+name: CI
+
+on:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true  # Cancel outdated PR builds
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm test
+```
+
+---
+
+## 7. Practice Examples
+
+### Example 1: Node.js Test Automation (Updated)
 
 ```yaml
 # .github/workflows/node-ci.yml
@@ -321,13 +735,17 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [18, 20, 22]
 
     steps:
       - name: Checkout
@@ -352,7 +770,7 @@ jobs:
         run: npm run build
 ```
 
-### Example 2: Docker Image Build & Push
+### Example 2: Docker Image Build & Push (Updated)
 
 ```yaml
 # .github/workflows/docker.yml
@@ -379,6 +797,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Login to Container Registry
         uses: docker/login-action@v3
         with:
@@ -397,12 +818,14 @@ jobs:
             type=sha
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 ```
 
 ### Example 3: PR Auto-Labeling
@@ -519,16 +942,21 @@ jobs:
 
 ---
 
-## 7. Useful Actions
+## 8. Useful Actions (Updated)
 
-| Action | Purpose |
-|--------|------|
-| `actions/checkout@v4` | Code checkout |
-| `actions/setup-node@v4` | Node.js setup |
-| `actions/setup-python@v5` | Python setup |
-| `actions/cache@v4` | Dependency caching |
-| `docker/build-push-action@v5` | Docker build/push |
-| `aws-actions/configure-aws-credentials@v4` | AWS authentication |
+| Action | Purpose | Latest Version |
+|--------|------|----------------|
+| `actions/checkout@v4` | Code checkout | v4 |
+| `actions/setup-node@v4` | Node.js setup | v4 |
+| `actions/setup-python@v5` | Python setup | v5 |
+| `actions/setup-go@v5` | Go setup | v5 |
+| `actions/cache@v4` | Dependency caching | v4 |
+| `docker/setup-buildx-action@v3` | Docker Buildx setup | v3 |
+| `docker/build-push-action@v6` | Docker build/push | v6 |
+| `docker/login-action@v3` | Docker registry login | v3 |
+| `aws-actions/configure-aws-credentials@v4` | AWS authentication (OIDC) | v4 |
+| `google-github-actions/auth@v2` | GCP authentication (OIDC) | v2 |
+| `azure/login@v2` | Azure authentication (OIDC) | v2 |
 
 ### Speed Up with Caching
 
@@ -538,7 +966,7 @@ steps:
 
   - uses: actions/setup-node@v4
     with:
-      node-version: '18'
+      node-version: '20'
       cache: 'npm'           # npm cache auto-handled
 
   - run: npm ci
@@ -546,7 +974,7 @@ steps:
 
 ---
 
-## 8. Debugging
+## 9. Debugging
 
 ### View Logs
 

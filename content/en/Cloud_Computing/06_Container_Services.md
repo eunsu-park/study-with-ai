@@ -131,12 +131,12 @@ gcloud artifacts docker images list \
 ### 3.2 Creating an ECS Cluster
 
 ```bash
-# 1. 클러스터 생성 (Fargate)
+# 1. Create cluster (Fargate)
 aws ecs create-cluster \
     --cluster-name my-cluster \
     --capacity-providers FARGATE FARGATE_SPOT
 
-# 2. Task Definition 생성
+# 2. Create Task Definition
 # task-definition.json
 {
     "family": "my-task",
@@ -170,7 +170,7 @@ aws ecs create-cluster \
 
 aws ecs register-task-definition --cli-input-json file://task-definition.json
 
-# 3. 서비스 생성
+# 3. Create service
 aws ecs create-service \
     --cluster my-cluster \
     --service-name my-service \
@@ -180,6 +180,78 @@ aws ecs create-service \
     --network-configuration "awsvpcConfiguration={subnets=[subnet-xxx],securityGroups=[sg-xxx],assignPublicIp=ENABLED}"
 ```
 
+### 3.3 ECS Service Connect
+
+ECS Service Connect provides built-in service mesh capabilities for service-to-service communication without requiring a separate proxy or service mesh setup.
+
+```json
+// Service definition with Service Connect
+{
+    "cluster": "my-cluster",
+    "serviceName": "backend-service",
+    "taskDefinition": "backend-task:1",
+    "serviceConnectConfiguration": {
+        "enabled": true,
+        "namespace": "my-app-namespace",
+        "services": [
+            {
+                "portName": "http",
+                "discoveryName": "backend",
+                "clientAliases": [
+                    {
+                        "port": 80,
+                        "dnsName": "backend.local"
+                    }
+                ]
+            }
+        ]
+    },
+    "desiredCount": 2,
+    "launchType": "FARGATE",
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": ["subnet-xxx"],
+            "securityGroups": ["sg-xxx"]
+        }
+    }
+}
+```
+
+**Key Benefits:**
+- Built-in service discovery (AWS Cloud Map integration)
+- Automatic load balancing between services
+- Traffic metrics and observability without additional agents
+- No need for external service mesh (Istio, Consul)
+
+### 3.4 ECS Exec (Container Debugging)
+
+ECS Exec allows interactive shell access to running containers for debugging.
+
+```bash
+# Enable ECS Exec on a service
+aws ecs update-service \
+    --cluster my-cluster \
+    --service my-service \
+    --enable-execute-command
+
+# Start an interactive shell session
+aws ecs execute-command \
+    --cluster my-cluster \
+    --task TASK_ID \
+    --container my-container \
+    --interactive \
+    --command "/bin/sh"
+
+# Run a one-off command
+aws ecs execute-command \
+    --cluster my-cluster \
+    --task TASK_ID \
+    --container my-container \
+    --command "cat /app/config.json"
+```
+
+> **Note:** ECS Exec requires the task role to have `ssmmessages` permissions and the task definition must include `initProcessEnabled: true`.
+
 ---
 
 ## 4. AWS EKS (Elastic Kubernetes Service)
@@ -187,9 +259,8 @@ aws ecs create-service \
 ### 4.1 Creating an EKS Cluster
 
 ```bash
-# 1. eksctl 설치 (macOS)
-brew tap weaveworks/tap
-brew install weaveworks/tap/eksctl
+# 1. Install eksctl (macOS)
+brew install eksctl
 
 # 2. 클러스터 생성
 eksctl create cluster \
@@ -208,7 +279,35 @@ aws eks update-kubeconfig --name my-cluster --region ap-northeast-2
 kubectl get nodes
 ```
 
-### 4.2 Deploying Applications
+### 4.2 EKS Auto Mode
+
+EKS Auto Mode (launched late 2024) simplifies EKS by automating node management, similar to GKE Autopilot.
+
+```bash
+# Create an EKS cluster with Auto Mode
+eksctl create cluster \
+    --name my-auto-cluster \
+    --region ap-northeast-2 \
+    --auto-mode
+
+# Or enable Auto Mode on an existing cluster
+aws eks update-cluster-config \
+    --name my-cluster \
+    --compute-config enabled=true \
+    --kubernetes-network-config '{"elasticLoadBalancing":{"enabled":true}}' \
+    --storage-config '{"blockStorage":{"enabled":true}}'
+```
+
+| Feature | EKS Standard | EKS Auto Mode |
+|---------|-------------|---------------|
+| **Node Provisioning** | Manual (managed node groups or Karpenter) | Automatic |
+| **Node OS Updates** | User-managed | AWS-managed |
+| **Load Balancer** | Install AWS LB Controller | Built-in |
+| **Storage (EBS CSI)** | Install EBS CSI driver | Built-in |
+| **Billing** | EC2 instance-based | Pod resource-based (with overhead) |
+| **Best For** | Fine-grained control | Simplified operations |
+
+### 4.3 Deploying Applications
 
 ```yaml
 # deployment.yaml
@@ -289,15 +388,71 @@ gcloud container clusters get-credentials my-cluster \
 kubectl get nodes
 ```
 
-### 5.2 GKE Autopilot vs Standard
+### 5.2 GKE Autopilot Deep Dive
+
+GKE Autopilot is a fully managed Kubernetes mode where Google manages the entire cluster infrastructure, including nodes, scaling, and security.
+
+**Autopilot vs Standard:**
 
 | Category | Autopilot | Standard |
 |------|-----------|----------|
 | **Node Management** | Google auto-managed | User-managed |
 | **Billing** | Pod resource-based | Node-based |
-| **Security** | Enhanced security defaults | Manual configuration |
-| **Scalability** | Auto-scaling | Manual/auto configuration |
-| **Best For** | Most workloads | Fine-grained control needed |
+| **Security** | Enhanced defaults (hardened OS, Workload Identity, Shielded GKE Nodes) | Manual configuration |
+| **Scalability** | Automatic HPA/VPA | Manual/auto configuration |
+| **GPU Support** | Supported (L4, A100, H100, TPU) | Supported |
+| **Spot Pods** | Supported | Supported (preemptible nodes) |
+| **DaemonSets** | Allowed (billing included) | Allowed |
+| **Privileged Pods** | Not allowed | Allowed |
+| **Best For** | Most workloads, cost optimization | Fine-grained control, special kernel needs |
+
+**Autopilot Security Features (enabled by default):**
+- Container-Optimized OS with `containerd`
+- Workload Identity (no node service account keys)
+- Shielded GKE Nodes (secure boot, integrity monitoring)
+- Network policy enforcement
+- Pod security standards (Baseline by default)
+- Binary Authorization ready
+
+```bash
+# Deploy with Spot Pods on Autopilot (cost savings up to 60-91%)
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batch-processor
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: batch-processor
+  template:
+    metadata:
+      labels:
+        app: batch-processor
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-spot: "true"
+      terminationGracePeriodSeconds: 25
+      containers:
+      - name: worker
+        image: asia-northeast3-docker.pkg.dev/PROJECT_ID/my-repo/worker:latest
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+            # GPU request on Autopilot
+            # nvidia.com/gpu: "1"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+      tolerations:
+      - key: cloud.google.com/gke-spot
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
+EOF
+```
 
 ### 5.3 Deploying Applications
 
@@ -435,11 +590,13 @@ Do you need serverless containers?
 | Use Case | AWS Recommended | GCP Recommended |
 |----------|---------|---------|
 | **Simple Web App** | App Runner | Cloud Run |
-| **Microservices** | ECS Fargate | Cloud Run |
-| **Complex K8s Workloads** | EKS | GKE Standard |
-| **ML Deployment** | EKS + GPU | GKE + GPU |
+| **Microservices** | ECS Fargate + Service Connect | Cloud Run |
+| **K8s (Simplified)** | EKS Auto Mode | GKE Autopilot |
+| **K8s (Full Control)** | EKS Standard | GKE Standard |
+| **ML/GPU Workloads** | EKS + GPU | GKE Autopilot + GPU |
 | **Batch Jobs** | ECS Task | Cloud Run Jobs |
 | **Event Processing** | Fargate + EventBridge | Cloud Run + Eventarc |
+| **Cost-Sensitive Batch** | Fargate Spot | Autopilot Spot Pods |
 
 ---
 

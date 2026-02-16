@@ -61,6 +61,8 @@ Conditions & Sorting
 | [16_Replication_HA.md](./16_Replication_HA.md) | ⭐⭐⭐⭐⭐ | Streaming replication, logical replication, failover |
 | [17_Window_Functions.md](./17_Window_Functions.md) | ⭐⭐⭐ | OVER, ROW_NUMBER, RANK, LEAD/LAG |
 | [18_Table_Partitioning.md](./18_Table_Partitioning.md) | ⭐⭐⭐⭐ | Range/List/Hash partitioning |
+| [19_Full_Text_Search.md](./19_Full_Text_Search.md) | ⭐⭐⭐ | tsvector/tsquery, GIN index, ranking, pg_trgm |
+| [20_Security_Access_Control.md](./20_Security_Access_Control.md) | ⭐⭐⭐⭐ | Roles, RLS, pg_hba.conf, SSL, audit logging |
 
 ---
 
@@ -76,7 +78,7 @@ Conditions & Sorting
 3. Functions/Procedures → Transactions → Triggers → Backup/Operations
 
 ### Expert (Specialist)
-4. JSON/JSONB → Query Optimization → Window Functions → Partitioning → Replication & HA
+4. JSON/JSONB → Query Optimization → Window Functions → Partitioning → Full-Text Search → Security → Replication & HA
 
 ---
 

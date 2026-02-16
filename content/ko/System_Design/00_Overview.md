@@ -111,6 +111,13 @@
 | [17_Design_Example_1.md](./17_Design_Example_1.md) | ⭐⭐⭐ | URL 단축기, 페이스트빈 설계 |
 | [18_Design_Example_2.md](./18_Design_Example_2.md) | ⭐⭐⭐⭐ | 채팅 시스템, 알림 시스템 설계 |
 
+### 관측 가능성과 검색 (19-20)
+
+| 파일명 | 난이도 | 주요 내용 |
+|--------|--------|----------|
+| [19_Observability_Monitoring.md](./19_Observability_Monitoring.md) | ⭐⭐⭐⭐ | 3대 축, Prometheus, ELK, OpenTelemetry, SLO/SLI |
+| [20_Search_Systems.md](./20_Search_Systems.md) | ⭐⭐⭐⭐ | Elasticsearch, 역색인, BM25, 검색 시스템 확장 |
+
 ---
 
 ## 추천 학습 순서

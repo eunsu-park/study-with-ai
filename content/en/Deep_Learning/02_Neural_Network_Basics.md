@@ -1,5 +1,9 @@
 # 02. Neural Network Basics
 
+[Previous: Tensors and Autograd](./01_Tensors_and_Autograd.md) | [Next: Backpropagation](./03_Backpropagation.md)
+
+---
+
 ## Learning Objectives
 
 - Understand perceptrons and Multi-Layer Perceptrons (MLP)

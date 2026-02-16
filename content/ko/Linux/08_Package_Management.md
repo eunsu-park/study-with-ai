@@ -483,7 +483,135 @@ sudo dpkg --configure -a
 
 ---
 
-## 9. 실습 예제
+## 9. CentOS 수명 종료 및 마이그레이션
+
+### CentOS EOL 현황
+
+CentOS Linux는 모든 버전이 수명 종료(End-of-Life, EOL)되었습니다.
+
+- **CentOS 8**: 2021년 12월 31일 EOL
+- **CentOS 7**: 2024년 6월 30일 EOL
+
+**CentOS Stream**은 현재 유일하게 사용 가능한 CentOS 변종이지만, 다른 목적으로 사용됩니다.
+- CentOS Stream은 **롤링 릴리스(rolling-release)** 개발 플랫폼입니다
+- RHEL의 **업스트림(upstream)** 위치 (CentOS Linux처럼 다운스트림이 아님)
+- **RHEL과 1:1 바이너리 호환 대체판이 아님**
+- RHEL보다 먼저 업데이트 수신 (최첨단, 덜 안정적)
+
+### 마이그레이션 옵션
+
+CentOS를 사용하는 조직은 대안 배포판으로 마이그레이션해야 합니다.
+
+| 배포판 | 유지보수 주체 | RHEL 호환성 | 비용 |
+|-------------|-----------|-------------------|------|
+| **Rocky Linux** | Rocky Enterprise Software Foundation | 1:1 바이너리 호환 | 무료 |
+| **AlmaLinux** | AlmaLinux OS Foundation (CloudLinux) | 1:1 바이너리 호환 | 무료 |
+| **Oracle Linux** | Oracle | 바이너리 호환 | 무료 |
+| **RHEL** | Red Hat | 원본 | 유료 (무료 개발자 구독 제공) |
+
+#### Rocky Linux
+
+- Gregory Kurtzer(CentOS 공동 창립자) 설립
+- 커뮤니티 주도, 비영리
+- RHEL과 1:1 바이너리 호환
+- 활발한 커뮤니티 및 기업 지원
+
+```bash
+# 현재 CentOS 버전 확인
+cat /etc/redhat-release
+
+# Rocky Linux로 마이그레이션 (CentOS 8)
+sudo curl -O https://raw.githubusercontent.com/rocky-linux/rocky-tools/main/migrate2rocky/migrate2rocky.sh
+sudo bash migrate2rocky.sh -r
+```
+
+#### AlmaLinux
+
+- CloudLinux Inc. 지원
+- RHEL과 1:1 바이너리 호환
+- 강력한 상용 지원
+- 잘 구축된 인프라
+
+```bash
+# AlmaLinux로 마이그레이션 (CentOS 8)
+sudo curl -O https://raw.githubusercontent.com/AlmaLinux/almalinux-deploy/master/almalinux-deploy.sh
+sudo bash almalinux-deploy.sh
+```
+
+#### Oracle Linux
+
+- Oracle 유지보수
+- RHEL과 바이너리 호환
+- Unbreakable Enterprise Kernel (UEK) 사용 옵션
+- 무료 사용 및 배포
+
+```bash
+# Oracle Linux로 마이그레이션 (CentOS 7/8)
+sudo curl -O https://raw.githubusercontent.com/oracle/centos2ol/main/centos2ol.sh
+sudo bash centos2ol.sh
+```
+
+### 주요 차이점: Rocky vs AlmaLinux
+
+| 측면 | Rocky Linux | AlmaLinux |
+|--------|------------|-----------|
+| **거버넌스(Governance)** | 커뮤니티 주도 재단 | CloudLinux 지원 재단 |
+| **자금 조달** | 기부, 스폰서 | CloudLinux Inc. + 스폰서 |
+| **릴리스 주기** | 일반적으로 RHEL 밀접 추적 | 일반적으로 RHEL 밀접 추적 |
+| **라이브 패칭(Live Patching)** | 제한적 | 사용 가능 (유료 KernelCare) |
+| **상용 지원** | 서드파티 벤더 | CloudLinux + 파트너 |
+
+두 배포판 모두 훌륭한 선택이며 매우 유사한 기능을 제공합니다. 선택은 주로 다음에 달려 있습니다.
+- **Rocky Linux**: 커뮤니티 주도 거버넌스와 CentOS 레거시를 선호하는 경우
+- **AlmaLinux**: 기업 지원과 선택적 상용 지원을 원하는 경우
+
+### 마이그레이션 모범 사례
+
+1. **먼저 테스트**: 프로덕션이 아닌 시스템에서 먼저 마이그레이션
+2. **백업**: 마이그레이션 전 전체 시스템 백업
+3. **호환성 확인**: 서드파티 소프트웨어 호환성 검토
+4. **마이그레이션 전 업데이트**: CentOS를 완전히 업데이트
+5. **마이그레이션 후 검증**: 마이그레이션 후 서비스 및 애플리케이션 확인
+
+```bash
+# 마이그레이션 전 체크리스트
+# 1. 설치된 패키지 목록
+rpm -qa > /root/packages-before.txt
+
+# 2. 중요 설정 백업
+sudo tar -czf /root/etc-backup.tar.gz /etc
+
+# 3. 시스템 완전 업데이트
+sudo yum update -y
+
+# 4. 최신 커널로 재부팅
+sudo reboot
+
+# 마이그레이션 후 검증
+# 1. OS 버전 확인
+cat /etc/redhat-release
+
+# 2. 패키지 수 확인
+rpm -qa | wc -l
+
+# 3. 깨진 의존성 확인
+sudo dnf check
+
+# 4. 서비스 확인
+sudo systemctl list-units --state=failed
+```
+
+### 권장사항
+
+대부분의 CentOS 마이그레이션 사용자를 위해:
+- 프로덕션 워크로드에는 **Rocky Linux 또는 AlmaLinux 선택**
+- 두 배포판 모두 안정적이고 엔터프라이즈급 RHEL 대체판 제공
+- 최첨단 기능이 필요하지 않다면 프로덕션에서 CentOS Stream 피하기
+- 공식 Red Hat 지원이 필요하면 RHEL 고려
+
+---
+
+## 10. 실습 예제
 
 ### 실습 1: 패키지 검색 및 설치
 

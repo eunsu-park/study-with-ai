@@ -1,5 +1,9 @@
 # 04. 학습 기법
 
+[이전: 역전파](./03_Backpropagation.md) | [다음: Linear & Logistic Regression](./05_Impl_Linear_Logistic.md)
+
+---
+
 ## 학습 목표
 
 - 경사 하강법 변형 이해 (SGD, Momentum, Adam)
@@ -358,4 +362,4 @@ scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=5)
 
 ## 다음 단계
 
-[05_CNN_기초.md](./05_CNN_기초.md)에서 합성곱 신경망을 학습합니다.
+[07_CNN_Basics.md](./07_CNN_Basics.md)에서 합성곱 신경망을 학습합니다.

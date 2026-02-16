@@ -26,6 +26,10 @@ Magnetohydrodynamics MHD (17-18)
 Plasma Simulation (19)
     ↓
 Monte Carlo Simulation (20)
+    ↓
+Spectral Methods (21)
+    ↓
+Finite Element Method (22)
 ```
 
 ---
@@ -54,6 +58,8 @@ Monte Carlo Simulation (20)
 | [18_MHD_Numerical_Methods.md](./18_MHD_Numerical_Methods.md) | MHD Numerical Methods | Conservative form, Godunov method, MHD Riemann problem |
 | [19_Plasma_Simulation.md](./19_Plasma_Simulation.md) | Plasma Simulation | PIC method basics, particle-mesh interaction |
 | [20_Monte_Carlo_Simulation.md](./20_Monte_Carlo_Simulation.md) | Monte Carlo Simulation | Random number generation, MC integration, Ising model, option pricing, variance reduction |
+| [21_Spectral_Methods.md](./21_Spectral_Methods.md) | Spectral Methods | Fourier spectral, FFT differentiation, Chebyshev collocation, dealiasing |
+| [22_Finite_Element_Method.md](./22_Finite_Element_Method.md) | Finite Element Method | Weak form, basis functions, stiffness matrix assembly, 1D/2D FEM |
 
 ---
 
@@ -118,6 +124,10 @@ pip install mayavi
 
 ### Stage 8: Stochastic Simulation (2 weeks)
 - 20_Monte_Carlo_Simulation.md
+
+### Stage 9: Advanced Methods (2-3 weeks)
+- 21_Spectral_Methods.md
+- 22_Finite_Element_Method.md
 
 ---
 

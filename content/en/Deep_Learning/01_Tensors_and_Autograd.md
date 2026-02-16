@@ -1,5 +1,9 @@
 # 01. Tensors and Autograd
 
+[Next: Neural Network Basics](./02_Neural_Network_Basics.md)
+
+---
+
 > **PyTorch 2.x Note**: This lesson is based on PyTorch 2.0+ (2023~).
 >
 > Key PyTorch 2.0 features:

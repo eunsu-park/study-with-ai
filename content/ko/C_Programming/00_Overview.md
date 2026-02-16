@@ -63,6 +63,8 @@
 | [18_Debugging_Memory_Analysis.md](./18_Debugging_Memory_Analysis.md) | ⭐⭐⭐ | GDB, Valgrind, AddressSanitizer |
 | [19_Advanced_Embedded_Protocols.md](./19_Advanced_Embedded_Protocols.md) | ⭐⭐⭐ | PWM, I2C, SPI, ADC |
 | [20_Advanced_Pointers.md](./20_Advanced_Pointers.md) | ⭐⭐⭐ | 포인터 산술, 다중 포인터, 함수 포인터, 동적 메모리 |
+| [21_Network_Programming.md](./21_Network_Programming.md) | ⭐⭐⭐⭐ | TCP/UDP 소켓, 클라이언트-서버, select/poll 다중화 |
+| [22_IPC_and_Signals.md](./22_IPC_and_Signals.md) | ⭐⭐⭐⭐ | 파이프, 공유 메모리, 메시지 큐, 시그널 |
 
 ---
 
@@ -75,7 +77,7 @@
 2. 포인터 심화 → 동적배열 → 연결리스트 → 파일암호화 → 스택과큐 → 해시테이블
 
 ### 고급 (시스템 프로그래밍)
-3. 뱀게임 → 미니쉘 → 멀티스레드
+3. 뱀게임 → 미니쉘 → 멀티스레드 → 네트워크 프로그래밍 → IPC와 시그널
 
 ### 임베디드 (Arduino)
 4. 임베디드 기초 → 비트연산 심화 → GPIO 제어 → 시리얼통신 → 고급임베디드 프로토콜

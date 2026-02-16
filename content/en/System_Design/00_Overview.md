@@ -111,6 +111,13 @@ Network Review ──────────▶ Caching Strategy ───▶ D
 | [17_Design_Example_1.md](./17_Design_Example_1.md) | ⭐⭐⭐ | URL shortener, Pastebin design |
 | [18_Design_Example_2.md](./18_Design_Example_2.md) | ⭐⭐⭐⭐ | Chat system, notification system design |
 
+### Observability and Search (19-20)
+
+| Filename | Difficulty | Key Topics |
+|--------|--------|----------|
+| [19_Observability_Monitoring.md](./19_Observability_Monitoring.md) | ⭐⭐⭐⭐ | Three pillars, Prometheus, ELK, OpenTelemetry, SLO/SLI |
+| [20_Search_Systems.md](./20_Search_Systems.md) | ⭐⭐⭐⭐ | Elasticsearch, inverted index, BM25, scaling search |
+
 ---
 
 ## Recommended Learning Path
@@ -150,6 +157,12 @@ Learn async processing and distributed architecture patterns.
 15_Distributed_Systems_Concepts → 16_Consensus_Algorithms → 17_Design_Example_1 → 18_Design_Example_2
 ```
 Cover distributed systems theory and practical design problems.
+
+### Phase 7: Observability and Search (1-2 weeks)
+```
+19_Observability_Monitoring → 20_Search_Systems
+```
+Learn system monitoring, alerting, and search system design.
 
 ---
 

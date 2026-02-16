@@ -1,5 +1,9 @@
 # 01. 텐서와 오토그래드
 
+[다음: 신경망 기초](./02_Neural_Network_Basics.md)
+
+---
+
 > **PyTorch 2.x 안내**: 이 레슨은 PyTorch 2.0+ (2023년~)를 기준으로 합니다.
 >
 > PyTorch 2.0의 주요 기능:

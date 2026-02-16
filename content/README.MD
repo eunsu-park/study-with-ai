@@ -10,7 +10,7 @@ A collection of study material Markdown files. Maintained in both Korean (ko) an
 content/
 ├── ko/                    # 한국어 자료 (번역본) / Korean (translated)
 │   ├── Algorithm/         # 29개 레슨 / 29 lessons
-│   ├── C_Programming/     # 20개 레슨 / 20 lessons
+│   ├── C_Programming/     # 22개 레슨 / 22 lessons
 │   └── ...                # 총 34개 토픽 / 34 topics total
 │
 └── en/                    # 영어 자료 (원본) / English (original)
@@ -56,7 +56,9 @@ Example code files are located in the [`examples/`](../examples/README.md) folde
   **Korean (ko)**: Translated (for new content). Present in all topics
 - 신규 자료는 영문 원본 작성 후 한국어 번역
   New materials are authored in English, then translated to Korean
-- 기존 30개 토픽은 한국어 원본 기반으로 작성됨 (Shell_Script부터 영문 원본)
-  Existing 30 topics were originally authored in Korean (Shell_Script onwards in English)
-- Security 토픽 추가 완료 (영문 원본, 16개 레슨)
-  Security topic added (English-first, 16 lessons)
+- 기존 토픽은 한국어 원본 기반으로 작성됨 (Shell_Script부터 영문 원본)
+  Original topics were authored in Korean (Shell_Script onwards in English)
+- Data_Analysis + Statistics → Data_Science로 통합 (25개 레슨)
+  Data_Analysis + Statistics merged into Data_Science (25 lessons)
+- Model_Implementations → Deep_Learning에 통합 (42개 레슨)
+  Model_Implementations merged into Deep_Learning (42 lessons)

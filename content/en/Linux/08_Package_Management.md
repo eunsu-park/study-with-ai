@@ -483,7 +483,135 @@ sudo dpkg --configure -a
 
 ---
 
-## 9. Practice Exercises
+## 9. CentOS End-of-Life and Migration
+
+### CentOS EOL Status
+
+CentOS Linux has reached end-of-life (EOL) for all versions:
+
+- **CentOS 8**: EOL on December 31, 2021
+- **CentOS 7**: EOL on June 30, 2024
+
+**CentOS Stream** is now the only CentOS variant available, but it serves a different purpose:
+- CentOS Stream is a **rolling-release** development platform
+- Positioned **upstream** of RHEL (not downstream like CentOS Linux)
+- **Not a 1:1 binary-compatible RHEL replacement**
+- Receives updates before RHEL (cutting-edge, less stable)
+
+### Migration Options
+
+Organizations using CentOS need to migrate to alternative distributions:
+
+| Distribution | Maintainer | RHEL Compatibility | Cost |
+|-------------|-----------|-------------------|------|
+| **Rocky Linux** | Rocky Enterprise Software Foundation | 1:1 binary compatible | Free |
+| **AlmaLinux** | AlmaLinux OS Foundation (CloudLinux) | 1:1 binary compatible | Free |
+| **Oracle Linux** | Oracle | Binary compatible | Free |
+| **RHEL** | Red Hat | Original | Paid (free dev subscriptions available) |
+
+#### Rocky Linux
+
+- Founded by Gregory Kurtzer (original CentOS co-founder)
+- Community-driven, non-profit
+- 1:1 binary compatible with RHEL
+- Active community and corporate support
+
+```bash
+# Check current CentOS version
+cat /etc/redhat-release
+
+# Migrate to Rocky Linux (CentOS 8)
+sudo curl -O https://raw.githubusercontent.com/rocky-linux/rocky-tools/main/migrate2rocky/migrate2rocky.sh
+sudo bash migrate2rocky.sh -r
+```
+
+#### AlmaLinux
+
+- Backed by CloudLinux Inc.
+- 1:1 binary compatible with RHEL
+- Strong commercial support
+- Well-established infrastructure
+
+```bash
+# Migrate to AlmaLinux (CentOS 8)
+sudo curl -O https://raw.githubusercontent.com/AlmaLinux/almalinux-deploy/master/almalinux-deploy.sh
+sudo bash almalinux-deploy.sh
+```
+
+#### Oracle Linux
+
+- Maintained by Oracle
+- Binary compatible with RHEL
+- Option to use Unbreakable Enterprise Kernel (UEK)
+- Free to use and distribute
+
+```bash
+# Migrate to Oracle Linux (CentOS 7/8)
+sudo curl -O https://raw.githubusercontent.com/oracle/centos2ol/main/centos2ol.sh
+sudo bash centos2ol.sh
+```
+
+### Key Differences: Rocky vs AlmaLinux
+
+| Aspect | Rocky Linux | AlmaLinux |
+|--------|------------|-----------|
+| **Governance** | Community-driven foundation | CloudLinux-backed foundation |
+| **Funding** | Donations, sponsors | CloudLinux Inc. + sponsors |
+| **Release Cycle** | Typically tracks RHEL closely | Typically tracks RHEL closely |
+| **Live Patching** | Limited | Available (paid KernelCare) |
+| **Commercial Support** | Third-party vendors | CloudLinux + partners |
+
+Both distributions are excellent choices and have very similar features. The choice often comes down to:
+- **Rocky Linux**: If you prefer community-driven governance and CentOS legacy
+- **AlmaLinux**: If you want corporate backing and optional commercial support
+
+### Migration Best Practices
+
+1. **Test first**: Migrate a non-production system first
+2. **Backup**: Full system backup before migration
+3. **Check compatibility**: Review third-party software compatibility
+4. **Update before migration**: Ensure CentOS is fully updated
+5. **Verify after migration**: Check services and applications post-migration
+
+```bash
+# Pre-migration checklist
+# 1. List installed packages
+rpm -qa > /root/packages-before.txt
+
+# 2. Backup important configs
+sudo tar -czf /root/etc-backup.tar.gz /etc
+
+# 3. Update system fully
+sudo yum update -y
+
+# 4. Reboot to latest kernel
+sudo reboot
+
+# Post-migration verification
+# 1. Check OS version
+cat /etc/redhat-release
+
+# 2. Verify package count
+rpm -qa | wc -l
+
+# 3. Check for broken dependencies
+sudo dnf check
+
+# 4. Verify services
+sudo systemctl list-units --state=failed
+```
+
+### Recommendation
+
+For most users migrating from CentOS:
+- **Choose Rocky Linux or AlmaLinux** for production workloads
+- Both provide stable, enterprise-grade RHEL replacements
+- Avoid CentOS Stream for production unless you need cutting-edge features
+- Consider RHEL if you need official Red Hat support
+
+---
+
+## 10. Practice Exercises
 
 ### Exercise 1: Search and Install Package
 

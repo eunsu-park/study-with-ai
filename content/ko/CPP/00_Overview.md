@@ -57,6 +57,7 @@
 | [16_Multithreading_Concurrency.md](./16_Multithreading_Concurrency.md) | ⭐⭐⭐⭐ | std::thread, mutex, async/future |
 | [17_CPP20_Advanced.md](./17_CPP20_Advanced.md) | ⭐⭐⭐⭐⭐ | Concepts, Ranges, Coroutines |
 | [18_Design_Patterns.md](./18_Design_Patterns.md) | ⭐⭐⭐⭐ | Singleton, Factory, Observer, CRTP |
+| [19_Project_Student_Management.md](./19_Project_Student_Management.md) | ⭐⭐⭐ | STL, 파일 I/O, 스마트 포인터, 예외 처리 |
 
 ---
 
@@ -77,6 +78,9 @@
 
 ### 심화 (전문가)
 6. 멀티스레딩과 동시성 → C++20 심화 → 디자인패턴
+
+### 프로젝트
+7. 학생 관리 시스템 (STL + 파일 I/O 종합 프로젝트)
 
 ---
 

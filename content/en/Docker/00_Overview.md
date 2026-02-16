@@ -47,6 +47,8 @@ Images/Containers ──▶ Docker Compose
 | [08_Kubernetes_Advanced.md](./08_Kubernetes_Advanced.md) | ⭐⭐⭐⭐ | Ingress, StatefulSet, DaemonSet, PV/PVC |
 | [09_Helm_Package_Management.md](./09_Helm_Package_Management.md) | ⭐⭐⭐ | Helm charts, values.yaml, release management |
 | [10_CI_CD_Pipelines.md](./10_CI_CD_Pipelines.md) | ⭐⭐⭐⭐ | GitHub Actions, image building, K8s deployment |
+| [11_Container_Networking.md](./11_Container_Networking.md) | ⭐⭐⭐ | Bridge, host, overlay, macvlan, DNS, port mapping |
+| [12_Security_Best_Practices.md](./12_Security_Best_Practices.md) | ⭐⭐⭐⭐ | Image scanning, rootless, seccomp, secrets, Falco |
 
 ---
 

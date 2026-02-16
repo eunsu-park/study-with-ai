@@ -47,6 +47,8 @@ Docker 기초 ──────▶ Dockerfile ──────▶ Kubernetes 
 | [08_Kubernetes_Advanced.md](./08_Kubernetes_Advanced.md) | ⭐⭐⭐⭐ | Ingress, StatefulSet, DaemonSet, PV/PVC |
 | [09_Helm_Package_Management.md](./09_Helm_Package_Management.md) | ⭐⭐⭐ | Helm 차트, values.yaml, 릴리스 관리 |
 | [10_CI_CD_Pipelines.md](./10_CI_CD_Pipelines.md) | ⭐⭐⭐⭐ | GitHub Actions, 이미지 빌드, K8s 배포 |
+| [11_Container_Networking.md](./11_Container_Networking.md) | ⭐⭐⭐ | Bridge, host, overlay, macvlan, DNS, 포트 매핑 |
+| [12_Security_Best_Practices.md](./12_Security_Best_Practices.md) | ⭐⭐⭐⭐ | 이미지 스캐닝, rootless, seccomp, 시크릿 관리, Falco |
 
 ---
 

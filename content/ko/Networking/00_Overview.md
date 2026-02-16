@@ -77,6 +77,13 @@ OSI/TCP-IP ────────▶ TCP/UDP ─────────▶ �
 | [16_Security_Threats_Response.md](./16_Security_Threats_Response.md) | ⭐⭐⭐⭐ | 스니핑, 스푸핑, DDoS |
 | [17_Practical_Network_Tools.md](./17_Practical_Network_Tools.md) | ⭐⭐⭐ | ping, netstat, tcpdump, Wireshark |
 
+### 현대 네트워킹 (18-19)
+
+| 파일명 | 난이도 | 주요 내용 |
+|--------|--------|----------|
+| [18_IPv6.md](./18_IPv6.md) | ⭐⭐⭐ | IPv6 주소 체계, SLAAC, DHCPv6, 전환 메커니즘 |
+| [19_Container_Networking.md](./19_Container_Networking.md) | ⭐⭐⭐⭐ | Docker CNM, K8s 네트워킹, CNI 플러그인, 서비스 메시 |
+
 ---
 
 ## 추천 학습 순서
@@ -109,6 +116,11 @@ OSI/TCP-IP ────────▶ TCP/UDP ─────────▶ �
 ### 6단계: 보안 및 실무 (1~2주)
 ```
 15_Network_Security_Basics → 16_Security_Threats_Response → 17_Practical_Network_Tools
+```
+
+### 7단계: 현대 네트워킹 (1~2주)
+```
+18_IPv6 → 19_Container_Networking
 ```
 
 ---

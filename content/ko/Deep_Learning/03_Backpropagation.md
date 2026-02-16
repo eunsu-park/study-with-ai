@@ -1,5 +1,9 @@
 # 03. 역전파 이해
 
+[이전: 신경망 기초](./02_Neural_Network_Basics.md) | [다음: 훈련 기법](./04_Training_Techniques.md)
+
+---
+
 ## 학습 목표
 
 - 역전파(Backpropagation) 알고리즘의 원리 이해

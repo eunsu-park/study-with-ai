@@ -77,6 +77,13 @@ Physical/Data Link ──▶ Application Layer ──▶ Practical Tools
 | [16_Security_Threats_Response.md](./16_Security_Threats_Response.md) | ⭐⭐⭐⭐ | Sniffing, spoofing, DDoS |
 | [17_Practical_Network_Tools.md](./17_Practical_Network_Tools.md) | ⭐⭐⭐ | ping, netstat, tcpdump, Wireshark |
 
+### Modern Networking (18-19)
+
+| File | Difficulty | Key Topics |
+|------|------------|------------|
+| [18_IPv6.md](./18_IPv6.md) | ⭐⭐⭐ | IPv6 addressing, SLAAC, DHCPv6, transition mechanisms |
+| [19_Container_Networking.md](./19_Container_Networking.md) | ⭐⭐⭐⭐ | Docker CNM, K8s networking, CNI plugins, service mesh |
+
 ---
 
 ## Recommended Learning Path
@@ -109,6 +116,11 @@ Physical/Data Link ──▶ Application Layer ──▶ Practical Tools
 ### Phase 6: Security and Practice (1-2 weeks)
 ```
 15_Network_Security_Basics → 16_Security_Threats_Response → 17_Practical_Network_Tools
+```
+
+### Phase 7: Modern Networking (1-2 weeks)
+```
+18_IPv6 → 19_Container_Networking
 ```
 
 ---

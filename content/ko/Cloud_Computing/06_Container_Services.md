@@ -180,6 +180,78 @@ aws ecs create-service \
     --network-configuration "awsvpcConfiguration={subnets=[subnet-xxx],securityGroups=[sg-xxx],assignPublicIp=ENABLED}"
 ```
 
+### 3.3 ECS Service Connect
+
+ECS Service Connect는 별도의 프록시나 서비스 메시 설정 없이 서비스 간 통신을 위한 내장 서비스 메시 기능을 제공합니다.
+
+```json
+// Service Connect가 포함된 서비스 정의
+{
+    "cluster": "my-cluster",
+    "serviceName": "backend-service",
+    "taskDefinition": "backend-task:1",
+    "serviceConnectConfiguration": {
+        "enabled": true,
+        "namespace": "my-app-namespace",
+        "services": [
+            {
+                "portName": "http",
+                "discoveryName": "backend",
+                "clientAliases": [
+                    {
+                        "port": 80,
+                        "dnsName": "backend.local"
+                    }
+                ]
+            }
+        ]
+    },
+    "desiredCount": 2,
+    "launchType": "FARGATE",
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": ["subnet-xxx"],
+            "securityGroups": ["sg-xxx"]
+        }
+    }
+}
+```
+
+**주요 장점:**
+- 내장 서비스 디스커버리 (AWS Cloud Map 통합)
+- 서비스 간 자동 로드 밸런싱
+- 추가 에이전트 없이 트래픽 메트릭 및 관측성(Observability) 제공
+- 외부 서비스 메시(Istio, Consul) 불필요
+
+### 3.4 ECS Exec (컨테이너 디버깅)
+
+ECS Exec을 사용하면 실행 중인 컨테이너에 대화형 셸로 접근하여 디버깅할 수 있습니다.
+
+```bash
+# 서비스에서 ECS Exec 활성화
+aws ecs update-service \
+    --cluster my-cluster \
+    --service my-service \
+    --enable-execute-command
+
+# 대화형 셸 세션 시작
+aws ecs execute-command \
+    --cluster my-cluster \
+    --task TASK_ID \
+    --container my-container \
+    --interactive \
+    --command "/bin/sh"
+
+# 일회성 명령 실행
+aws ecs execute-command \
+    --cluster my-cluster \
+    --task TASK_ID \
+    --container my-container \
+    --command "cat /app/config.json"
+```
+
+> **참고:** ECS Exec을 사용하려면 태스크 역할에 `ssmmessages` 권한이 필요하며, 태스크 정의에 `initProcessEnabled: true`가 포함되어야 합니다.
+
 ---
 
 ## 4. AWS EKS (Elastic Kubernetes Service)
@@ -188,8 +260,7 @@ aws ecs create-service \
 
 ```bash
 # 1. eksctl 설치 (macOS)
-brew tap weaveworks/tap
-brew install weaveworks/tap/eksctl
+brew install eksctl
 
 # 2. 클러스터 생성
 eksctl create cluster \
@@ -208,7 +279,35 @@ aws eks update-kubeconfig --name my-cluster --region ap-northeast-2
 kubectl get nodes
 ```
 
-### 4.2 애플리케이션 배포
+### 4.2 EKS Auto Mode
+
+EKS Auto Mode(2024년 말 출시)는 GKE Autopilot과 유사하게 노드 관리를 자동화하여 EKS 운영을 단순화합니다.
+
+```bash
+# Auto Mode로 EKS 클러스터 생성
+eksctl create cluster \
+    --name my-auto-cluster \
+    --region ap-northeast-2 \
+    --auto-mode
+
+# 또는 기존 클러스터에 Auto Mode 활성화
+aws eks update-cluster-config \
+    --name my-cluster \
+    --compute-config enabled=true \
+    --kubernetes-network-config '{"elasticLoadBalancing":{"enabled":true}}' \
+    --storage-config '{"blockStorage":{"enabled":true}}'
+```
+
+| 기능 | EKS Standard | EKS Auto Mode |
+|------|-------------|---------------|
+| **노드 프로비저닝** | 수동 (관리형 노드 그룹 또는 Karpenter) | 자동 |
+| **노드 OS 업데이트** | 사용자 관리 | AWS 관리 |
+| **로드 밸런서** | AWS LB Controller 설치 필요 | 내장 |
+| **스토리지(EBS CSI)** | EBS CSI 드라이버 설치 필요 | 내장 |
+| **과금** | EC2 인스턴스 기반 | Pod 리소스 기반 (오버헤드 포함) |
+| **적합 대상** | 세밀한 제어 필요 시 | 간소화된 운영 |
+
+### 4.3 애플리케이션 배포
 
 ```yaml
 # deployment.yaml
@@ -289,15 +388,71 @@ gcloud container clusters get-credentials my-cluster \
 kubectl get nodes
 ```
 
-### 5.2 GKE Autopilot vs Standard
+### 5.2 GKE Autopilot 심화
+
+GKE Autopilot은 Google이 노드, 스케일링, 보안을 포함한 전체 클러스터 인프라를 관리하는 완전 관리형 Kubernetes 모드입니다.
+
+**Autopilot vs Standard:**
 
 | 항목 | Autopilot | Standard |
 |------|-----------|----------|
 | **노드 관리** | Google 자동 관리 | 사용자 관리 |
 | **과금** | Pod 리소스 기반 | 노드 기반 |
-| **보안** | 강화된 보안 기본값 | 설정 필요 |
-| **확장성** | 자동 확장 | 수동/자동 설정 |
-| **적합 대상** | 대부분의 워크로드 | 세밀한 제어 필요 시 |
+| **보안** | 강화된 기본값 (경량화 OS, Workload Identity, Shielded GKE 노드) | 수동 구성 |
+| **확장성** | 자동 HPA/VPA | 수동/자동 구성 |
+| **GPU 지원** | 지원 (L4, A100, H100, TPU) | 지원 |
+| **Spot Pod** | 지원 | 지원 (선점형 노드) |
+| **DaemonSet** | 허용 (과금 포함) | 허용 |
+| **특권 Pod** | 불허 | 허용 |
+| **적합 대상** | 대부분의 워크로드, 비용 최적화 | 세밀한 제어, 특수 커널 요구 시 |
+
+**Autopilot 보안 기능 (기본 활성화):**
+- `containerd` 기반 Container-Optimized OS
+- Workload Identity (노드 서비스 계정 키 불필요)
+- Shielded GKE 노드 (보안 부팅, 무결성 모니터링)
+- 네트워크 정책 적용
+- Pod 보안 표준 (기본 Baseline)
+- Binary Authorization 지원
+
+```bash
+# Autopilot에서 Spot Pod 배포 (최대 60-91% 비용 절감)
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batch-processor
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: batch-processor
+  template:
+    metadata:
+      labels:
+        app: batch-processor
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-spot: "true"
+      terminationGracePeriodSeconds: 25
+      containers:
+      - name: worker
+        image: asia-northeast3-docker.pkg.dev/PROJECT_ID/my-repo/worker:latest
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+            # Autopilot에서 GPU 요청
+            # nvidia.com/gpu: "1"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+      tolerations:
+      - key: cloud.google.com/gke-spot
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
+EOF
+```
 
 ### 5.3 애플리케이션 배포
 
@@ -435,11 +590,13 @@ gcloud run services update-traffic my-service \
 | 사용 사례 | AWS 권장 | GCP 권장 |
 |----------|---------|---------|
 | **단순 웹앱** | App Runner | Cloud Run |
-| **마이크로서비스** | ECS Fargate | Cloud Run |
-| **복잡한 K8s 워크로드** | EKS | GKE Standard |
-| **ML 배포** | EKS + GPU | GKE + GPU |
+| **마이크로서비스** | ECS Fargate + Service Connect | Cloud Run |
+| **K8s (간소화)** | EKS Auto Mode | GKE Autopilot |
+| **K8s (전체 제어)** | EKS Standard | GKE Standard |
+| **ML/GPU 워크로드** | EKS + GPU | GKE Autopilot + GPU |
 | **배치 작업** | ECS Task | Cloud Run Jobs |
 | **이벤트 처리** | Fargate + EventBridge | Cloud Run + Eventarc |
+| **비용 민감 배치** | Fargate Spot | Autopilot Spot Pod |
 
 ---
 

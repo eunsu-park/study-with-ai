@@ -61,6 +61,8 @@ CRUD 기본 ────────▶ 뷰와 인덱스 ────▶ 백업/
 | [16_Replication_HA.md](./16_Replication_HA.md) | ⭐⭐⭐⭐⭐ | 스트리밍 복제, 논리 복제, 페일오버 |
 | [17_Window_Functions.md](./17_Window_Functions.md) | ⭐⭐⭐ | OVER, ROW_NUMBER, RANK, LEAD/LAG |
 | [18_Table_Partitioning.md](./18_Table_Partitioning.md) | ⭐⭐⭐⭐ | Range/List/Hash 파티셔닝 |
+| [19_Full_Text_Search.md](./19_Full_Text_Search.md) | ⭐⭐⭐ | tsvector/tsquery, GIN 인덱스, 랭킹, pg_trgm |
+| [20_Security_Access_Control.md](./20_Security_Access_Control.md) | ⭐⭐⭐⭐ | 역할, 행 수준 보안, pg_hba.conf, SSL, 감사 로깅 |
 
 ---
 

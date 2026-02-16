@@ -100,6 +100,8 @@
 | 10 | PPO_TRPO.md | PPO & TRPO | ⭐⭐⭐⭐ | Clipping, KL Divergence, Proximal Policy Optimization |
 | 11 | Multi_Agent_RL.md | 다중 에이전트 RL | ⭐⭐⭐⭐ | 협력/경쟁, Self-Play, MARL 알고리즘 |
 | 12 | Practical_RL_Project.md | 실전 프로젝트 | ⭐⭐⭐⭐ | Gymnasium 환경, Atari 게임, 종합 프로젝트 |
+| 13 | Model_Based_RL.md | 모델 기반 RL | ⭐⭐⭐⭐ | Dyna 아키텍처, 세계 모델, MBPO, MuZero, Dreamer |
+| 14 | Soft_Actor_Critic.md | SAC | ⭐⭐⭐⭐ | 최대 엔트로피 RL, 자동 온도 조정, 연속 제어 |
 
 ---
 

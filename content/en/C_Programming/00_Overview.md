@@ -63,6 +63,8 @@ Address Book ▶ Hash Table
 | [18_Debugging_Memory_Analysis.md](./18_Debugging_Memory_Analysis.md) | ⭐⭐⭐ | GDB, Valgrind, AddressSanitizer |
 | [19_Advanced_Embedded_Protocols.md](./19_Advanced_Embedded_Protocols.md) | ⭐⭐⭐ | PWM, I2C, SPI, ADC |
 | [20_Advanced_Pointers.md](./20_Advanced_Pointers.md) | ⭐⭐⭐ | Pointer arithmetic, multi-level pointers, function pointers, dynamic memory |
+| [21_Network_Programming.md](./21_Network_Programming.md) | ⭐⭐⭐⭐ | TCP/UDP sockets, client-server, I/O multiplexing (select/poll) |
+| [22_IPC_and_Signals.md](./22_IPC_and_Signals.md) | ⭐⭐⭐⭐ | Pipes, shared memory, message queues, signal handling |
 
 ---
 
@@ -75,7 +77,7 @@ Address Book ▶ Hash Table
 2. Advanced Pointers → Dynamic Array → Linked List → File Encryption → Stack & Queue → Hash Table
 
 ### Advanced (Systems Programming)
-3. Snake Game → Mini Shell → Multithreading
+3. Snake Game → Mini Shell → Multithreading → Network Programming → IPC & Signals
 
 ### Embedded (Arduino)
 4. Embedded Basics → Bit Operations → GPIO Control → Serial Communication → Advanced Embedded Protocols

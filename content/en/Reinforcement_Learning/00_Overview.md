@@ -100,6 +100,8 @@ This folder contains materials for systematically learning **Reinforcement Learn
 | 10 | PPO_TRPO.md | PPO & TRPO | ⭐⭐⭐⭐ | Clipping, KL Divergence, Proximal Policy Optimization |
 | 11 | Multi_Agent_RL.md | Multi-Agent RL | ⭐⭐⭐⭐ | Cooperation/Competition, Self-Play, MARL algorithms |
 | 12 | Practical_RL_Project.md | Practical Projects | ⭐⭐⭐⭐ | Gymnasium environments, Atari games, comprehensive projects |
+| 13 | Model_Based_RL.md | Model-Based RL | ⭐⭐⭐⭐ | Dyna architecture, world models, MBPO, MuZero, Dreamer |
+| 14 | Soft_Actor_Critic.md | SAC | ⭐⭐⭐⭐ | Maximum entropy RL, auto temperature, continuous control |
 
 ---
 
@@ -187,9 +189,11 @@ print(f"CUDA available: {torch.cuda.is_available()}")
 9. **09_Actor_Critic.md** - Combining value and policy
 10. **10_PPO_TRPO.md** - Stable policy learning
 
-### Stage 4: Advanced Topics (2 weeks)
+### Stage 4: Advanced Topics (3 weeks)
 11. **11_Multi_Agent_RL.md** - Multi-agent environments
 12. **12_Practical_RL_Project.md** - Comprehensive project execution
+13. **13_Model_Based_RL.md** - Planning with learned models
+14. **14_Soft_Actor_Critic.md** - Maximum entropy for continuous control
 
 ---
 

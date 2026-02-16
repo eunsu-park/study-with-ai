@@ -26,6 +26,10 @@
 플라즈마 시뮬레이션 (19)
     ↓
 몬테카를로 시뮬레이션 (20)
+    ↓
+스펙트럼 방법 (21)
+    ↓
+유한 요소 방법 (22)
 ```
 
 ---
@@ -54,6 +58,8 @@
 | [18_MHD_Numerical_Methods.md](./18_MHD_Numerical_Methods.md) | MHD 수치해법 | 보존형, Godunov 방법, MHD 리만 문제 |
 | [19_Plasma_Simulation.md](./19_Plasma_Simulation.md) | 플라즈마 시뮬레이션 | PIC 방법 기초, 입자-격자 상호작용 |
 | [20_Monte_Carlo_Simulation.md](./20_Monte_Carlo_Simulation.md) | 몬테카를로 시뮬레이션 | 난수 생성, MC 적분, Ising 모델, 옵션 가격, 분산 감소 |
+| [21_Spectral_Methods.md](./21_Spectral_Methods.md) | 스펙트럼 방법 | 푸리에 스펙트럼, FFT 미분, 체비셰프 콜로케이션, 디에일리어싱 |
+| [22_Finite_Element_Method.md](./22_Finite_Element_Method.md) | 유한 요소 방법 | 약형식, 기저 함수, 강성 행렬 조립, 1D/2D FEM |
 
 ---
 
@@ -118,6 +124,10 @@ pip install mayavi
 
 ### 8단계: 확률적 시뮬레이션 (2주)
 - 20_Monte_Carlo_Simulation.md
+
+### 9단계: 고급 방법 (2-3주)
+- 21_Spectral_Methods.md
+- 22_Finite_Element_Method.md
 
 ---
 

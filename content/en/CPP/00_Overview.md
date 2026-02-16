@@ -57,6 +57,7 @@ Control Flow ───▶ Pointers/Refs ───▶ Inheritance ─────
 | [16_Multithreading_Concurrency.md](./16_Multithreading_Concurrency.md) | ⭐⭐⭐⭐ | std::thread, mutex, async/future |
 | [17_CPP20_Advanced.md](./17_CPP20_Advanced.md) | ⭐⭐⭐⭐⭐ | Concepts, Ranges, Coroutines |
 | [18_Design_Patterns.md](./18_Design_Patterns.md) | ⭐⭐⭐⭐ | Singleton, Factory, Observer, CRTP |
+| [19_Project_Student_Management.md](./19_Project_Student_Management.md) | ⭐⭐⭐ | STL, File I/O, Smart Pointers, Exception Handling |
 
 ---
 
@@ -77,6 +78,9 @@ Control Flow ───▶ Pointers/Refs ───▶ Inheritance ─────
 
 ### In-Depth (Expert)
 6. Multithreading and Concurrency → C++20 Advanced → Design Patterns
+
+### Projects
+7. Student Management System (comprehensive STL + File I/O project)
 
 ---
 

@@ -1,5 +1,9 @@
 # 03. Understanding Backpropagation
 
+[Previous: Neural Network Basics](./02_Neural_Network_Basics.md) | [Next: Training Techniques](./04_Training_Techniques.md)
+
+---
+
 ## Learning Objectives
 
 - Understand the principles of the backpropagation algorithm

@@ -1,5 +1,9 @@
 # 04. Training Techniques
 
+[Previous: Backpropagation](./03_Backpropagation.md) | [Next: Linear & Logistic Regression](./05_Impl_Linear_Logistic.md)
+
+---
+
 ## Learning Objectives
 
 - Understand gradient descent variants (SGD, Momentum, Adam)
@@ -358,4 +362,4 @@ scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=5)
 
 ## Next Steps
 
-In [05_CNN_Basics.md](./05_CNN_Basics.md), we'll learn convolutional neural networks.
+In [07_CNN_Basics.md](./07_CNN_Basics.md), we'll learn convolutional neural networks.
