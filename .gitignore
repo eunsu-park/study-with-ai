@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDL
+*.sav
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Papers (copyright — keep local only)
+*.pdf
+
+# Data (large files)
+*.fits
+*.hdf5
+*.h5
+*.nc
+*.csv
+!data/**/*.csv
+
+# Claude Code
+.claude/
