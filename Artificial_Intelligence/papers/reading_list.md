@@ -19,21 +19,21 @@ Read in order — each paper builds on the concepts introduced by earlier ones.
 - **Year**: 1950
 - **Why it matters**: Posed the fundamental question "Can machines think?" and proposed the Turing Test. Anticipated and addressed major objections to machine intelligence decades before they became mainstream debates.
 - **Prerequisites**: None (philosophical paper, highly accessible)
-- **Status**: [x]
+- **Status**: [ ]
 
 ### 3. The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain
 - **Authors**: Frank Rosenblatt
 - **Year**: 1958
 - **Why it matters**: Introduced the perceptron — the first trainable neural network model. Demonstrated that a machine could learn from data rather than being explicitly programmed, sparking enormous excitement about AI.
 - **Prerequisites**: Paper #1; basic linear algebra (vectors, dot products)
-- **Status**: [x]
+- **Status**: [ ]
 
 ### 4. Perceptrons (book)
 - **Authors**: Marvin Minsky, Seymour Papert
 - **Year**: 1969
 - **Why it matters**: Rigorously proved the limitations of single-layer perceptrons (e.g., inability to learn XOR). Widely credited with triggering the first "AI winter" by dampening enthusiasm for neural networks. Understanding these limitations motivates multi-layer networks.
 - **Prerequisites**: Paper #3; basic set theory and logic
-- **Status**: [x]
+- **Status**: [ ]
 
 ---
 

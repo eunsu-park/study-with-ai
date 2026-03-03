@@ -6,8 +6,8 @@ journal: Bulletin of Mathematical Biophysics, 5, 115–133
 topic: Foundations of Neural Networks
 tags: [neuron model, boolean logic, threshold logic, computational neuroscience]
 status: completed
-date_started: 2026-02-28
-date_completed: 2026-02-28
+date_started: 2026-03-01
+date_completed: 2026-03-01
 ---
 
 # Paper #1: A Logical Calculus of the Ideas Immanent in Nervous Activity

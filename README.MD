@@ -41,10 +41,7 @@ Each topic is structured around a curated list of landmark papers, read in chron
 | # | Paper | Year | Status |
 |---|---|---|---|
 | 1 | McCulloch & Pitts — "A Logical Calculus of Ideas Immanent in Nervous Activity" | 1943 | Done |
-| 2 | Turing — "Computing Machinery and Intelligence" | 1950 | Done |
-| 3 | Rosenblatt — "The Perceptron" | 1958 | Done |
-| 4 | Minsky & Papert — *Perceptrons* | 1969 | Done |
-| 5–28 | (See [full reading list](Artificial_Intelligence/papers/reading_list.md)) | 1982–2022 | — |
+| 2–28 | (See [full reading list](Artificial_Intelligence/papers/reading_list.md)) | 1982–2022 | — |
 
 ## Language
 
