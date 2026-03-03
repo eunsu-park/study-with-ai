@@ -45,9 +45,7 @@ Each topic is structured around a curated list of landmark papers, read in chron
 
 ## Language
 
-- **Documents & code**: English
-- **Conversation with AI**: Korean (한국어)
-- **Technical terms**: Original English (untranslated)
+English
 
 ## Tools
 
