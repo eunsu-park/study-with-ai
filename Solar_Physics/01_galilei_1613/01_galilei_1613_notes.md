@@ -3,6 +3,7 @@ title: "Istoria e Dimostrazioni Intorno Alle Macchie Solari (Letters on Sunspots
 authors: Galileo Galilei
 year: 1613
 journal: "Published by the Accademia dei Lincei, Rome"
+doi: ""
 topic: Solar Physics / Observational Foundations
 tags: [sunspots, solar rotation, telescopic observation, Aristotelian cosmology, scientific method]
 status: completed
