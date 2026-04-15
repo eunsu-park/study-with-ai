@@ -3,6 +3,7 @@ title: "Auto-Encoding Variational Bayes (VAE)"
 paper_id: "15_kingma_2013"
 authors: "Diederik P. Kingma, Max Welling"
 year: 2013
+journal: ""
 doi: "arXiv:1312.6114"
 topic: Artificial Intelligence
 tags: [generative-model, variational-inference, latent-variable, autoencoder, reparameterization, deep-learning]

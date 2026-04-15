@@ -3,6 +3,7 @@ title: "Perceptrons: An Introduction to Computational Geometry"
 authors: Marvin Minsky, Seymour Papert
 year: 1969
 journal: "MIT Press (Book)"
+doi: ""
 topic: Artificial Intelligence / Computational Geometry
 tags: [perceptron, linear separability, connectedness, convexity, local vs global, computational limits, AI winter, parallel computation]
 status: completed

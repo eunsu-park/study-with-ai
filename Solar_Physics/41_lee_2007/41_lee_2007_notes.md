@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, Grand-Minima, Spörer-Minimum, Maunder-Minimum, cosmogenic-isotopes, carbon-14, historical-astronomy, sunspot, aurora, Korean-chronicles, Chinese-chronicles]
 type: notes
+journal: "Advances in Space Research, Vol. 40, pp. 1562-1571"
 doi: "10.1016/j.asr.2007.02.090"
 ---
 

@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, historical-astronomy, sunspot, aurora, Schwabe-cycle, Gleissberg-cycle, Grand-Minima, Korean-chronicles, Goryeo, Joseon]
 type: notes
+journal: "Solar Physics, Vol. 224, pp. 373-386"
 doi: "10.1007/s11207-005-5199-8"
 ---
 

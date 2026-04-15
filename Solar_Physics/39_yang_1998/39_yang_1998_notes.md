@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, historical-astronomy, sunspot, aurora, Goryeo-Dynasty, power-spectrum, Korean-chronicles]
 type: notes
+journal: "Publications of the Korean Astronomical Society, Vol. 13, pp. 181-208"
 doi: ""
 ---
 

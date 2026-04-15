@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, climate-change, sunspot, frost-records, Little-Ice-Age, 240-yr-cycle, power-spectrum, Korean-chronicles, Chinese-chronicles, solar-climate-connection]
 type: notes
+journal: "Journal of Atmospheric and Solar-Terrestrial Physics, Vol. 186, pp. 1-6"
 doi: "10.1016/j.jastp.2018.10.021"
 ---
 

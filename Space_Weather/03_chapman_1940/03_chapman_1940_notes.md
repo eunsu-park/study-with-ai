@@ -3,6 +3,7 @@ title: "Geomagnetism"
 authors: Sydney Chapman, Julius Bartels
 year: 1940
 journal: "Oxford University Press (Clarendon Press), 2 vols., pp. xxviii+1049"
+doi: ""
 topic: Space Weather / Geomagnetism
 tags: [geomagnetism, spherical harmonics, Gauss coefficients, Kp index, Dst index, magnetic storm, diurnal variation, secular variation, geomagnetic indices, dipole field]
 status: completed
