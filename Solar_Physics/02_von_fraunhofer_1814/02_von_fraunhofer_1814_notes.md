@@ -3,6 +3,7 @@ title: "Bestimmung des Brechungs- und Farbenzerstreuungs-Vermögens verschiedene
 authors: Joseph von Fraunhofer
 year: 1814–1823
 journal: "Denkschriften der Königlichen Akademie der Wissenschaften zu München, Vol. 5, pp. 193–226"
+doi: ""
 topic: Solar Physics / Spectroscopy
 tags: [fraunhofer lines, solar spectrum, absorption lines, spectroscopy, diffraction grating, optics, refractive index]
 status: completed
