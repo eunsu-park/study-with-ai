@@ -3,6 +3,7 @@ title: "Extreme Space-Weather Events and the Solar Cycle"
 authors: Mathew J. Owens, Mike Lockwood, Luke A. Barnard, Chris J. Scott, Carl Haines, Allan Macneil
 year: 2021
 journal: "Solar Physics"
+doi: "10.1007/s11207-021-01831-3"
 topic: Space_Weather
 tags: [extreme-events, solar-cycle, aa-index, geomagnetic-storms, probabilistic-modeling, Monte-Carlo, Hale-cycle]
 status: completed

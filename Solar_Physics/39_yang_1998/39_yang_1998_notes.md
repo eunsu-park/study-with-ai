@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, historical-astronomy, sunspot, aurora, Goryeo-Dynasty, power-spectrum, Korean-chronicles]
 type: notes
+doi: ""
 ---
 
 # Evidence for the Solar Cycle in the Sunspot and Aurora Records of Goryer Dynasty

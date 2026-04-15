@@ -3,6 +3,7 @@ title: "Solar Interior Rotation and its Variation"
 authors: Rachel Howe
 year: 2009
 journal: "Living Reviews in Solar Physics"
+doi: "10.12942/lrsp-2009-1"
 topic: Living_Reviews_in_Solar_Physics
 tags: [helioseismology, solar rotation, tachocline, torsional oscillation, differential rotation, inversion, convection zone]
 status: completed

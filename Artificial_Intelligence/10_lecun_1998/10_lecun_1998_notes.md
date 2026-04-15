@@ -3,6 +3,7 @@ title: "Gradient-Based Learning Applied to Document Recognition"
 authors: Yann LeCun, Léon Bottou, Yoshua Bengio, Patrick Haffner
 year: 1998
 journal: "Proceedings of the IEEE, Vol. 86(11), pp. 2278–2324"
+doi: "10.1109/5.726791"
 topic: Artificial Intelligence / Convolutional Neural Networks
 tags: [CNN, LeNet-5, MNIST, convolutional network, weight sharing, sub-sampling, feature map, gradient-based learning, graph transformer network, document recognition]
 status: completed

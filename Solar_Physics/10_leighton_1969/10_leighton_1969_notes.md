@@ -3,6 +3,7 @@ title: "A Magneto-Kinematic Model of the Solar Cycle"
 authors: Robert B. Leighton
 year: 1969
 journal: "The Astrophysical Journal, 156, 1–26"
+doi: "10.1086/149943"
 topic: Solar Physics / Solar Dynamo
 tags: [Babcock-Leighton dynamo, kinematic dynamo, supergranular diffusion, random walk, flux transport, meridional flow, differential rotation, butterfly diagram, Spörer's law, solar cycle, numerical simulation, poloidal field, toroidal field]
 status: completed

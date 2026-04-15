@@ -3,6 +3,7 @@ title: "The Perceptron: A Probabilistic Model for Information Storage and Organi
 authors: Frank Rosenblatt
 year: 1958
 journal: "Psychological Review, Vol. 65, No. 6, pp. 386–408"
+doi: "10.1037/h0042519"
 topic: Artificial Intelligence / Neural Networks
 tags: [perceptron, neural networks, learning, statistical separability, pattern recognition, connectionism, generalization]
 status: completed

@@ -3,6 +3,7 @@ title: "The Topology of the Sun's Magnetic Field and the 22-Year Cycle"
 authors: Horace W. Babcock
 year: 1961
 journal: "The Astrophysical Journal, 133, 572–587"
+doi: "10.1086/147060"
 topic: Solar Physics / Solar Dynamo
 tags: [solar dynamo, Babcock model, poloidal field, toroidal field, differential rotation, magnetic buoyancy, flux tube, bipolar magnetic region, BMR, polarity reversal, Joy's law, Spörer's law, 22-year cycle, solar cycle, magnetograph]
 status: completed

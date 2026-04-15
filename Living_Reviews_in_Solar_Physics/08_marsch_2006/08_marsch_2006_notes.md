@@ -3,6 +3,7 @@ title: "Kinetic Physics of the Solar Corona and Solar Wind"
 authors: Eckart Marsch
 year: 2006
 journal: "Living Reviews in Solar Physics, 3, 1"
+doi: "10.12942/lrsp-2006-1"
 topic: "Living Reviews in Solar Physics / Kinetic Plasma Physics"
 tags: [kinetic physics, solar wind, solar corona, VDF, velocity distribution function, Vlasov-Boltzmann, kappa distribution, wave-particle interaction, quasilinear theory, cyclotron resonance, Landau damping, exospheric model, coronal heating, proton beam, strahl, temperature anisotropy, KAW, multi-moment fluid, transport theory]
 status: completed

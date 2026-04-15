@@ -3,6 +3,7 @@ title: "Computing Machinery and Intelligence"
 authors: Alan M. Turing
 year: 1950
 journal: "Mind, Vol. 59, No. 236, pp. 433–460"
+doi: "10.1093/mind/LIX.236.433"
 topic: Artificial Intelligence / Philosophy of Mind
 tags: [turing test, imitation game, machine intelligence, philosophy of mind, learning machines, child machine]
 status: completed

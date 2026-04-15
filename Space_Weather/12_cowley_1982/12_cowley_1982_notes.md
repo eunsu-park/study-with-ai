@@ -3,6 +3,7 @@ title: "The Causes of Convection in the Earth's Magnetosphere: A Review of Devel
 authors: S.W.H. Cowley
 year: 1982
 journal: "Reviews of Geophysics and Space Physics, Vol. 20, No. 3, pp. 531–565"
+doi: "10.1029/RG020i003p00531"
 topic: Space Weather / Magnetospheric Convection
 tags: [magnetospheric convection, reconnection, viscous interaction, Dungey cycle, open magnetosphere, flux transfer events, FTE, boundary layer, LLBL, cross-polar cap potential, IMF Bz, IMF By, IMS, ISEE, two-cell convection, merging electric field, coupling function, quasi-steady reconnection, magnetopause]
 status: completed

@@ -3,6 +3,7 @@ title: "Interplanetary Magnetic Field and the Auroral Zones"
 authors: James W. Dungey
 year: 1961
 journal: "Physical Review Letters, Vol. 6, No. 2, pp. 47–48"
+doi: "10.1103/PhysRevLett.6.47"
 topic: Space Weather / Magnetospheric Physics
 tags: [magnetic reconnection, Dungey cycle, open magnetosphere, auroral zones, magnetopause, magnetotail, neutral points, IMF Bz, solar wind coupling, Sq current, Hall conductivity]
 status: completed

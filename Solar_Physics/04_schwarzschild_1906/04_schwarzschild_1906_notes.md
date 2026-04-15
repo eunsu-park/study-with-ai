@@ -3,6 +3,7 @@ title: "Ueber das Gleichgewicht der Sonnenatmosphäre (On the Equilibrium of the
 authors: Karl Schwarzschild
 year: 1906
 journal: "Nachrichten von der Königlichen Gesellschaft der Wissenschaften zu Göttingen, Math.-phys. Klasse, 1906, pp. 41–53"
+doi: ""
 topic: Solar Physics / Radiative Transfer
 tags: [radiative equilibrium, adiabatic equilibrium, limb darkening, radiative transfer, solar atmosphere, temperature structure, optical depth, Stefan-Boltzmann law, Schwarzschild]
 status: completed

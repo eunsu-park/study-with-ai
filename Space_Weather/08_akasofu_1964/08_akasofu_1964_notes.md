@@ -3,6 +3,7 @@ title: "The Development of the Auroral Substorm"
 authors: Syun-Ichi Akasofu
 year: 1964
 journal: "Planetary and Space Science, Vol. 12, pp. 273–282"
+doi: "10.1016/0032-0633(64)90151-5"
 topic: Space Weather / Auroral Substorm Morphology
 tags: [auroral substorm, substorm phases, expansive phase, recovery phase, auroral bulge, westward traveling surge, all-sky camera, auroral morphology, breakup, omega band, polar cap aurora, IGY]
 status: completed

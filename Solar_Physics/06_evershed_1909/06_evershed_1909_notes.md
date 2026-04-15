@@ -3,6 +3,7 @@ title: "Radial Movement in Sun-Spots"
 authors: John Evershed
 year: 1909
 journal: "Monthly Notices of the Royal Astronomical Society, 69, 454–457"
+doi: "10.1093/mnras/69.5.454"
 topic: Solar Physics / Sunspot Dynamics
 tags: [Evershed effect, sunspot, penumbra, Doppler shift, radial flow, spectral lines, Fraunhofer lines, line-of-nodes, Kodaikánal]
 status: completed

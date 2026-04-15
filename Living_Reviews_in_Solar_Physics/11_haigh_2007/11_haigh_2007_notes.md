@@ -3,6 +3,7 @@ title: "The Sun and the Earth's Climate — Reading Notes"
 authors: Joanna D. Haigh
 year: 2007
 journal: "Living Rev. Solar Phys., 4, 2"
+doi: "10.12942/lrsp-2007-2"
 topic: Solar-Terrestrial Physics / Climate Science
 tags: [solar variability, TSI, UV irradiance, stratospheric ozone, radiative forcing, climate sensitivity, GCR, clouds, stratosphere-troposphere coupling, Maunder Minimum, Milankovitch cycles, QBO]
 status: completed

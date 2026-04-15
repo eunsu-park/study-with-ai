@@ -3,6 +3,7 @@ title: "Kometenschweife und solare Korpuskularstrahlung (Comet Tails and Solar C
 authors: Ludwig Biermann
 year: 1951
 journal: "Zeitschrift für Astrophysik, Bd. 29, S. 274–286"
+doi: ""
 topic: Solar Physics / Solar Wind
 tags: [solar wind, comet tails, corpuscular radiation, plasma physics, momentum transfer, Coulomb collisions, Type I tail, ion tail, radiation pressure, interplanetary medium, cosmic magnetic fields]
 status: completed

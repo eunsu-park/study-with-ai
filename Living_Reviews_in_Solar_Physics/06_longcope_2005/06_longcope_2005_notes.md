@@ -3,6 +3,7 @@ title: "Topological Methods for the Analysis of Solar Magnetic Fields"
 authors: "Dana W. Longcope"
 year: 2005
 journal: "Living Reviews in Solar Physics, 2, 7"
+doi: "10.12942/lrsp-2005-7"
 topic: "Living Reviews in Solar Physics / Magnetic Topology"
 tags:
   - magnetic topology

@@ -3,6 +3,7 @@ title: "Flare Observations"
 authors: Arnold O. Benz
 year: 2008
 journal: "Living Rev. Solar Phys., 5, 1"
+doi: "10.12942/lrsp-2008-1"
 topic: Living Reviews in Solar Physics / Solar Flares
 tags: [solar flares, hard X-rays, soft X-rays, RHESSI, magnetic reconnection, particle acceleration, Neupert effect, chromospheric evaporation, energy budget, bremsstrahlung, gyrosynchrotron, CSHKP model, Transit-Time Damping]
 status: completed

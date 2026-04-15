@@ -3,6 +3,7 @@ title: "Neural Networks and Physical Systems with Emergent Collective Computatio
 authors: John J. Hopfield
 year: 1982
 journal: "Proceedings of the National Academy of Sciences, Vol. 79, pp. 2554–2558"
+doi: "10.1073/pnas.79.8.2554"
 topic: Artificial Intelligence / Associative Memory
 tags: [hopfield network, energy function, associative memory, content-addressable memory, attractor, Ising model, Hebbian learning, recurrent network, convergence]
 status: completed

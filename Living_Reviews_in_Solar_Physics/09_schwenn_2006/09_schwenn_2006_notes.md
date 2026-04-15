@@ -3,6 +3,7 @@ title: "Space Weather: The Solar Perspective — Reading Notes"
 authors: Rainer Schwenn
 year: 2006 (revised 2010)
 journal: Living Reviews in Solar Physics, 3, 2
+doi: "10.12942/lrsp-2006-2"
 topic: Space Weather / Solar Physics
 tags: [space weather, CME, solar flare, SEP, solar wind, ICME, geomagnetic storm, coronal mass ejection]
 status: completed

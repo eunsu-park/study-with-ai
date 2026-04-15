@@ -3,6 +3,7 @@ title: "On the Probable Existence of a Magnetic Field in Sun-Spots"
 authors: George Ellery Hale
 year: 1908
 journal: "The Astrophysical Journal, 28, 315–343"
+doi: "10.1086/141602"
 topic: Solar Physics / Solar Magnetism
 tags: [Zeeman effect, sunspot, magnetic field, spectropolarimetry, circular polarization, plane polarization, vortex, Fresnel rhomb, Nicol prism, Mount Wilson, tower telescope]
 status: completed

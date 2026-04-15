@@ -3,6 +3,7 @@ title: "A Magnetospheric Magnetic Field Model with a Warped Tail Current Sheet"
 authors: Nikolai A. Tsyganenko
 year: 1989
 journal: "Planetary and Space Science"
+doi: "10.1016/0032-0633(89)90066-4"
 topic: Space_Weather
 tags: [magnetosphere, magnetic field model, T89, tail current sheet, warping, Kp index, empirical model]
 status: completed

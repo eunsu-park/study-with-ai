@@ -3,6 +3,7 @@ title: "Stellar Chromospheric Activity"
 authors: Jeffrey C. Hall
 year: 2008
 journal: "Living Reviews in Solar Physics"
+doi: "10.12942/lrsp-2008-2"
 topic: Living_Reviews_in_Solar_Physics
 tags: [chromosphere, Ca II H&K, stellar activity, activity cycles, Maunder Minimum, dynamo, S index, basal flux]
 status: completed

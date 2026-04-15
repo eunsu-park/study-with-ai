@@ -3,6 +3,7 @@ title: "Astrospheres and Solar-like Stellar Winds"
 authors: Brian E. Wood
 year: 2004 (revised 2007)
 journal: "Living Rev. Solar Phys., 1, 2"
+doi: "10.12942/lrsp-2004-2"
 topic: Living Reviews in Solar Physics / Stellar Winds & Heliosphere
 tags: [astrosphere, heliosphere, stellar wind, Lyman-alpha, mass loss, charge exchange, LISM, HST, UV spectroscopy]
 status: completed

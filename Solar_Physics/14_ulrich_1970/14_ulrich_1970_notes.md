@@ -3,6 +3,7 @@ title: "The Five-Minute Oscillations on the Solar Surface"
 authors: Roger K. Ulrich
 year: 1970
 journal: "The Astrophysical Journal, 162, 993–1002"
+doi: "10.1086/150731"
 topic: Solar_Physics
 tags: [helioseismology, p-modes, solar oscillations, acoustic waves, resonant cavity]
 status: completed

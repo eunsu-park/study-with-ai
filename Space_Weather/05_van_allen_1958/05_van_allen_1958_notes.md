@@ -3,6 +3,7 @@ title: "Observation of High Intensity Radiation by Satellites 1958 Alpha and Gam
 authors: James A. Van Allen, George H. Ludwig, Ernest C. Ray, Carl E. McIlwain
 year: 1958
 journal: "Journal of Jet Propulsion (American Rocket Society), Vol. 28, pp. 588–592"
+doi: "10.2514/8.7396"
 topic: Space Weather / Radiation Belts
 tags: [Van Allen belts, radiation belts, Explorer I, Explorer III, Geiger counter, dead time, trapped particles, magnetosphere, space radiation, IGY]
 status: completed

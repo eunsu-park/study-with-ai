@@ -4,6 +4,7 @@ authors:
   - Neil R. Sheeley Jr.
 year: 2005
 journal: "Living Reviews in Solar Physics, 2, 5"
+doi: "10.12942/lrsp-2005-5"
 topic: Living Reviews in Solar Physics
 tags:
   - flux-transport

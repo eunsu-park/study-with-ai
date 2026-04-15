@@ -3,6 +3,7 @@ title: "What Is a Geomagnetic Storm?"
 authors: Walter D. Gonzalez, Joselyn A. Joselyn, Yohsuke Kamide, Herbert W. Kroehl, Gordon Rostoker, Bruce T. Tsurutani, Vytenis M. Vasyliunas
 year: 1994
 journal: "Journal of Geophysical Research, 99(A4), 5771–5792"
+doi: "10.1029/93JA02867"
 topic: Space_Weather
 tags: [geomagnetic storm, Dst index, ring current, substorm, IMF Bz, solar wind coupling, storm classification, space weather]
 status: completed

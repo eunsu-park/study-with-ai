@@ -3,6 +3,7 @@ title: "Existence of Electromagnetic-Hydrodynamic Waves"
 authors: Hannes Alfvén
 year: 1942
 journal: "Nature, Vol. 150, No. 3805, pp. 405–406"
+doi: "10.1038/150405d0"
 topic: Solar Physics / Magnetohydrodynamics
 tags: [Alfvén wave, MHD, magnetohydrodynamics, frozen-in flux, magnetic tension, conducting fluid, plasma waves, solar corona, sunspot, Nobel Prize]
 status: completed

@@ -3,6 +3,7 @@ title: "The 1-meter Swedish Solar Telescope"
 authors: Göran B. Scharmer, Klas Bjelksjö, Tapio Korhonen, Bo Lindberg, Bertil Pettersson
 year: 2003
 journal: "Proc. of SPIE, Vol. 4853, pp. 341–350"
+doi: "10.1117/12.460377"
 topic: Solar Observation / Ground-Based Telescopes
 tags: [SST, Swedish Solar Telescope, singlet lens, Schupmann corrector, adaptive optics, vacuum telescope, La Palma, diffraction-limited, atmospheric dispersion, bimorph mirror]
 status: completed

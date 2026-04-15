@@ -3,6 +3,7 @@ title: "Backpropagation Applied to Handwritten Zip Code Recognition"
 authors: Y. LeCun, B. Boser, J. S. Denker, D. Henderson, R. E. Howard, W. Hubbard, L. D. Jackel
 year: 1989
 journal: "Neural Computation, Vol. 1, pp. 541–551"
+doi: "10.1162/neco.1989.1.4.541"
 topic: Artificial Intelligence / Convolutional Neural Networks
 tags: [CNN, convolution, weight sharing, feature map, local receptive field, subsampling, handwriting recognition, constrained backpropagation, stochastic gradient descent]
 status: completed

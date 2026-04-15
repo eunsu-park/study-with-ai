@@ -3,6 +3,7 @@ title: "Large-Scale Dynamics of the Convection Zone and Tachocline"
 authors: Mark S. Miesch
 year: 2005
 journal: "Living Rev. Solar Phys., 2, 1"
+doi: "10.12942/lrsp-2005-1"
 topic: Living Reviews in Solar Physics / Solar Interior Dynamics
 tags: [convection zone, tachocline, differential rotation, meridional circulation, solar dynamo, helioseismology, anelastic, ASH, Reynolds stress, angular momentum]
 status: completed

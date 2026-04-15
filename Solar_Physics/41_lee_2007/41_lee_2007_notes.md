@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, Grand-Minima, Spörer-Minimum, Maunder-Minimum, cosmogenic-isotopes, carbon-14, historical-astronomy, sunspot, aurora, Korean-chronicles, Chinese-chronicles]
 type: notes
+doi: "10.1016/j.asr.2007.02.090"
 ---
 
 # Features of Great Minima in Solar Activity During the Last 1000 Years

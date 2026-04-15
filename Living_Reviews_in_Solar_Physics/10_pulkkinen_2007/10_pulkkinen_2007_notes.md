@@ -3,6 +3,7 @@ title: "Space Weather: Terrestrial Perspective — Reading Notes"
 authors: Tuija Pulkkinen
 year: 2007
 journal: "Living Rev. Solar Phys., 4, 1"
+doi: "10.12942/lrsp-2007-1"
 topic: Space Weather / Magnetospheric Physics
 tags: [magnetosphere, substorms, ring current, radiation belts, space weather, MHD simulation, Dst, reconnection, GIC]
 status: completed

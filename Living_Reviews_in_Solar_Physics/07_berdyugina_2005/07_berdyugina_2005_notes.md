@@ -3,6 +3,7 @@ title: "Starspots: A Key to the Stellar Dynamo"
 authors: Svetlana V. Berdyugina
 year: 2005
 journal: "Living Reviews in Solar Physics, 2, 8"
+doi: "10.12942/lrsp-2005-8"
 topic: "Living Reviews in Solar Physics / Starspots"
 tags: [starspots, stellar activity, Doppler imaging, ZDI, differential rotation, activity cycles, flip-flop, stellar dynamo, RS CVn, BY Dra, light curve inversion, active longitudes]
 status: completed

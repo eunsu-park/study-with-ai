@@ -3,6 +3,7 @@ title: "The McMath Solar Telescope of Kitt Peak National Observatory"
 authors: A. Keith Pierce
 year: 1964
 journal: "Applied Optics, Vol. 3, No. 12, pp. 1337–1346"
+doi: "10.1364/AO.3.001337"
 topic: Solar Observation / Ground-Based Telescopes
 tags: [solar telescope, heliostat, spectrograph, vacuum spectrometer, McMath-Pierce, Kitt Peak, infrared spectroscopy, Fraunhofer lines]
 status: completed

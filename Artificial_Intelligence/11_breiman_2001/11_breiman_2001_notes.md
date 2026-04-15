@@ -3,6 +3,7 @@ title: "Random Forests"
 authors: Leo Breiman
 year: 2001
 journal: "Machine Learning, Vol. 45, pp. 5–32"
+doi: "10.1023/A:1010933404324"
 topic: Artificial Intelligence / Ensemble Methods
 tags: [random forest, bagging, bootstrap, ensemble, decision tree, out-of-bag, variable importance, correlation, strength, classification, regression]
 status: completed

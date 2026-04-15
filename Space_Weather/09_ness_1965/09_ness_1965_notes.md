@@ -3,6 +3,7 @@ title: "The Earth's Magnetic Tail"
 authors: Norman F. Ness
 year: 1965
 journal: "Journal of Geophysical Research, Vol. 70, No. 13, pp. 2989–3005"
+doi: "10.1029/JZ070i013p02989"
 topic: Space Weather / Magnetotail Discovery
 tags: [magnetotail, IMP-1, neutral sheet, tail current, magnetopause, bow shock, magnetic field topology, solar magnetospheric coordinates, cometary analogy, radiation belts, Explorer 18]
 status: completed

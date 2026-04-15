@@ -3,6 +3,7 @@ title: "The Norwegian Aurora Polaris Expedition 1902–1903, Vol. 1: On the Caus
 authors: Kristian Birkeland
 year: 1908
 journal: "H. Aschehoug & Co., Christiania (Oslo)"
+doi: ""
 topic: Space Weather / Auroral Physics
 tags: [aurora, birkeland currents, terrella, geomagnetic storms, solar-terrestrial, cathode rays, magnetosphere]
 status: completed

@@ -3,6 +3,7 @@ title: "An Evacuated Tower Telescope"
 authors: Richard B. Dunn
 year: 1964
 journal: "Applied Optics, Vol. 3, No. 12, pp. 1353–1357"
+doi: "10.1364/AO.3.001353"
 topic: Solar Observation / Ground-Based Telescopes
 tags: [vacuum telescope, tower telescope, internal seeing, turret, Sacramento Peak, Dunn Solar Telescope, solar spectroscopy, mercury float]
 status: completed

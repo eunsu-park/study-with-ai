@@ -3,6 +3,7 @@ title: "The Sun in Time: Activity and Environment — Reading Notes"
 authors: Manuel Güdel
 year: 2007
 journal: "Living Rev. Solar Phys., 4, 3"
+doi: "10.12942/lrsp-2007-3"
 topic: Stellar Astrophysics / Solar Evolution / Planetary Atmospheres
 tags: [solar analogs, Sun in Time, rotation-activity, X-ray luminosity, EUV, stellar wind, mass loss, Skumanich law, coronal temperature, FIP effect, Faint Young Sun Paradox, atmospheric escape, Jeans escape, hydrodynamic blow-off, Venus, Mars, T Tauri, protoplanetary disk]
 status: completed

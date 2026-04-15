@@ -3,6 +3,7 @@ title: "Observations of Low Wavenumber Nonradial Eigenmodes of the Sun"
 authors: Franz-Ludwig Deubner
 year: 1975
 journal: "Astronomy & Astrophysics, 44, 371–375"
+doi: ""
 topic: Solar_Physics
 tags: [helioseismology, p-modes, k-omega diagram, solar oscillations, nonradial eigenmodes, Fourier analysis, observational confirmation]
 status: completed

@@ -3,6 +3,7 @@ title: "Efficient Estimation of Word Representations in Vector Space"
 authors: Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean
 year: 2013
 journal: "arXiv:1301.3781"
+doi: "arXiv:1301.3781"
 topic: Artificial Intelligence
 tags: [word2vec, word-embeddings, CBOW, skip-gram, NLP, distributed-representations, language-model]
 status: completed

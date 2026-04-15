@@ -3,6 +3,7 @@ title: "A Fast Learning Algorithm for Deep Belief Nets"
 authors: Geoffrey E. Hinton, Simon Osindero, Yee-Whye Teh
 year: 2006
 journal: "Neural Computation, Vol. 18(7), pp. 1527–1554"
+doi: "10.1162/neco.2006.18.7.1527"
 topic: Artificial Intelligence / Deep Learning
 tags: [deep belief net, restricted boltzmann machine, RBM, contrastive divergence, greedy layer-wise pre-training, generative model, unsupervised learning, complementary prior, explaining away, variational bound, wake-sleep, MNIST]
 status: completed

@@ -3,6 +3,7 @@ title: "Dynamics of the Interplanetary Gas and Magnetic Fields"
 authors: Eugene N. Parker
 year: 1958
 journal: "The Astrophysical Journal, 128, 664–676"
+doi: "10.1086/146579"
 topic: Solar Physics / Solar Wind
 tags: [solar wind, corona, hydrodynamic expansion, supersonic flow, Parker spiral, interplanetary magnetic field, hydrostatic equilibrium, critical point, mass loss, coronal heating, magnetic torque, plasma instability]
 status: completed

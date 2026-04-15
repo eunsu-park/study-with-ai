@@ -5,6 +5,7 @@ topic: Solar_Physics
 date: 2026-04-15
 tags: [solar-cycle, historical-astronomy, sunspot, aurora, Schwabe-cycle, Gleissberg-cycle, Grand-Minima, Korean-chronicles, Goryeo, Joseon]
 type: notes
+doi: "10.1007/s11207-005-5199-8"
 ---
 
 # The Sunspot and Auroral Activity Cycle Derived from Korean Historical Records of the 11th–18th Century

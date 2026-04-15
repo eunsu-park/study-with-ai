@@ -3,6 +3,7 @@ title: "The Global Oscillation Network Group (GONG) Project"
 authors: John W. Harvey, Frank Hill, Rudi Hubbard et al.
 year: 1996
 journal: "Science, Vol. 272, No. 5266, pp. 1284–1286"
+doi: "10.1126/science.272.5266.1284"
 topic: Solar Observation / Ground-Based Networks
 tags: [GONG, helioseismology, p-mode, Michelson interferometer, Fourier tachometer, Ni I 676.8 nm, duty cycle, spectral leakage, solar rotation, sound speed inversion, synoptic observation]
 status: completed

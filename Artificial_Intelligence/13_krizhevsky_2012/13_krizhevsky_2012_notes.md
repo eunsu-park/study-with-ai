@@ -3,6 +3,7 @@ title: "ImageNet Classification with Deep Convolutional Neural Networks"
 authors: Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton
 year: 2012
 journal: "Advances in Neural Information Processing Systems 25 (NIPS 2012), pp. 1097–1105"
+doi: "10.1145/3065386"
 topic: Artificial Intelligence / Deep Learning
 tags: [AlexNet, CNN, convolutional neural network, ImageNet, ILSVRC, ReLU, dropout, data augmentation, GPU training, local response normalization, overlapping pooling, deep learning, computer vision, large-scale image classification]
 status: completed
