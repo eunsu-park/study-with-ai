@@ -1,6 +1,6 @@
 ---
 title: "Response of the Thermosphere and Ionosphere to Geomagnetic Storms"
-authors: Timothy J. Fuller-Rowell, Mihail V. Codrescu, Robert G. Roble, Arthur D. Richmond
+authors: Timothy J. Fuller-Rowell, Mihail V. Codrescu, R. J. Moffett, S. Quegan
 year: 1994
 journal: "Journal of Geophysical Research"
 doi: "10.1029/93JA02015"
@@ -403,7 +403,7 @@ At higher altitudes, $n(N_2)$ is smaller, so the loss rate decreases → $N_mF2$
 
 ## 7. References / 참고문헌
 
-- Fuller-Rowell, T. J., M. V. Codrescu, R. G. Roble, and A. D. Richmond, "How Does the Thermosphere and Ionosphere React to a Geomagnetic Storm?", *J. Geophys. Res.*, 99(A3), 3893–3914, 1994. [DOI: 10.1029/93JA02015]
+- Fuller-Rowell, T. J., M. V. Codrescu, R. J. Moffett, and S. Quegan, "Response of the Thermosphere and Ionosphere to Geomagnetic Storms", *J. Geophys. Res.*, 99(A3), 3893–3914, 1994. [DOI: 10.1029/93JA02015]
 - Prölss, G. W., "Magnetic storm associated perturbations of the upper atmosphere: Recent results obtained by satellite-borne gas analyzers", *Rev. Geophys. Space Phys.*, 18, 183–202, 1980.
 - Rishbeth, H., "F-region storms and thermospheric dynamics", *J. Geomag. Geoelectr.*, 43, suppl., 513–524, 1991.
 - Fuller-Rowell, T. J., and D. Rees, "A three-dimensional time-dependent global model of the thermosphere", *J. Atmos. Sci.*, 37, 2545–2567, 1980.
