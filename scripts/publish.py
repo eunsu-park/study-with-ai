@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Publish completed paper notes and implementations to external repositories.
+"""Publish completed paper notes to the KnowledgeBase directory.
 
-Copies _notes.md and _implementation.ipynb to a GitHub repository,
-and _notes.md + _paper.pdf to a KnowledgeBase directory.
+Copies _notes.md and _paper.pdf to a KnowledgeBase directory.
 
 Usage:
     python scripts/publish.py <topic> [number]   # specific paper(s)
@@ -40,7 +39,7 @@ def load_config() -> dict:
     """Load publish configuration from publish_config.json.
 
     Returns:
-        Dict with 'github_repo' and 'knowledge_base' paths.
+        Dict with 'knowledge_base' path.
 
     Raises:
         SystemExit: If config file is missing or invalid.
@@ -48,9 +47,8 @@ def load_config() -> dict:
     if not CONFIG_PATH.exists():
         sys.exit(json.dumps({
             "error": "Config not found",
-            "message": f"Create {CONFIG_PATH} with github_repo and knowledge_base paths.",
+            "message": f"Create {CONFIG_PATH} with knowledge_base path.",
             "example": {
-                "github_repo": "/path/to/github/repo",
                 "knowledge_base": "/path/to/knowledge/base",
             },
         }))
@@ -59,14 +57,13 @@ def load_config() -> dict:
     except json.JSONDecodeError as e:
         sys.exit(json.dumps({"error": f"Invalid JSON in config: {e}"}))
 
-    for key in ("github_repo", "knowledge_base"):
-        if key not in config:
-            sys.exit(json.dumps({"error": f"Missing '{key}' in config"}))
-        path = Path(config[key])
-        if not path.is_dir():
-            sys.exit(json.dumps({
-                "error": f"Directory not found for '{key}': {config[key]}",
-            }))
+    if "knowledge_base" not in config:
+        sys.exit(json.dumps({"error": "Missing 'knowledge_base' in config"}))
+    path = Path(config["knowledge_base"])
+    if not path.is_dir():
+        sys.exit(json.dumps({
+            "error": f"Directory not found for 'knowledge_base': {config['knowledge_base']}",
+        }))
     return config
 
 
@@ -117,7 +114,7 @@ def publish_paper(
     config: dict,
     force: bool = False,
 ) -> dict:
-    """Publish a single paper's files to GitHub repo and KnowledgeBase.
+    """Publish a single paper's notes and PDF to the KnowledgeBase.
 
     Args:
         topic_dir: Resolved topic directory path.
@@ -135,36 +132,12 @@ def publish_paper(
     result = {
         "paper": dir_name,
         "topic": topic_name,
-        "github": [],
         "knowledge_base": [],
         "skipped": [],
         "missing": [],
     }
 
-    github_repo = Path(config["github_repo"])
     kb_path = Path(config["knowledge_base"])
-
-    # --- GitHub repo: notes + implementation ---
-    # Target: repo/Topic/paper_name/
-    github_paper_dir = github_repo / topic_name / dir_name
-    skip_impl = (paper_dir / ".no_implementation").exists()
-
-    for file_type in ("notes", "implementation"):
-        src = paper_dir / file_names[file_type]
-        if not src.exists():
-            if file_type == "implementation" and skip_impl:
-                result["skipped"].append(f"github:{file_names[file_type]} (N/A)")
-            else:
-                result["missing"].append(file_names[file_type])
-            continue
-
-        dst = github_paper_dir / file_names[file_type]
-        if _needs_copy(src, dst, force):
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(src, dst)
-            result["github"].append(file_names[file_type])
-        else:
-            result["skipped"].append(f"github:{file_names[file_type]}")
 
     # --- KnowledgeBase: notes + pdf ---
     # Target: kb/raw/papers/paper_name/
@@ -189,19 +162,28 @@ def publish_paper(
 
 
 def get_completed_papers(topic_dir: Path) -> list[dict]:
-    """Get all completed papers for a topic.
+    """Get all completed papers for a topic, excluding migrated cross-references.
+
+    Phase B migration (2026-05-01) duplicated some reading_list entries into
+    new topics with a status of `[x] (migrated from <SourceTopic> #N)`. The
+    actual paper directories live only in the source topic, so we exclude
+    these cross-references here to avoid false-alarm "directory not found"
+    errors during publish.
 
     Args:
         topic_dir: Resolved topic directory path.
 
     Returns:
-        List of paper entry dicts with status == 'x'.
+        List of paper entry dicts with status == 'x' and not a migration cross-reference.
     """
     rl_path = topic_dir / "papers" / "reading_list.md"
     if not rl_path.exists():
         return []
     entries = parse_reading_list(rl_path)
-    return [e for e in entries if e["status"] == "x"]
+    return [
+        e for e in entries
+        if e["status"] == "x" and "migrated from" not in e.get("raw_status", "")
+    ]
 
 
 def get_all_topics() -> list[str]:
@@ -223,7 +205,7 @@ def get_all_topics() -> list[str]:
 
 
 def cmd_publish(topic: str | None, number: int | None, force: bool, all_topics: bool) -> None:
-    """Publish papers to external repositories.
+    """Publish papers to the KnowledgeBase.
 
     Args:
         topic: Topic name or alias (None if --all).
@@ -275,14 +257,12 @@ def cmd_publish(topic: str | None, number: int | None, force: bool, all_topics: 
                 results.append(r)
 
     # Summary
-    total_github = sum(len(r.get("github", [])) for r in results)
     total_kb = sum(len(r.get("knowledge_base", [])) for r in results)
     total_skipped = sum(len(r.get("skipped", [])) for r in results)
 
     print(json.dumps({
         "results": results,
         "summary": {
-            "copied_to_github": total_github,
             "copied_to_kb": total_kb,
             "skipped_unchanged": total_skipped,
         },
@@ -292,7 +272,6 @@ def cmd_publish(topic: str | None, number: int | None, force: bool, all_topics: 
 def cmd_status() -> None:
     """Show publish status for all topics."""
     config = load_config()
-    github_repo = Path(config["github_repo"])
     kb_path = Path(config["knowledge_base"])
 
     status = []
@@ -309,11 +288,8 @@ def cmd_status() -> None:
             file_names = make_file_names(dir_name)
 
             notes_src = paper_dir / file_names["notes"]
-            impl_src = paper_dir / file_names["implementation"]
             pdf_src = paper_dir / file_names["pdf"]
 
-            gh_notes = github_repo / topic_name / dir_name / file_names["notes"]
-            gh_impl = github_repo / topic_name / dir_name / file_names["implementation"]
             kb_notes = kb_path / "raw" / "papers" / dir_name / file_names["notes"]
             kb_pdf = kb_path / "raw" / "papers" / dir_name / file_names["pdf"]
 
@@ -322,26 +298,13 @@ def cmd_status() -> None:
                 "paper": dir_name,
                 "source": {
                     "notes": notes_src.exists(),
-                    "implementation": impl_src.exists(),
                     "pdf": pdf_src.exists(),
-                },
-                "github": {
-                    "notes": gh_notes.exists(),
-                    "implementation": gh_impl.exists(),
                 },
                 "knowledge_base": {
                     "notes": kb_notes.exists(),
                     "pdf": kb_pdf.exists(),
                 },
                 "needs_update": {
-                    "github_notes": (
-                        notes_src.exists()
-                        and _needs_copy(notes_src, gh_notes)
-                    ),
-                    "github_impl": (
-                        impl_src.exists()
-                        and _needs_copy(impl_src, gh_impl)
-                    ),
                     "kb_notes": (
                         notes_src.exists()
                         and _needs_copy(notes_src, kb_notes)
@@ -364,7 +327,7 @@ def cmd_status() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Publish completed paper files to GitHub repo and KnowledgeBase.",
+        description="Publish completed paper files to the KnowledgeBase.",
     )
     parser.add_argument(
         "topic",
