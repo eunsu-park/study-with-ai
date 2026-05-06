@@ -54,6 +54,7 @@ type: briefing
 {{EQUATIONS}}
 
 (3–5 key equations with explanations / 3-5개 핵심 수식과 설명)
+(Math delimiters: `$...$` inline, `$$...$$` block — never `\(...\)` or `\[...\]`)
 
 ---
 

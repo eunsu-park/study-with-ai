@@ -30,6 +30,7 @@ date_completed: {{DATE_COMPLETED}}
 {{READING_NOTES}}
 
 (Section-by-section notes with key equations in LaTeX / 섹션별 노트, LaTeX 수식 포함)
+(Math delimiters: `$...$` inline, `$$...$$` block — never `\(...\)` or `\[...\]`)
 
 ---
 
