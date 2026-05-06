@@ -311,7 +311,7 @@ StudyWithAI/
 | 87 | Keppens — "Modeling Multiphase Plasma in the Corona: Prominences and Rain" | 2025 | ✅ Done |
 | 88–87 | (See [full reading list](Living_Reviews_in_Solar_Physics/papers/reading_list.md)) | 2008–2025 | — |
 
-### Low-SNR Imaging — Paper Reading / 논문 읽기 (0 / 45)
+### Low-SNR Imaging — Paper Reading / 논문 읽기 (45 / 45)
 
 | # | Paper / 논문 | Year / 연도 | Status / 상태 |
 |---|---|---|---|
@@ -390,7 +390,7 @@ StudyWithAI/
 | 9 | Allred+ — *Radiative Hydrodynamic Models of Flare Emission (RADYN)* | 2005 | ⬜ Not started |
 | 10 | Emslie+ — *Global Energetics of Solar Flares* | 2012 | ⬜ Not started |
 
-### Heliosphere & Solar Wind — Paper Reading / 논문 읽기 (3 / 5)
+### Heliosphere & Solar Wind — Paper Reading / 논문 읽기 (4 / 5)
 > _Phase B 이관 (2026-05-01) 후 Solar_Physics 에서 5편 이관. PSP/Solar Orbiter 미션·기기 paper 는 Solar_Observation 유지 (Decision 3). 자세한 목록은 [reading_list](Heliosphere_Solar_Wind/papers/reading_list.md)._
 
 | # | Paper / 논문 | Year / 연도 | Status / 상태 |

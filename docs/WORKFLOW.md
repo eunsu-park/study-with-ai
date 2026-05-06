@@ -13,10 +13,10 @@ so any future session can pick up seamlessly.
 - Space Weather: 81 / 81 papers
 - Solar Observation: 61 / 80 papers (post-migration; DEM/atomic data 이관)
 - Living Reviews in Solar Physics: 87 / 87 papers
-- Low-SNR Imaging: 0 / 45 papers
+- Low-SNR Imaging: 45 / 45 papers
 - Helioseismology & Asteroseismology: 5 / 7 papers (Phase B migrated)
 - Magnetic Reconnection & Eruption: 8 / 10 papers (Phase B migrated)
-- Heliosphere & Solar Wind: 3 / 5 papers (Phase B migrated)
+- Heliosphere & Solar Wind: 4 / 6 papers (Phase B migrated)
 - Plasma Spectroscopy & Diagnostics: 4 / 20 papers (Phase B migrated)
 - Numerical MHD Simulation: 0 / 1 papers (Phase B migrated)
 
