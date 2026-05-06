@@ -39,6 +39,69 @@ All Markdown documents (briefing.md, notes.md, etc.) and Jupyter notebook Markdo
 
 A document is **non-compliant** if any section has body text in only one language. When writing or reviewing documents, verify bilingual coverage for every section before considering the document complete.
 
+## Math Notation Policy (Mandatory)
+All LaTeX equations in Markdown documents and Jupyter notebook Markdown cells MUST use the dollar-sign delimiters. This is the only style that renders consistently across **VSCode preview, Obsidian, and GitHub**:
+
+- **Inline math**: `$...$` (no spaces inside the delimiters: `$x = 1$`, not `$ x = 1 $`)
+- **Block math**: `$$...$$` (each `$$` on its own line, with a blank line before/after)
+
+**Forbidden delimiters** (do not render in Obsidian or GitHub):
+- `\(...\)` — inline LaTeX style (use `$...$` instead)
+- `\[...\]` — block LaTeX style (use `$$...$$` instead)
+
+Notes:
+- LaTeX commands inside math blocks (`\frac`, `\sum`, `\sqrt`, `\boldsymbol`, `\\` line break with `[Npt]` argument, etc.) are unaffected — only the *outer* delimiters are constrained.
+- Markdown-escaped square brackets in citation references like `\[15\]` are NOT math and should be left alone.
+- The repair script `scripts/fix_latex_delimiters.py` (dry-run by default; `--execute` to apply) auto-converts forbidden delimiters and is safe to re-run any time.
+
+# Pre-Work Verification Policy (Mandatory)
+
+**Before any paper-related work proceeds — briefing, reading-support Q&A, notes, implementation, publishing, or progress updates — you MUST first verify the paper.** No exceptions. If any check fails, STOP and surface the discrepancy to the user before doing anything else. Never write a briefing/notes/code based on assumed-but-unverified paper identity.
+
+## Quick gate (always run first)
+```bash
+python3 scripts/verify_paper.py <topic_alias> <number>
+```
+This runs the mechanical checks (paper directory exists, PDF exists, size ≥ 100 KB, valid `%PDF` magic, bibliography entry present) and prints a JSON report. Exit code 0 = mechanical checks passed; 1 = a fatal error (do NOT proceed).
+
+The script intentionally does NOT do the visual identity check — that part requires reading the PDF and comparing to the reading list, which Claude does after the mechanical gate passes (see Component 1 below).
+
+The verification has three components, and all three must pass:
+
+## 1. Paper Identity Verification / 논문 신원 검증
+Confirm that the paper you are about to work on is the paper the user intends.
+- Run `python3 scripts/reading_list.py info <topic_alias> <number>` to retrieve the canonical title, authors, year, and DOI from the curated reading list.
+- Read the **first page** of the downloaded PDF (`<paper_dir>/<paper_name>_paper.pdf`) and extract the actual title and author list.
+- Compare:
+  - **Title**: PDF title must match (allowing for minor punctuation/casing differences) the reading list title.
+  - **First author**: PDF first-author surname must match the directory naming (`{NN}_{surname}_{year}`).
+  - **Year**: PDF publication year must match the directory year and the reading list year.
+- If any field disagrees, STOP — the wrong PDF may have been downloaded, the reading list entry may be incorrect, or the directory may be misnamed. Report the mismatch and ask the user how to resolve before proceeding.
+
+## 2. Bibliographic Information Verification / 서지정보 검증
+Confirm the bibliographic record is complete and consistent.
+- Required fields: title, authors (full list), year, journal/venue, DOI (when one exists).
+- If a DOI is present in the reading list, run `python3 scripts/bibtex.py lookup <doi>` to fetch the canonical record from CrossRef. Compare against the reading list entry. Discrepancies (wrong year, wrong author order, mistyped journal) must be flagged and corrected in `reading_list.md` BEFORE downstream work.
+- If no DOI is available (older papers, books, archived reports), document the source explicitly in the reading list entry and verify the citation against the PDF's own first/last page.
+- The per-topic `bibliography.bib` must contain a valid BibTeX entry for the paper. If missing, run `python3 scripts/bibtex.py generate <topic>` to regenerate.
+
+## 3. Downloaded File Verification / 다운로드 파일 검증
+Confirm the PDF is the actual paper, not a placeholder, error page, or wrong file.
+- File exists at `<paper_dir>/<paper_name>_paper.pdf`.
+- File size is reasonable (a usable scientific paper PDF is typically ≥ 100 KB; a tiny file likely is an error page from the publisher).
+- File opens as a valid PDF (`file <pdf>` should report `PDF document`; `pdfinfo <pdf>` or equivalent should produce metadata without error).
+- First-page text extraction yields readable content (not garbled bytes from an HTML-paywall page saved with `.pdf` extension).
+- If the file fails any check, do NOT proceed. Re-download via `python3 scripts/pdf_download.py <doi_or_url> <output_path>` or alert the user that manual acquisition is needed.
+
+## When this policy applies
+- **/study, /pre-read**: verify before producing the briefing.
+- **/write-notes, /implement**: verify before producing notes or code (the previous skill's verification does NOT count — re-confirm).
+- **/drop**: when accepting an inbox PDF, perform identity + file verification before deciding the destination.
+- **/publish, /update-progress**: verify the paper still exists and bibliographic info is current before publishing or marking progress.
+- **Any direct paper question from the user** ("explain Eq. 7 in paper X", "what does Y conclude?"): verify before answering, so the answer references the correct paper.
+
+This policy supersedes any conflicting instruction in a skill file. If a skill description omits verification, treat verification as an implicit Step 0.
+
 # Directory Structure
 
 Project-level structure:
@@ -99,6 +162,8 @@ All skills share common Python CLI tools in `scripts/`. Use these instead of inl
 | `progress.py` | 3-file progress sync | `update`, `status`, `verify` |
 | `pdf_download.py` | PDF download | `<doi_or_url> <output_path>` |
 | `bibtex.py` | BibTeX management | `generate [<topic>\|--all]`, `lookup <doi>`, `verify <topic>` |
+| `verify_paper.py` | Pre-work verification gate | `<topic_alias> <number>` (returns JSON, exit 0 = pass) |
+| `fix_latex_delimiters.py` | LaTeX delimiter repair | `[--execute] [--diff] [paths...]` (default: dry-run) |
 | `migrate_dirs.py` | Directory dedup/rename | `[--execute]` (default: dry-run) |
 
 All scripts output JSON for easy parsing. Topic aliases: `AI`, `SP`, `SW`, `SO`, `LRSP`.
@@ -149,7 +214,7 @@ When restarting a topic from paper #1, existing `notes.md` and `implementation.i
 # Study Note Conventions
 - Start each note with a YAML-style header: title, date, topic, tags
 - Use clear heading hierarchy (H1 for title, H2 for sections, H3 for subsections)
-- Include diagrams and equations where appropriate (LaTeX: `$...$`)
+- Include diagrams and equations where appropriate (LaTeX delimiters: `$...$` inline, `$$...$$` block — see Math Notation Policy)
 - Add a "Key Takeaways" section at the end
 - Include references at the bottom
 - All documents are bilingual (Korean/English)
@@ -196,6 +261,7 @@ After completing a notes.md file, perform this checklist:
 5. **Bilingual check**: Scan every section — does each have substantive Korean AND English content?
 6. **Length check**: Is the file at least 350 lines? If the source paper is substantial (>15 pages), is it 400+?
 7. **Quantitative check**: Are specific numbers (percentages, measurements, parameters) cited rather than vague descriptions?
+8. **Math delimiter check**: Are all equations wrapped in `$...$` (inline) or `$$...$$` (block)? No `\(...\)` or `\[...\]` delimiters? (See Math Notation Policy.)
 
 If any check fails, fix the deficiency before marking the paper as completed.
 
