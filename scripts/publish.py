@@ -26,7 +26,7 @@ CONFIG_PATH = SCRIPT_DIR / "publish_config.json"
 sys.path.insert(0, str(SCRIPT_DIR))
 from reading_list import (  # noqa: E402
     TOPICS, parse_reading_list, resolve_tag, display_name,
-    _reading_list_path, citekey_for,
+    _reading_list_path, citekey_for, is_done,
 )
 from paper_dir import make_file_names  # noqa: E402
 
@@ -70,13 +70,17 @@ def completed_citekeys(tag: str) -> list[tuple[int, str]]:
     if not rl.exists():
         return []
     out = []
+    seen = set()
     for e in parse_reading_list(rl):
-        if e["status"] != "x":
+        if not is_done(e):
             continue
+        # Skip cross-references ("[x] (migrated from X #N)") so a paper publishes
+        # once, from its home topic; ✅-migrated home entries are kept.
         if "migrated from" in e.get("raw_status", ""):
             continue
         ck = citekey_for(tag, e["number"])
-        if ck:
+        if ck and ck not in seen:
+            seen.add(ck)
             out.append((e["number"], ck))
     return out
 

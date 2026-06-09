@@ -87,6 +87,15 @@ def _reading_list_path(tag: str) -> Path:
     return PROJECT_ROOT / "reading_lists" / f"{tag}.md"
 
 
+def is_done(entry: dict) -> bool:
+    """Whether a reading-list entry counts as completed.
+
+    Treats both ``[x]`` and the ``✅ migrated``/``✅ ...`` markers as done — the
+    single source of truth shared by gen_index, publish, and progress.
+    """
+    return entry.get("status") == "x" or entry.get("raw_status", "").lstrip().startswith("✅")
+
+
 def citekey_for(name: str, number: int) -> Optional[str]:
     """Look up the flat-papers citekey for (topic, number) via the mapping.
 
