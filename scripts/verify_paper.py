@@ -87,16 +87,17 @@ def check_paper(topic: str, number: int) -> dict:
         report["fatal_errors"].append("Reading list entry has placeholder/empty title")
         report["all_passed"] = False
 
-    dir_name = info.get("dir_name")
+    citekey = info.get("citekey")
     topic_full = info.get("topic")
-    if not dir_name or not topic_full:
-        report["fatal_errors"].append("dir_name or topic missing in reading_list info")
+    if not citekey or not topic_full:
+        report["fatal_errors"].append(
+            "citekey missing — paper has no flat papers/ folder (check flatten_mapping.tsv)")
         report["all_passed"] = False
         return report
 
-    paper_dir = ROOT / topic_full / "papers" / dir_name
-    pdf_path = paper_dir / f"{dir_name}_paper.pdf"
-    bib_path = ROOT / topic_full / "papers" / "bibliography.bib"
+    paper_dir = ROOT / "papers" / citekey
+    pdf_path = paper_dir / f"{citekey}_paper.pdf"
+    bib_path = ROOT / "bibliography.bib"
 
     # 2. Directory check
     report["checks"]["paper_dir_exists"] = paper_dir.is_dir()
@@ -139,22 +140,12 @@ def check_paper(topic: str, number: int) -> dict:
     bib_has_entry = False
     if bib_path.is_file():
         bib_text = bib_path.read_text(encoding="utf-8", errors="replace").lower()
-        parts = dir_name.split("_")
-        if len(parts) >= 3:
-            surname = "_".join(parts[1:-1])  # multi-word surnames like "van_allen"
-            year = parts[-1]
-            candidates = [
-                f"{surname.replace('_', '')}{year}",  # rumelhart1986
-                f"{surname}{year}",                    # rumelhart1986 (single-word)
-                f"{surname}_{year}",                   # rumelhart_1986
-            ]
-            if any(c in bib_text for c in candidates):
-                bib_has_entry = True
+        bib_has_entry = citekey.lower() in bib_text
     report["checks"]["bibliography_has_entry"] = bib_has_entry
     if not bib_has_entry:
         report["warnings"].append(
-            f"No matching entry found in {bib_path.relative_to(ROOT) if bib_path.is_file() else bib_path}; "
-            f"run `python3 scripts/bibtex.py generate {topic_full}` to regenerate."
+            f"No entry '{citekey}' in {bib_path.name if bib_path.is_file() else 'bibliography.bib'}; "
+            f"run `python3 scripts/bibtex.py generate` to regenerate."
         )
 
     return report

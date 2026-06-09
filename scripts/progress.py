@@ -217,60 +217,33 @@ def _update_workflow(topic_name: str, completed: int, total: int,
 
 
 def cmd_update(topic: str, number: int) -> None:
-    """Update all three progress files for a completed paper."""
-    topic_dir = resolve_topic(topic)
-    topic_name = topic_dir.name
-    rl_path = topic_dir / "papers" / "reading_list.md"
-    entries = parse_reading_list(rl_path)
+    """Mark a paper complete and regenerate the README/MOC index.
 
-    # Find the paper
-    paper = None
-    for e in entries:
-        if e["number"] == number:
-            paper = e
-            break
-    if paper is None:
+    In the flat layout the README "Current Progress" section and topic MOCs are
+    owned by gen_index.py, so this marks the reading-list status and delegates
+    index regeneration there (single source of truth).
+    """
+    import subprocess
+    from reading_list import resolve_tag, display_name, _reading_list_path
+
+    tag = resolve_tag(topic)
+    rl_path = _reading_list_path(tag)
+    entries = parse_reading_list(rl_path)
+    if not any(e["number"] == number for e in entries):
         sys.exit(json.dumps({"error": f"Paper #{number} not found"}))
 
-    # 1. Mark in reading_list.md
     cmd_mark(topic, number, "x")
 
-    # Re-parse to get updated counts
     entries = parse_reading_list(rl_path)
     completed = sum(1 for e in entries if e["status"] == "x")
     total = len(entries)
+    next_paper = next((e for e in entries if e["status"] == " "), None)
 
-    # Find next unread paper
-    next_paper = None
-    for e in entries:
-        if e["status"] == " ":
-            next_paper = e
-            break
-
-    # Build short descriptions
-    # For README table row
-    first_author = paper["authors"].split(",")[0].strip().split()[-1]
-    readme_desc = f'{first_author} — "{paper["title"]}"'
-
-    # For WORKFLOW completed list
-    workflow_desc = f"#{number} {first_author} ({paper['year']})"
-
-    # For WORKFLOW next paper
-    if next_paper:
-        next_first = next_paper["authors"].split(",")[0].strip().split()[-1]
-        next_desc = f'#{next_paper["number"]} {next_first} — "{next_paper["title"]}" ({next_paper["year"]})'
-    else:
-        next_desc = None
-
-    # 2. Update README.MD
-    _update_readme(topic_name, completed, total, number, readme_desc, paper["year"])
-
-    # 3. Update WORKFLOW.md
-    _update_workflow(topic_name, completed, total, number, workflow_desc, next_desc)
+    subprocess.run(["python3", str(PROJECT_ROOT / "scripts" / "gen_index.py")], check=False)
 
     print(json.dumps({
         "ok": True,
-        "topic": topic_name,
+        "topic": display_name(tag),
         "paper": number,
         "completed": completed,
         "total": total,
@@ -278,84 +251,51 @@ def cmd_update(topic: str, number: int) -> None:
     }))
 
 
+def _iter_reading_lists():
+    """Yield (display_name, tag, entries) for every topic reading list."""
+    from reading_list import TOPICS, _reading_list_path
+    for topic_name, tag, _aliases in TOPICS:
+        rl = _reading_list_path(tag)
+        if rl.exists():
+            yield topic_name, tag, parse_reading_list(rl)
+
+
 def cmd_status() -> None:
-    """Print progress status for all topics."""
+    """Print progress status for all topics (reads reading_lists/)."""
     results = []
-    for d in sorted(PROJECT_ROOT.iterdir()):
-        rl = d / "papers" / "reading_list.md"
-        if d.is_dir() and rl.exists():
-            entries = parse_reading_list(rl)
-            completed = sum(1 for e in entries if e["status"] == "x")
-            in_progress = sum(1 for e in entries if e["status"] == "~")
-            total = len(entries)
-            next_paper = None
-            for e in entries:
-                if e["status"] == " ":
-                    next_paper = {"number": e["number"], "title": e["title"]}
-                    break
-            results.append({
-                "topic": d.name,
-                "completed": completed,
-                "in_progress": in_progress,
-                "total": total,
-                "next": next_paper,
-            })
+    for topic_name, tag, entries in _iter_reading_lists():
+        completed = sum(1 for e in entries if e["status"] == "x"
+                        or e.get("raw_status", "").lstrip().startswith("✅"))
+        in_progress = sum(1 for e in entries if e["status"] == "~")
+        next_paper = next(({"number": e["number"], "title": e["title"]}
+                           for e in entries if e["status"] == " "), None)
+        results.append({
+            "topic": topic_name,
+            "completed": completed,
+            "in_progress": in_progress,
+            "total": len(entries),
+            "next": next_paper,
+        })
     print(json.dumps(results, ensure_ascii=False, indent=2))
 
 
 def cmd_verify() -> None:
-    """Check consistency across the three tracking files."""
+    """Check README index counts agree with the reading lists.
+
+    gen_index.py is the single source for the README "Current Progress" block,
+    so this just confirms each topic's "(done / total)" heading matches.
+    """
     issues: list[str] = []
-
     readme_text = README_PATH.read_text(encoding="utf-8") if README_PATH.exists() else ""
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8") if WORKFLOW_PATH.exists() else ""
-
-    for d in sorted(PROJECT_ROOT.iterdir()):
-        rl = d / "papers" / "reading_list.md"
-        if not (d.is_dir() and rl.exists()):
-            continue
-
-        topic_name = d.name
-        display = DISPLAY_NAMES.get(topic_name, topic_name.replace("_", " "))
-        entries = parse_reading_list(rl)
-        actual_completed = sum(1 for e in entries if e["status"] == "x")
-        actual_total = len(entries)
-
-        # Check README count
-        readme_re = re.compile(
-            rf"{re.escape(display)} — Paper Reading / 논문 읽기 \((\d+) / (\d+\+?)\)",
-            re.IGNORECASE,
-        )
-        rm = readme_re.search(readme_text)
-        if rm:
-            readme_completed = int(rm.group(1))
-            readme_total_str = rm.group(2)
-            if readme_completed != actual_completed:
-                issues.append(
-                    f"[{topic_name}] README says {readme_completed} completed, "
-                    f"reading_list has {actual_completed}"
-                )
-        else:
-            issues.append(f"[{topic_name}] Not found in README.MD")
-
-        # Check WORKFLOW count
-        workflow_re = re.compile(
-            rf"- {re.escape(display)}: (\d+) / (\d+\+?) papers",
-            re.IGNORECASE,
-        )
-        wm = workflow_re.search(workflow_text)
-        if wm:
-            wf_completed = int(wm.group(1))
-            if wf_completed != actual_completed:
-                issues.append(
-                    f"[{topic_name}] WORKFLOW summary says {wf_completed} completed, "
-                    f"reading_list has {actual_completed}"
-                )
-        else:
-            issues.append(f"[{topic_name}] Summary not found in WORKFLOW.md")
-
-    result = {"consistent": len(issues) == 0, "issues": issues}
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    for topic_name, tag, entries in _iter_reading_lists():
+        done = sum(1 for e in entries if e["status"] == "x"
+                   or e.get("raw_status", "").lstrip().startswith("✅"))
+        total = len(entries)
+        if f"({done} / {total})" not in readme_text:
+            issues.append(f"[{topic_name}] README missing '({done} / {total})' "
+                          f"— run gen_index.py")
+    print(json.dumps({"consistent": len(issues) == 0, "issues": issues},
+                     ensure_ascii=False, indent=2))
 
 
 # ---------------------------------------------------------------------------

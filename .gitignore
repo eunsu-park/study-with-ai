@@ -1,8 +1,10 @@
 # === PDFs (copyright + ~1.7GB total) ===
 *.pdf
 
-# === Auto-generated bibliography ===
+# === Auto-generated bibliography (flat: single central file) ===
+bibliography.bib
 **/papers/bibliography.bib
+.bibtex_cache.json
 
 # === Claude Code ===
 .claude/

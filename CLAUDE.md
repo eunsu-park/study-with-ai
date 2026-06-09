@@ -71,11 +71,11 @@ The verification has three components, and all three must pass:
 ## 1. Paper Identity Verification / 논문 신원 검증
 Confirm that the paper you are about to work on is the paper the user intends.
 - Run `python3 scripts/reading_list.py info <topic_alias> <number>` to retrieve the canonical title, authors, year, and DOI from the curated reading list.
-- Read the **first page** of the downloaded PDF (`<paper_dir>/<paper_name>_paper.pdf`) and extract the actual title and author list.
+- Resolve the folder: the paper lives at `papers/<citekey>/` (citekey from `reading_list.py info`, field `citekey`). Read the **first page** of `papers/<citekey>/<citekey>_paper.pdf` and extract the actual title and author list.
 - Compare:
   - **Title**: PDF title must match (allowing for minor punctuation/casing differences) the reading list title.
-  - **First author**: PDF first-author surname must match the directory naming (`{NN}_{surname}_{year}`).
-  - **Year**: PDF publication year must match the directory year and the reading list year.
+  - **First author**: PDF first-author surname must match the citekey surname.
+  - **Year**: PDF publication year must match the citekey year and the reading list year.
 - If any field disagrees, STOP — the wrong PDF may have been downloaded, the reading list entry may be incorrect, or the directory may be misnamed. Report the mismatch and ask the user how to resolve before proceeding.
 
 ## 2. Bibliographic Information Verification / 서지정보 검증
@@ -83,11 +83,11 @@ Confirm the bibliographic record is complete and consistent.
 - Required fields: title, authors (full list), year, journal/venue, DOI (when one exists).
 - If a DOI is present in the reading list, run `python3 scripts/bibtex.py lookup <doi>` to fetch the canonical record from CrossRef. Compare against the reading list entry. Discrepancies (wrong year, wrong author order, mistyped journal) must be flagged and corrected in `reading_list.md` BEFORE downstream work.
 - If no DOI is available (older papers, books, archived reports), document the source explicitly in the reading list entry and verify the citation against the PDF's own first/last page.
-- The per-topic `bibliography.bib` must contain a valid BibTeX entry for the paper. If missing, run `python3 scripts/bibtex.py generate <topic>` to regenerate.
+- The central `bibliography.bib` (repo root) must contain a valid BibTeX entry keyed by the citekey. If missing, run `python3 scripts/bibtex.py generate` to regenerate.
 
 ## 3. Downloaded File Verification / 다운로드 파일 검증
 Confirm the PDF is the actual paper, not a placeholder, error page, or wrong file.
-- File exists at `<paper_dir>/<paper_name>_paper.pdf`.
+- File exists at `papers/<citekey>/<citekey>_paper.pdf`.
 - File size is reasonable (a usable scientific paper PDF is typically ≥ 100 KB; a tiny file likely is an error page from the publisher).
 - File opens as a valid PDF (`file <pdf>` should report `PDF document`; `pdfinfo <pdf>` or equivalent should produce metadata without error).
 - First-page text extraction yields readable content (not garbled bytes from an HTML-paywall page saved with `.pdf` extension).
@@ -104,53 +104,45 @@ This policy supersedes any conflicting instruction in a skill file. If a skill d
 
 # Directory Structure
 
+**Flat layout (2026-06): all papers live in a single `papers/` folder keyed by
+BibTeX citekey; there are no per-topic folders.** Topic grouping is expressed
+through `reading_lists/`, the generated README index, and `topics/` MOCs.
+
 Project-level structure:
 ```
 StudyWithAI/
 ├── CLAUDE.md              # Project rules (this file)
-├── README.MD              # Progress tracker
-├── docs/
-│   ├── WORKFLOW.md        # Detailed workflow documentation
-│   ├── IMPROVEMENTS.md    # Project improvement ideas
-│   └── MCP_SETUP.md       # MCP server recommendations & setup
+├── README.MD              # Auto-generated paper index (scripts/gen_index.py)
+├── papers/                # ALL papers, flat, by citekey (<surname><year><keyword>)
+│   └── vaswani2017attention/
+│       ├── vaswani2017attention_briefing.md
+│       ├── vaswani2017attention_notes.md
+│       ├── vaswani2017attention_implementation.ipynb
+│       └── vaswani2017attention_paper.pdf   # gitignored (re-download via DOI)
+├── reading_lists/         # Curated reading lists (data source), one per topic
+│   ├── artificial-intelligence.md
+│   └── <tag>.md
+├── topics/                # Per-topic Maps-of-Content: roadmap + auto index
+│   └── <tag>.md
+├── notes/                 # Cross-topic synthesis notes
+├── bibliography.bib       # Single repo-wide BibTeX (gitignored, generated)
+├── docs/                  # WORKFLOW, SKILLS, IMPROVEMENTS, MCP_SETUP ...
 ├── scripts/               # Shared utility scripts (used by all skills)
-│   ├── reading_list.py    # Reading list parse/update CLI
-│   ├── paper_dir.py       # Paper directory naming/creation CLI
-│   ├── progress.py        # 3-file progress sync CLI
-│   ├── pdf_download.py    # PDF download via Unpaywall/arXiv
 │   └── templates/         # Document structure templates
-├── inbox/                 # PDF drop zone for /drop skill
-├── Artificial_Intelligence/
-├── Solar_Physics/
-├── Space_Weather/
-└── Solar_Observation/
+└── inbox/                 # PDF drop zone for /drop skill
 ```
 
-Each topic directory follows this internal structure:
-
-```
-<Topic>/
-├── papers/          # Paper reading list and notes
-│   ├── reading_list.md   # Curated paper list with status tracking
-│   ├── bibliography.bib  # Auto-generated BibTeX file (per topic)
-│   └── <paper_name>/     # Per-paper directory (e.g., 01_mcculloch_1943/)
-│       ├── <paper_name>_briefing.md        # Pre-reading briefing & Q&A
-│       ├── <paper_name>_notes.md           # Reading notes and key insights
-│       ├── <paper_name>_implementation.ipynb # Code implementation (if applicable)
-│       ├── <paper_name>_paper.pdf          # Downloaded paper PDF
-│       └── archive/      # Previous reading cycle's work (if restarting)
-├── notes/           # Markdown study notes (theory, concepts)
-├── notebooks/       # Jupyter notebooks (practice, analysis)
-├── scripts/         # Standalone Python/IDL scripts
-├── data/            # Sample data files
-└── README.md        # Topic overview and learning roadmap
-```
+Topic tags (folder-free): `artificial-intelligence`, `solar-physics`,
+`space-weather`, `solar-observation`, `living-reviews-solar-physics`,
+`low-snr-imaging`, `helioseismology-asteroseismology`, `heliosphere-solar-wind`,
+`magnetic-reconnection-eruption`, `plasma-spectroscopy-diagnostics`,
+`numerical-mhd-simulation`.
 
 # Content Format
-- **Theory & Concepts**: Markdown files (.md) in `notes/`
-- **Practice & Analysis**: Jupyter Notebooks (.ipynb) in `notebooks/`
-- **Utility code**: Python scripts (.py) or IDL scripts (.pro) in `scripts/`
-- **Paper notes**: Markdown + Jupyter in `papers/<paper_name>/`
+- **Paper work**: `papers/<citekey>/<citekey>_{briefing,notes,implementation,paper}` 
+- **Reading lists**: `reading_lists/<tag>.md` (curated, hand-maintained data source)
+- **Topic maps / theory**: `topics/<tag>.md` (roadmap + generated index)
+- **Cross-topic synthesis notes**: `notes/`
 
 # Shared Utilities (scripts/)
 All skills share common Python CLI tools in `scripts/`. Use these instead of inline parsing:
@@ -159,18 +151,28 @@ All skills share common Python CLI tools in `scripts/`. Use these instead of inl
 |--------|---------|-------------|
 | `reading_list.py` | Parse/update reading lists | `next`, `count`, `info`, `highest`, `mark`, `add`, `topics` |
 | `paper_dir.py` | Directory naming/creation | `name`, `files`, `create`, `archive` |
-| `progress.py` | 3-file progress sync | `update`, `status`, `verify` |
+| `progress.py` | Mark complete + regenerate index | `update`, `status`, `verify` |
 | `pdf_download.py` | PDF download | `<doi_or_url> <output_path>` |
-| `bibtex.py` | BibTeX management | `generate [<topic>\|--all]`, `lookup <doi>`, `verify <topic>` |
+| `bibtex.py` | BibTeX management (central bib) | `generate`, `lookup <doi>`, `verify <topic>` |
 | `verify_paper.py` | Pre-work verification gate | `<topic_alias> <number>` (returns JSON, exit 0 = pass) |
+| `gen_index.py` | Regenerate README index + topic MOCs | `[--check]` |
 | `fix_latex_delimiters.py` | LaTeX delimiter repair | `[--execute] [--diff] [paths...]` (default: dry-run) |
-| `migrate_dirs.py` | Directory dedup/rename | `[--execute]` (default: dry-run) |
 
-All scripts output JSON for easy parsing. Topic aliases: `AI`, `SP`, `SW`, `SO`, `LRSP`.
+One-shot migration scripts (already applied; kept for reference): `flatten_migrate.py`,
+`dedupe_papers.py`, `fix_citekeys.py`, `consolidate_topics.py`.
+
+All scripts output JSON for easy parsing. Topic aliases: `ai`, `sp`, `sw`, `so`,
+`lrsp`, `lowsnr`/`lsi`, `helio`/`ha`, `hsw`, `mre`, `psd`, `mhd` (see
+`scripts/reading_list.py` `TOPICS`).
 
 ### Paper Directory Naming Convention
-Format: `{number:02d}_{first_author_surname}_{year}` (e.g., `06_rumelhart_1986`)
-- Always use **first author only** (never multi-author names)
+Format (flat, BibTeX citekey): `{first_author_surname}{year}{title_keyword}`
+(e.g., `rumelhart1986learning`, `vaswani2017attention`). Generated by
+`paper_dir.py make_citekey`.
+- Always use **first author only**; surname lowercased, accents stripped, no separators
+- Title keyword = first significant title word (skips articles, "reading/notes", roman numerals)
+- Collisions get a letter suffix (`a`, `b`); the `(topic, number) → citekey` map
+  lives in `scripts/flatten_mapping.tsv` (the join used by gen_index/verify_paper)
 - Suffixes (Jr., Sr., III) are removed: "Sheeley Jr." → `sheeley`
 - Prefixes (Van, von, de) are preserved: "Van Allen" → `van_allen`
 - Use `paper_dir.py` for all directory name generation (single source of truth)
@@ -181,7 +183,7 @@ Claude curates essential papers for each topic and supports the full reading cyc
 
 ## 1. Curate
 - Select historically important and foundational papers
-- Organize chronologically into a reading list (`papers/reading_list.md`)
+- Organize chronologically into a reading list (`reading_lists/<tag>.md`)
 - Each entry includes: title, authors, year, why it matters, prerequisites
 
 ## 2. Prepare
@@ -209,7 +211,7 @@ After reading:
 - Maintain notes summarizing key takeaways per paper
 
 # Archive Convention
-When restarting a topic from paper #1, existing `notes.md` and `implementation.ipynb` are moved to `<paper_dir>/archive/`. PDFs stay in place. This preserves previous work for reference.
+When redoing a paper, existing `notes.md` and `implementation.ipynb` are moved to `papers/<citekey>/archive/`. The PDF stays in place. This preserves previous work for reference.
 
 # Study Note Conventions
 - Start each note with a YAML-style header: title, date, topic, tags
@@ -290,10 +292,12 @@ If any check fails, fix the deficiency before marking the paper as completed.
 - Clear all outputs before committing
 
 # Progress Tracking
-Whenever a paper or study unit is completed, update **all three**:
-1. `<Topic>/papers/reading_list.md` — mark the paper status (`[x]` completed)
-2. `README.MD` (project root) — update the "Current Progress" section (paper count and table)
-3. `docs/WORKFLOW.md` — update progress count
+When a paper is completed, run `python3 scripts/progress.py update <topic> <number>`.
+This marks the status in `reading_lists/<tag>.md` and regenerates the README
+"Current Progress" index + `topics/<tag>.md` MOCs via `gen_index.py` (the single
+source of truth — do not hand-edit the README index). Equivalent manual steps:
+1. `python3 scripts/reading_list.py mark <topic> <number> x` — set status `[x]`
+2. `python3 scripts/gen_index.py` — regenerate README index + topic MOCs
 
 This ensures the project README always reflects the latest progress.
 

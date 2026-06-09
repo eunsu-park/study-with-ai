@@ -141,48 +141,41 @@ def fetch_bibtex(entry: dict) -> str:
 
 
 def cmd_generate(topic: str | None) -> None:
-    """Generate bibliography.bib for a topic or all topics."""
-    if topic == "--all":
-        topics_to_process = list(TOPIC_ALIASES.values())
-    else:
-        topic_dir = resolve_topic(topic)
-        topics_to_process = [topic_dir.name]
+    """Generate the single central ``bibliography.bib`` from all reading lists.
 
-    for topic_name in topics_to_process:
-        topic_dir = PROJECT_ROOT / topic_name
-        rl_path = topic_dir / "papers" / "reading_list.md"
+    ``topic`` is accepted for backwards compatibility but ignored — the flat
+    layout uses one repo-wide bibliography.
+    """
+    from reading_list import TOPICS, _reading_list_path
+
+    bib_entries: list[str] = []
+    used_keys: dict[str, int] = {}
+    total = 0
+
+    for topic_name, tag, _aliases in TOPICS:
+        rl_path = _reading_list_path(tag)
         if not rl_path.exists():
-            print(f"SKIP {topic_name}: no reading_list.md", file=sys.stderr)
             continue
-
         entries = parse_reading_list(rl_path)
-        bib_entries = []
-        used_keys: dict[str, int] = {}
-
-        print(f"Generating {topic_name}/papers/bibliography.bib ({len(entries)} papers)...")
-
+        bib_entries.append(f"% ===== {topic_name} ({len(entries)}) =====")
+        print(f"{topic_name}: {len(entries)} papers")
         for entry in entries:
             cite_key = _make_cite_key(entry)
-            # Handle duplicate keys within topic
             if cite_key in used_keys:
                 used_keys[cite_key] += 1
                 cite_key = f"{cite_key}{chr(96 + used_keys[cite_key])}"
             else:
                 used_keys[cite_key] = 1
 
-            bibtex = fetch_bibtex(entry)
-            bibtex = _replace_cite_key(bibtex, cite_key)
-            bib_entries.append(f"% Paper #{entry['number']}: {entry['title'][:60]}")
+            bibtex = _replace_cite_key(fetch_bibtex(entry), cite_key)
             bib_entries.append(bibtex)
             bib_entries.append("")
+            total += 1
+        bib_entries.append("")
 
-            doi = entry.get("doi", "NO_DOI")
-            status = "cached" if doi in _load_cache() else "fetched"
-            print(f"  #{entry['number']:02d} {cite_key} [{status}]")
-
-        bib_path = topic_dir / "papers" / "bibliography.bib"
-        bib_path.write_text("\n".join(bib_entries), encoding="utf-8")
-        print(f"  -> {bib_path.relative_to(PROJECT_ROOT)} ({len(entries)} entries)\n")
+    bib_path = PROJECT_ROOT / "bibliography.bib"
+    bib_path.write_text("\n".join(bib_entries), encoding="utf-8")
+    print(f"-> bibliography.bib ({total} entries from {len(TOPICS)} topics)")
 
 
 def cmd_lookup(doi: str) -> None:
@@ -200,14 +193,15 @@ def cmd_lookup(doi: str) -> None:
 
 def cmd_verify(topic: str) -> None:
     """Check DOI coverage for a topic."""
-    topic_dir = resolve_topic(topic)
-    entries = parse_reading_list(topic_dir / "papers" / "reading_list.md")
+    from reading_list import resolve_tag, display_name, _reading_list_path
+    tag = resolve_tag(topic)
+    entries = parse_reading_list(_reading_list_path(tag))
 
     has_doi = [e for e in entries if e.get("doi") and e["doi"] != "NO_DOI"]
     no_doi = [e for e in entries if not e.get("doi") or e["doi"] == "NO_DOI"]
 
     print(json.dumps({
-        "topic": topic_dir.name,
+        "topic": display_name(tag),
         "total": len(entries),
         "with_doi": len(has_doi),
         "without_doi": len(no_doi),

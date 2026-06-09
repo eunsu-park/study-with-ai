@@ -91,6 +91,55 @@ def make_dir_name(number: int, authors_str: str, year: int) -> str:
     return f"{number:02d}_{surname}_{year}"
 
 
+_KW_SKIP = {
+    "a", "an", "the", "on", "of", "in", "for", "and", "to", "with", "by",
+    "from", "as", "at", "is", "are", "be", "this", "that", "via", "using",
+    "their", "its", "new", "der", "die", "das", "und", "uber", "von",
+    "reading", "notes", "et", "al",
+}
+_ROMAN = re.compile(r"^[ivxlcdm]+$")
+
+
+def pick_keyword(title: str, surname: str = "") -> str:
+    """Pick the first significant title word for a citekey.
+
+    Args:
+        title: Paper title.
+        surname: Surname to skip (avoids ``smith1990smith``).
+
+    Returns:
+        Lowercase alphanumeric keyword, or "" if none qualifies.
+    """
+    surname = re.sub(r"[^a-z0-9]", "", surname.lower())
+    for w in re.findall(r"[A-Za-z][A-Za-z0-9'-]*", title):
+        token = re.sub(r"[^a-z0-9]", "", w.lower())
+        if len(token) < 3 or token.isdigit() or token in _KW_SKIP or _ROMAN.match(token):
+            continue
+        if surname and (token == surname or token.startswith(surname) or surname.startswith(token)):
+            continue
+        return token
+    return ""
+
+
+def make_citekey(authors_str: str, year: int, title: str) -> str:
+    """Build a BibTeX-style citekey ``<surname><year><keyword>``.
+
+    Args:
+        authors_str: Full authors string (first author is used).
+        year: Publication year.
+        title: Paper title (for the keyword).
+
+    Returns:
+        Lowercase citekey, e.g. ``vaswani2017attention``.
+    """
+    raw = re.split(r",|;|\band\b", authors_str)
+    raw = [a.strip() for a in raw if a.strip()
+           and not re.match(r"^et\s+al\.?$", a.strip(), re.IGNORECASE)]
+    surname = _normalize_surname(raw[0]) if raw else "unknown"
+    surname_token = re.sub(r"[^a-z0-9]", "", surname.lower())
+    return f"{surname_token}{year}{pick_keyword(title, surname)}"
+
+
 def make_file_names(dir_name: str) -> dict[str, str]:
     """Generate standard file names for a paper directory.
 
@@ -126,20 +175,27 @@ def cmd_files(dir_name: str) -> None:
 
 
 def cmd_create(topic: str, number: int, authors: str, year: int) -> None:
-    """Create a paper directory under a topic."""
-    # Resolve topic
-    from reading_list import resolve_topic
-    topic_dir = resolve_topic(topic)
+    """Create a flat paper directory ``papers/<citekey>/``.
 
-    dir_name = make_dir_name(number, authors, year)
-    paper_dir = topic_dir / "papers" / dir_name
+    The citekey is ``<surname><year><keyword>``; the keyword comes from the
+    paper's reading-list title. Verifies the topic exists.
+    """
+    from reading_list import resolve_tag, _reading_list_path
+    from reading_list import parse_reading_list
+
+    tag = resolve_tag(topic)
+    entries = {e["number"]: e for e in parse_reading_list(_reading_list_path(tag))}
+    title = entries.get(number, {}).get("title", "")
+
+    citekey = make_citekey(authors, year, title)
+    paper_dir = PROJECT_ROOT / "papers" / citekey
     paper_dir.mkdir(parents=True, exist_ok=True)
 
     print(json.dumps({
         "ok": True,
-        "dir_name": dir_name,
+        "dir_name": citekey,
         "path": str(paper_dir),
-        "files": make_file_names(dir_name),
+        "files": make_file_names(citekey),
     }))
 
 

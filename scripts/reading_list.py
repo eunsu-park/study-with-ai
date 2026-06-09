@@ -26,53 +26,85 @@ from paper_dir import make_dir_name
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-TOPIC_ALIASES: dict[str, str] = {
-    "ai": "Artificial_Intelligence",
-    "sp": "Solar_Physics",
-    "sw": "Space_Weather",
-    "so": "Solar_Observation",
-    "lrsp": "Living_Reviews_in_Solar_Physics",
-}
+# Canonical topic registry: (display_name, tag, [aliases]). Reading lists live
+# at reading_lists/<tag>.md (flat layout — per-topic folders were removed).
+TOPICS: list[tuple[str, str, list[str]]] = [
+    ("Artificial_Intelligence", "artificial-intelligence", ["ai"]),
+    ("Solar_Physics", "solar-physics", ["sp"]),
+    ("Space_Weather", "space-weather", ["sw"]),
+    ("Solar_Observation", "solar-observation", ["so"]),
+    ("Living_Reviews_in_Solar_Physics", "living-reviews-solar-physics", ["lrsp"]),
+    ("Low_SNR_Imaging", "low-snr-imaging", ["lowsnr", "lsi"]),
+    ("Helioseismology_Asteroseismology", "helioseismology-asteroseismology", ["helio", "ha"]),
+    ("Heliosphere_Solar_Wind", "heliosphere-solar-wind", ["hsw"]),
+    ("Magnetic_Reconnection_Eruption", "magnetic-reconnection-eruption", ["mre"]),
+    ("Plasma_Spectroscopy_Diagnostics", "plasma-spectroscopy-diagnostics", ["psd"]),
+    ("Numerical_MHD_Simulation", "numerical-mhd-simulation", ["mhd"]),
+]
+
+# Backwards-compatible alias map (alias -> display_name).
+TOPIC_ALIASES: dict[str, str] = {a: name for name, _tag, aliases in TOPICS for a in aliases}
+
+_TAG_BY_KEY: dict[str, str] = {}
+for _name, _tag, _aliases in TOPICS:
+    _TAG_BY_KEY[_name.lower()] = _tag
+    _TAG_BY_KEY[_tag.lower()] = _tag
+    for _a in _aliases:
+        _TAG_BY_KEY[_a.lower()] = _tag
+_NAME_BY_TAG: dict[str, str] = {tag: name for name, tag, _a in TOPICS}
 
 # ---------------------------------------------------------------------------
 # Topic resolution
 # ---------------------------------------------------------------------------
 
 
-def resolve_topic(name: str) -> Path:
-    """Resolve a topic name or alias to its directory path.
-
-    Args:
-        name: Topic name, alias, or partial match.
-
-    Returns:
-        Absolute path to the topic directory.
+def resolve_tag(name: str) -> str:
+    """Resolve a topic name, tag, or alias to its canonical tag.
 
     Raises:
         SystemExit: If the topic cannot be resolved.
     """
-    # Try alias first
-    lower = name.lower().replace(" ", "_")
-    if lower in TOPIC_ALIASES:
-        topic_dir = PROJECT_ROOT / TOPIC_ALIASES[lower]
-    else:
-        # Try exact match
-        topic_dir = PROJECT_ROOT / name
-        if not topic_dir.is_dir():
-            # Try case-insensitive scan
-            for d in PROJECT_ROOT.iterdir():
-                if d.is_dir() and d.name.lower() == lower:
-                    topic_dir = d
-                    break
-
-    reading_list = topic_dir / "papers" / "reading_list.md"
-    if not reading_list.exists():
-        sys.exit(json.dumps({"error": f"reading_list.md not found for topic '{name}'"}))
-    return topic_dir
+    key = name.lower().replace(" ", "_")
+    tag = _TAG_BY_KEY.get(key) or _TAG_BY_KEY.get(name.lower())
+    if not tag:
+        sys.exit(json.dumps({"error": f"unknown topic '{name}'"}))
+    if not _reading_list_path(tag).exists():
+        sys.exit(json.dumps({"error": f"reading_lists/{tag}.md not found for '{name}'"}))
+    return tag
 
 
-def _reading_list_path(topic_dir: Path) -> Path:
-    return topic_dir / "papers" / "reading_list.md"
+def display_name(tag: str) -> str:
+    """Return the canonical display name for a tag."""
+    return _NAME_BY_TAG.get(tag, tag)
+
+
+def resolve_topic(name: str) -> str:
+    """Resolve a topic name/alias to its canonical display name (compat shim)."""
+    return display_name(resolve_tag(name))
+
+
+def _reading_list_path(tag: str) -> Path:
+    return PROJECT_ROOT / "reading_lists" / f"{tag}.md"
+
+
+def citekey_for(name: str, number: int) -> Optional[str]:
+    """Look up the flat-papers citekey for (topic, number) via the mapping.
+
+    Reads scripts/flatten_mapping.tsv (keyed by the original topic dir name).
+
+    Returns:
+        The citekey string, or None if not found.
+    """
+    tag = _TAG_BY_KEY.get(name.lower().replace(" ", "_")) or _TAG_BY_KEY.get(name.lower())
+    dir_name = _NAME_BY_TAG.get(tag) if tag else None
+    mapping = PROJECT_ROOT / "scripts" / "flatten_mapping.tsv"
+    if not (dir_name and mapping.exists()):
+        return None
+    for line in mapping.read_text(encoding="utf-8").splitlines()[1:]:
+        cols = line.split("\t")
+        if len(cols) >= 4 and cols[2] == dir_name and cols[3] == str(number):
+            return cols[1]
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -174,19 +206,16 @@ def parse_reading_list(path: Path) -> list[dict]:
 
 
 def cmd_topics() -> None:
-    """List all topics that have a reading_list.md."""
-    topics = []
-    for d in sorted(PROJECT_ROOT.iterdir()):
-        rl = d / "papers" / "reading_list.md"
-        if d.is_dir() and rl.exists():
-            topics.append(d.name)
+    """List all topics that have a reading list."""
+    topics = [name for name, tag, _a in TOPICS
+              if _reading_list_path(tag).exists()]
     print(json.dumps({"topics": topics}, ensure_ascii=False))
 
 
 def cmd_next(topic: str) -> None:
     """Find the next unread paper in a topic."""
-    topic_dir = resolve_topic(topic)
-    entries = parse_reading_list(_reading_list_path(topic_dir))
+    tag = resolve_tag(topic)
+    entries = parse_reading_list(_reading_list_path(tag))
     for e in entries:
         if e["status"] == " ":
             result = {
@@ -202,18 +231,18 @@ def cmd_next(topic: str) -> None:
                 result["journal"] = e["journal"]
             print(json.dumps(result, ensure_ascii=False))
             return
-    print(json.dumps({"error": "All papers completed", "topic": topic_dir.name}))
+    print(json.dumps({"error": "All papers completed", "topic": display_name(tag)}))
 
 
 def cmd_count(topic: str) -> None:
     """Count papers by status."""
-    topic_dir = resolve_topic(topic)
-    entries = parse_reading_list(_reading_list_path(topic_dir))
+    tag = resolve_tag(topic)
+    entries = parse_reading_list(_reading_list_path(tag))
     completed = sum(1 for e in entries if e["status"] == "x")
     in_progress = sum(1 for e in entries if e["status"] == "~")
     total = len(entries)
     print(json.dumps({
-        "topic": topic_dir.name,
+        "topic": display_name(tag),
         "completed": completed,
         "in_progress": in_progress,
         "not_started": total - completed - in_progress,
@@ -223,23 +252,25 @@ def cmd_count(topic: str) -> None:
 
 def cmd_info(topic: str, number: int) -> None:
     """Get full metadata for a specific paper."""
-    topic_dir = resolve_topic(topic)
-    entries = parse_reading_list(_reading_list_path(topic_dir))
+    tag = resolve_tag(topic)
+    entries = parse_reading_list(_reading_list_path(tag))
     for e in entries:
         if e["number"] == number:
             e["dir_name"] = make_dir_name(e["number"], e["authors"], e["year"])
-            e["topic"] = topic_dir.name
+            e["topic"] = display_name(tag)
+            e["tag"] = tag
+            e["citekey"] = citekey_for(tag, number)
             print(json.dumps(e, ensure_ascii=False))
             return
-    print(json.dumps({"error": f"Paper #{number} not found in {topic_dir.name}"}))
+    print(json.dumps({"error": f"Paper #{number} not found in {display_name(tag)}"}))
 
 
 def cmd_highest(topic: str) -> None:
     """Get the highest paper number in a topic."""
-    topic_dir = resolve_topic(topic)
-    entries = parse_reading_list(_reading_list_path(topic_dir))
+    tag = resolve_tag(topic)
+    entries = parse_reading_list(_reading_list_path(tag))
     highest = max((e["number"] for e in entries), default=0)
-    print(json.dumps({"topic": topic_dir.name, "highest_number": highest}))
+    print(json.dumps({"topic": display_name(tag), "highest_number": highest}))
 
 
 def cmd_mark(topic: str, number: int, status: str) -> None:
@@ -253,8 +284,8 @@ def cmd_mark(topic: str, number: int, status: str) -> None:
     if status not in ("x", "~", " "):
         sys.exit(json.dumps({"error": f"Invalid status '{status}'. Use 'x', '~', or ' '"}))
 
-    topic_dir = resolve_topic(topic)
-    rl_path = _reading_list_path(topic_dir)
+    tag = resolve_tag(topic)
+    rl_path = _reading_list_path(tag)
     text = rl_path.read_text(encoding="utf-8")
     lines = text.split("\n")
 
@@ -280,7 +311,7 @@ def cmd_mark(topic: str, number: int, status: str) -> None:
     rl_path.write_text("\n".join(lines), encoding="utf-8")
     print(json.dumps({
         "ok": True,
-        "topic": topic_dir.name,
+        "topic": display_name(tag),
         "number": number,
         "new_status": f"[{status}]",
     }))
@@ -289,8 +320,8 @@ def cmd_mark(topic: str, number: int, status: str) -> None:
 def cmd_add(topic: str, title: str, authors: str, year: int,
             why: str, prereqs: str, journal: Optional[str] = None) -> None:
     """Add a new paper to the reading list under 'User-Added Papers'."""
-    topic_dir = resolve_topic(topic)
-    rl_path = _reading_list_path(topic_dir)
+    tag = resolve_tag(topic)
+    rl_path = _reading_list_path(tag)
     entries = parse_reading_list(rl_path)
     next_num = max((e["number"] for e in entries), default=0) + 1
 
@@ -331,7 +362,7 @@ def cmd_add(topic: str, title: str, authors: str, year: int,
     dir_name = make_dir_name(next_num, authors, year)
     print(json.dumps({
         "ok": True,
-        "topic": topic_dir.name,
+        "topic": display_name(tag),
         "number": next_num,
         "dir_name": dir_name,
     }, ensure_ascii=False))

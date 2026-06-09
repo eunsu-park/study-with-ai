@@ -1,0 +1,410 @@
+old_dir	citekey	topic	number	status	title
+Artificial_Intelligence/papers/01_mcculloch_1943	mcculloch1943logical	Artificial_Intelligence	1	x	A Logical Calculus of the Ideas Immanent in Nervous Activity
+Artificial_Intelligence/papers/02_turing_1950	turing1950computing	Artificial_Intelligence	2	x	Computing Machinery and Intelligence
+Artificial_Intelligence/papers/03_rosenblatt_1958	rosenblatt1958perceptron	Artificial_Intelligence	3	x	The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain
+Artificial_Intelligence/papers/04_minsky_1969	minsky1969perceptrons	Artificial_Intelligence	4	x	Perceptrons (book)
+Artificial_Intelligence/papers/05_hopfield_1982	hopfield1982neural	Artificial_Intelligence	5	x	Neural Networks and Physical Systems with Emergent Collective Computational Abilities
+Artificial_Intelligence/papers/06_rumelhart_1986	rumelhart1986learning	Artificial_Intelligence	6	x	Learning Representations by Back-propagating Errors
+Artificial_Intelligence/papers/07_lecun_1989	lecun1989backpropagation	Artificial_Intelligence	7	x	Backpropagation Applied to Handwritten Zip Code Recognition
+Artificial_Intelligence/papers/08_cortes_1995	cortes1995supportvector	Artificial_Intelligence	8	x	Support-Vector Networks
+Artificial_Intelligence/papers/09_hochreiter_1997	hochreiter1997long	Artificial_Intelligence	9	x	Long Short-Term Memory
+Artificial_Intelligence/papers/10_lecun_1998	lecun1998gradientbased	Artificial_Intelligence	10	x	Gradient-Based Learning Applied to Document Recognition
+Artificial_Intelligence/papers/11_breiman_2001	breiman2001random	Artificial_Intelligence	11	x	Random Forests
+Artificial_Intelligence/papers/12_hinton_2006	hinton2006fast	Artificial_Intelligence	12	x	A Fast Learning Algorithm for Deep Belief Nets
+Artificial_Intelligence/papers/13_krizhevsky_2012	krizhevsky2012imagenet	Artificial_Intelligence	13	x	ImageNet Classification with Deep Convolutional Neural Networks (AlexNet)
+Artificial_Intelligence/papers/14_mikolov_2013	mikolov2013efficient	Artificial_Intelligence	14	x	Efficient Estimation of Word Representations in Vector Space (Word2Vec)
+Artificial_Intelligence/papers/15_kingma_2013	kingma2013autoencoding	Artificial_Intelligence	15	x	Auto-Encoding Variational Bayes (VAE)
+Artificial_Intelligence/papers/16_goodfellow_2014	goodfellow2014generative	Artificial_Intelligence	16	x	Generative Adversarial Nets (GANs)
+Artificial_Intelligence/papers/17_bahdanau_2014	bahdanau2014neural	Artificial_Intelligence	17	x	Neural Machine Translation by Jointly Learning to Align and Translate
+Artificial_Intelligence/papers/18_kingma_2014	kingma2014adam	Artificial_Intelligence	18	x	Adam: A Method for Stochastic Optimization
+Artificial_Intelligence/papers/19_ioffe_2015	ioffe2015batch	Artificial_Intelligence	19	x	Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
+Artificial_Intelligence/papers/20_he_2015	he2015deep	Artificial_Intelligence	20	x	Deep Residual Learning for Image Recognition (ResNet)
+Artificial_Intelligence/papers/21_ba_2016	ba2016layer	Artificial_Intelligence	21	x	Layer Normalization
+Artificial_Intelligence/papers/22_mnih_2013	mnih2013playing	Artificial_Intelligence	22	x	Playing Atari with Deep Reinforcement Learning (DQN)
+Artificial_Intelligence/papers/23_silver_2016	silver2016mastering	Artificial_Intelligence	23	x	Mastering the game of Go with deep neural networks and tree search (AlphaGo)
+Artificial_Intelligence/papers/24_schulman_2017	schulman2017proximal	Artificial_Intelligence	24	x	Proximal Policy Optimization Algorithms (PPO)
+Artificial_Intelligence/papers/25_vaswani_2017	vaswani2017attention	Artificial_Intelligence	25	x	Attention Is All You Need
+Artificial_Intelligence/papers/26_kipf_2017	kipf2017semisupervised	Artificial_Intelligence	26	x	Semi-Supervised Classification with Graph Convolutional Networks
+Artificial_Intelligence/papers/27_zoph_2017	zoph2017neural	Artificial_Intelligence	27	x	Neural Architecture Search with Reinforcement Learning
+Artificial_Intelligence/papers/28_devlin_2018	devlin2018bert	Artificial_Intelligence	28	x	BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+Artificial_Intelligence/papers/29_radford_2019	radford2019language	Artificial_Intelligence	29	x	Language Models are Unsupervised Multitask Learners (GPT-2)
+Artificial_Intelligence/papers/30_frankle_2019	frankle2019lottery	Artificial_Intelligence	30	x	The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks
+Artificial_Intelligence/papers/31_dosovitskiy_2020	dosovitskiy2020image	Artificial_Intelligence	31	x	An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale (ViT)
+Artificial_Intelligence/papers/32_chen_2020	chen2020simple	Artificial_Intelligence	32	x	A Simple Framework for Contrastive Learning of Visual Representations (SimCLR)
+Artificial_Intelligence/papers/33_lewis_2020	lewis2020retrievalaugmented	Artificial_Intelligence	33	x	Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (RAG)
+Artificial_Intelligence/papers/34_brown_2020	brown2020language	Artificial_Intelligence	34	x	Language Models are Few-Shot Learners (GPT-3)
+Artificial_Intelligence/papers/35_ho_2020	ho2020denoising	Artificial_Intelligence	35	x	Denoising Diffusion Probabilistic Models (DDPM)
+Artificial_Intelligence/papers/36_radford_2021	radford2021learning	Artificial_Intelligence	36	x	Learning Transferable Visual Models From Natural Language Supervision (CLIP)
+Artificial_Intelligence/papers/37_jumper_2021	jumper2021highly	Artificial_Intelligence	37	x	Highly Accurate Protein Structure Prediction with AlphaFold (AlphaFold 2)
+Artificial_Intelligence/papers/38_ouyang_2022	ouyang2022training	Artificial_Intelligence	38	x	Training Language Models to Follow Instructions with Human Feedback (InstructGPT)
+Artificial_Intelligence/papers/39_kaplan_2020	kaplan2020scaling	Artificial_Intelligence	39	x	Scaling Laws for Neural Language Models
+Artificial_Intelligence/papers/40_bai_2022	bai2022constitutional	Artificial_Intelligence	40	x	Constitutional AI: Harmlessness from AI Feedback
+Artificial_Intelligence/papers/41_watkins_1992	watkins1992technical	Artificial_Intelligence	41	 	Technical Note: Q-Learning
+Artificial_Intelligence/papers/42_hinton_2012	hinton2012improving	Artificial_Intelligence	42	 	Improving Neural Networks by Preventing Co-adaptation of Feature Detectors (Dropout)
+Artificial_Intelligence/papers/43_sutskever_2014	sutskever2014sequence	Artificial_Intelligence	43	 	Sequence to Sequence Learning with Neural Networks
+Artificial_Intelligence/papers/44_simonyan_2014	simonyan2014very	Artificial_Intelligence	44	 	Very Deep Convolutional Networks for Large-Scale Image Recognition (VGG)
+Artificial_Intelligence/papers/45_szegedy_2015	szegedy2015going	Artificial_Intelligence	45	 	Going Deeper with Convolutions (GoogLeNet / Inception v1)
+Artificial_Intelligence/papers/46_ronneberger_2015	ronneberger2015unet	Artificial_Intelligence	46	 	U-Net: Convolutional Networks for Biomedical Image Segmentation
+Artificial_Intelligence/papers/47_ren_2017	ren2017faster	Artificial_Intelligence	47	 	Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks
+Artificial_Intelligence/papers/48_redmon_2016	redmon2016you	Artificial_Intelligence	48	 	You Only Look Once: Unified, Real-Time Object Detection (YOLO)
+Artificial_Intelligence/papers/49_schulman_2015	schulman2015trust	Artificial_Intelligence	49	 	Trust Region Policy Optimization (TRPO)
+Artificial_Intelligence/papers/50_silver_2018	silver2018general	Artificial_Intelligence	50	 	A General Reinforcement Learning Algorithm That Masters Chess, Shogi, and Go through Self-Play (AlphaZero)
+Artificial_Intelligence/papers/51_senior_2020	senior2020improved	Artificial_Intelligence	51	 	Improved Protein Structure Prediction Using Potentials from Deep Learning (AlphaFold 1)
+Artificial_Intelligence/papers/52_raffel_2019	raffel2019exploring	Artificial_Intelligence	52	 	Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)
+Artificial_Intelligence/papers/53_fedus_2021	fedus2021switch	Artificial_Intelligence	53	 	Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity
+Artificial_Intelligence/papers/54_hu_2021	hu2021lora	Artificial_Intelligence	54	 	LoRA: Low-Rank Adaptation of Large Language Models
+Artificial_Intelligence/papers/55_wei_2022	wei2022chainofthought	Artificial_Intelligence	55	 	Chain-of-Thought Prompting Elicits Reasoning in Large Language Models
+Artificial_Intelligence/papers/57_hoffmann_2022	hoffmann2022training	Artificial_Intelligence	57	 	Training Compute-Optimal Large Language Models (Chinchilla)
+Artificial_Intelligence/papers/58_chowdhery_2022	chowdhery2022palm	Artificial_Intelligence	58	 	PaLM: Scaling Language Modeling with Pathways
+Artificial_Intelligence/papers/59_yao_2022	yao2022react	Artificial_Intelligence	59	 	ReAct: Synergizing Reasoning and Acting in Language Models
+Artificial_Intelligence/papers/60_rombach_2022	rombach2022highresolution	Artificial_Intelligence	60	 	High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion)
+Artificial_Intelligence/papers/61_achiam_2023	achiam2023gpt4	Artificial_Intelligence	61	 	GPT-4 Technical Report
+Artificial_Intelligence/papers/62_touvron_2023	touvron2023llama	Artificial_Intelligence	62	 	LLaMA: Open and Efficient Foundation Language Models
+Artificial_Intelligence/papers/63_schick_2023	schick2023toolformer	Artificial_Intelligence	63	 	Toolformer: Language Models Can Teach Themselves to Use Tools
+Artificial_Intelligence/papers/64_yao_2023	yao2023tree	Artificial_Intelligence	64	 	Tree of Thoughts: Deliberate Problem Solving with Large Language Models
+Artificial_Intelligence/papers/65_rafailov_2023	rafailov2023direct	Artificial_Intelligence	65	 	Direct Preference Optimization: Your Language Model is Secretly a Reward Model (DPO)
+Artificial_Intelligence/papers/66_jiang_2023	jiang2023mistral	Artificial_Intelligence	66	 	Mistral 7B
+Artificial_Intelligence/papers/67_gu_2023	gu2023mamba	Artificial_Intelligence	67	 	Mamba: Linear-Time Sequence Modeling with Selective State Spaces
+Artificial_Intelligence/papers/68_jiang_2024	jiang2024mixtral	Artificial_Intelligence	68	 	Mixtral of Experts
+Artificial_Intelligence/papers/69_deepseek_2025	deepseek2025deepseekr1	Artificial_Intelligence	69	 	DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+Heliosphere_Solar_Wind/papers/06_berriot_2024	berriot2024identification	Heliosphere_Solar_Wind	6	x	Identification of a single plasma parcel during a radial alignment of the Parker Solar Probe and Solar Orbiter
+Living_Reviews_in_Solar_Physics/papers/01_wood_2004	wood2004astrospheres	Living_Reviews_in_Solar_Physics	1	x	Astrospheres and Solar-like Stellar Winds
+Living_Reviews_in_Solar_Physics/papers/02_miesch_2005	miesch2005largescale	Living_Reviews_in_Solar_Physics	2	x	Large-Scale Dynamics of the Convection Zone and Tachocline
+Living_Reviews_in_Solar_Physics/papers/03_nakariakov_2005	nakariakov2005coronal	Living_Reviews_in_Solar_Physics	3	x	Coronal Waves and Oscillations
+Living_Reviews_in_Solar_Physics/papers/04_sheeley_2005	sheeley2005surface	Living_Reviews_in_Solar_Physics	4	x	Surface Evolution of the Sun's Magnetic Field: A Historical Review of the Flux-Transport Mechanism
+Living_Reviews_in_Solar_Physics/papers/05_gizon_2005	gizon2005local	Living_Reviews_in_Solar_Physics	5	x	Local Helioseismology
+Living_Reviews_in_Solar_Physics/papers/06_longcope_2005	longcope2005topological	Living_Reviews_in_Solar_Physics	6	x	Topological Methods for the Analysis of Solar Magnetic Fields
+Living_Reviews_in_Solar_Physics/papers/07_berdyugina_2005	berdyugina2005starspots	Living_Reviews_in_Solar_Physics	7	x	Starspots: A Key to the Stellar Dynamo
+Living_Reviews_in_Solar_Physics/papers/08_marsch_2006	marsch2006kinetic	Living_Reviews_in_Solar_Physics	8	x	Kinetic Physics of the Solar Corona and Solar Wind
+Living_Reviews_in_Solar_Physics/papers/09_schwenn_2006	schwenn2006space	Living_Reviews_in_Solar_Physics	9	x	Space Weather: The Solar Perspective
+Living_Reviews_in_Solar_Physics/papers/10_pulkkinen_2007	pulkkinen2007space	Living_Reviews_in_Solar_Physics	10	x	Space Weather: Terrestrial Perspective
+Living_Reviews_in_Solar_Physics/papers/11_haigh_2007	haigh2007sun	Living_Reviews_in_Solar_Physics	11	x	The Sun and the Earth's Climate
+Living_Reviews_in_Solar_Physics/papers/12_gudel_2007	gudel2007sun	Living_Reviews_in_Solar_Physics	12	x	The Sun in Time: Activity and Environment
+Living_Reviews_in_Solar_Physics/papers/13_benz_2008	benz2008flare	Living_Reviews_in_Solar_Physics	13	x	Flare Observations
+Living_Reviews_in_Solar_Physics/papers/14_hall_2008	hall2008stellar	Living_Reviews_in_Solar_Physics	14	x	Stellar Chromospheric Activity
+Living_Reviews_in_Solar_Physics/papers/15_howe_2009	howe2009solar	Living_Reviews_in_Solar_Physics	15	x	Solar Interior Rotation and its Variation
+Living_Reviews_in_Solar_Physics/papers/16_nordlund_2009	nordlund2009solar	Living_Reviews_in_Solar_Physics	16	x	Solar Surface Convection
+Living_Reviews_in_Solar_Physics/papers/17_cranmer_2009	cranmer2009coronal	Living_Reviews_in_Solar_Physics	17	x	Coronal Holes
+Living_Reviews_in_Solar_Physics/papers/18_fan_2009	fan2009magnetic	Living_Reviews_in_Solar_Physics	18	x	Magnetic Fields in the Solar Convection Zone
+Living_Reviews_in_Solar_Physics/papers/19_rieutord_2010	rieutord2010suns	Living_Reviews_in_Solar_Physics	19	x	The Sun's Supergranulation
+Living_Reviews_in_Solar_Physics/papers/20_charbonneau_2010	charbonneau2010dynamo	Living_Reviews_in_Solar_Physics	20	x	Dynamo Models of the Solar Cycle
+Living_Reviews_in_Solar_Physics/papers/21_ofman_2010	ofman2010wave	Living_Reviews_in_Solar_Physics	21	x	Wave Modeling of the Solar Wind
+Living_Reviews_in_Solar_Physics/papers/22_chen_2011	chen2011coronal	Living_Reviews_in_Solar_Physics	22	x	Coronal Mass Ejections: Models and Their Observational Basis
+Living_Reviews_in_Solar_Physics/papers/23_rimmele_2011	rimmele2011solar	Living_Reviews_in_Solar_Physics	23	x	Solar Adaptive Optics
+Living_Reviews_in_Solar_Physics/papers/24_rempel_2011	rempel2011sunspot	Living_Reviews_in_Solar_Physics	24	x	Sunspot Modeling: From Simplified Models to Radiative MHD Simulations
+Living_Reviews_in_Solar_Physics/papers/25_borrero_2011	borrero2011magnetic	Living_Reviews_in_Solar_Physics	25	x	Magnetic Structure of Sunspots
+Living_Reviews_in_Solar_Physics/papers/26_aschwanden_2011	aschwanden2011solar	Living_Reviews_in_Solar_Physics	26	x	Solar Stereoscopy and Tomography
+Living_Reviews_in_Solar_Physics/papers/27_shibata_2011	shibata2011solar	Living_Reviews_in_Solar_Physics	27	x	Solar Flares: Magnetohydrodynamic Processes
+Living_Reviews_in_Solar_Physics/papers/28_reiners_2012	reiners2012observations	Living_Reviews_in_Solar_Physics	28	x	Observations of Cool-Star Magnetic Fields
+Living_Reviews_in_Solar_Physics/papers/29_webb_2012	webb2012coronal	Living_Reviews_in_Solar_Physics	29	x	Coronal Mass Ejections: Observations
+Living_Reviews_in_Solar_Physics/papers/30_stein_2012	stein2012solar	Living_Reviews_in_Solar_Physics	30	x	Solar Surface Magneto-Convection
+Living_Reviews_in_Solar_Physics/papers/31_mackay_2012	mackay2012suns	Living_Reviews_in_Solar_Physics	31	x	The Sun's Global Photospheric and Coronal Magnetic Fields: Observations and Models
+Living_Reviews_in_Solar_Physics/papers/32_bruno_2013	bruno2013solar	Living_Reviews_in_Solar_Physics	32	x	The Solar Wind as a Turbulence Laboratory
+Living_Reviews_in_Solar_Physics/papers/33_potgieter_2013	potgieter2013solar	Living_Reviews_in_Solar_Physics	33	x	Solar Modulation of Cosmic Rays
+Living_Reviews_in_Solar_Physics/papers/34_lockwood_2013	lockwood2013reconstruction	Living_Reviews_in_Solar_Physics	34	x	Reconstruction and Prediction of Variations in the Open Solar Magnetic Flux and Interplanetary Conditions
+Living_Reviews_in_Solar_Physics/papers/35_owens_2013	owens2013heliospheric	Living_Reviews_in_Solar_Physics	35	x	The Heliospheric Magnetic Field
+Living_Reviews_in_Solar_Physics/papers/36_parenti_2014	parenti2014solar	Living_Reviews_in_Solar_Physics	36	x	Solar Prominences: Observations
+Living_Reviews_in_Solar_Physics/papers/37_penn_2014	penn2014infrared	Living_Reviews_in_Solar_Physics	37	x	Infrared Solar Physics
+Living_Reviews_in_Solar_Physics/papers/38_cheung_2014	cheung2014flux	Living_Reviews_in_Solar_Physics	38	x	Flux Emergence (Theory)
+Living_Reviews_in_Solar_Physics/papers/39_reale_2014	reale2014coronal	Living_Reviews_in_Solar_Physics	39	x	Coronal Loops: Observations and Modeling of Confined Plasma
+Living_Reviews_in_Solar_Physics/papers/40_van_drielgesztelyi_2015	vandrielgesztelyi2015evolution	Living_Reviews_in_Solar_Physics	40	x	Evolution of Active Regions
+Living_Reviews_in_Solar_Physics/papers/41_laming_2015	laming2015fip	Living_Reviews_in_Solar_Physics	41	x	The FIP and Inverse FIP Effects in Solar and Stellar Coronae
+Living_Reviews_in_Solar_Physics/papers/42_warmuth_2015	warmuth2015largescale	Living_Reviews_in_Solar_Physics	42	x	Large-scale Globally Propagating Coronal Waves
+Living_Reviews_in_Solar_Physics/papers/43_hathaway_2015	hathaway2015solar	Living_Reviews_in_Solar_Physics	43	x	The Solar Cycle
+Living_Reviews_in_Solar_Physics/papers/44_petrie_2015	petrie2015solar	Living_Reviews_in_Solar_Physics	44	x	Solar Magnetism in the Polar Regions
+Living_Reviews_in_Solar_Physics/papers/45_khomenko_2015	khomenko2015oscillations	Living_Reviews_in_Solar_Physics	45	x	Oscillations and Waves in Sunspots
+Living_Reviews_in_Solar_Physics/papers/46_poletto_2015	poletto2015solar	Living_Reviews_in_Solar_Physics	46	x	Solar Coronal Plumes
+Living_Reviews_in_Solar_Physics/papers/47_houdek_2015	houdek2015interaction	Living_Reviews_in_Solar_Physics	47	x	Interaction Between Convection and Pulsation
+Living_Reviews_in_Solar_Physics/papers/48_prieto_2016	prieto2016solar	Living_Reviews_in_Solar_Physics	48	x	Solar and Stellar Photospheric Abundances
+Living_Reviews_in_Solar_Physics/papers/49_basu_2016	basu2016global	Living_Reviews_in_Solar_Physics	49	x	Global Seismology of the Sun
+Living_Reviews_in_Solar_Physics/papers/50_desai_2016	desai2016large	Living_Reviews_in_Solar_Physics	50	x	Large Gradual Solar Energetic Particle Events
+Living_Reviews_in_Solar_Physics/papers/51_iniesta_2016	iniesta2016inversion	Living_Reviews_in_Solar_Physics	51	x	Inversion of the Radiative Transfer Equation for Polarized Light
+Living_Reviews_in_Solar_Physics/papers/52_usoskin_2017	usoskin2017history	Living_Reviews_in_Solar_Physics	52	x	A History of Solar Activity over Millennia
+Living_Reviews_in_Solar_Physics/papers/53_brun_2017	brun2017magnetism	Living_Reviews_in_Solar_Physics	53	x	Magnetism, Dynamo Action and the Solar-Stellar Connection
+Living_Reviews_in_Solar_Physics/papers/54_kilpua_2017	kilpua2017coronal	Living_Reviews_in_Solar_Physics	54	x	Coronal Mass Ejections and Their Sheath Regions in Interplanetary Space
+Living_Reviews_in_Solar_Physics/papers/55_richardson_2018	richardson2018solar	Living_Reviews_in_Solar_Physics	55	x	Solar Wind Stream Interaction Regions Throughout the Heliosphere
+Living_Reviews_in_Solar_Physics/papers/56_narita_2018	narita2018space	Living_Reviews_in_Solar_Physics	56	x	Space–Time Structure and Wavevector Anisotropy in Space Plasma Turbulence
+Living_Reviews_in_Solar_Physics/papers/57_arregui_2018	arregui2018prominence	Living_Reviews_in_Solar_Physics	57	x	Prominence Oscillations
+Living_Reviews_in_Solar_Physics/papers/58_gombosi_2018	gombosi2018extended	Living_Reviews_in_Solar_Physics	58	x	Extended MHD Modeling of the Steady Solar Corona and the Solar Wind
+Living_Reviews_in_Solar_Physics/papers/59_zanna_2018	zanna2018solar	Living_Reviews_in_Solar_Physics	59	x	Solar UV and X-ray Spectral Diagnostics
+Living_Reviews_in_Solar_Physics/papers/60_rincon_2018	rincon2018suns	Living_Reviews_in_Solar_Physics	60	x	The Sun's Supergranulation (update)
+Living_Reviews_in_Solar_Physics/papers/61_gibson_2018	gibson2018solar	Living_Reviews_in_Solar_Physics	61	x	Solar Prominences: Theory and Models
+Living_Reviews_in_Solar_Physics/papers/62_rubio_2019	rubio2019quiet	Living_Reviews_in_Solar_Physics	62	x	Quiet Sun Magnetic Fields: An Observational View
+Living_Reviews_in_Solar_Physics/papers/63_madjarska_2019	madjarska2019coronal	Living_Reviews_in_Solar_Physics	63	x	Coronal Bright Points
+Living_Reviews_in_Solar_Physics/papers/64_toriumi_2019	toriumi2019flareproductive	Living_Reviews_in_Solar_Physics	64	x	Flare-Productive Active Regions
+Living_Reviews_in_Solar_Physics/papers/65_garcia_2019	garcia2019asteroseismology	Living_Reviews_in_Solar_Physics	65	x	Asteroseismology of Solar-Type Stars
+Living_Reviews_in_Solar_Physics/papers/66_verscharen_2019	verscharen2019multiscale	Living_Reviews_in_Solar_Physics	66	x	The Multi-Scale Nature of the Solar Wind
+Living_Reviews_in_Solar_Physics/papers/67_arlt_2020	arlt2020historical	Living_Reviews_in_Solar_Physics	67	x	Historical Sunspot Records
+Living_Reviews_in_Solar_Physics/papers/68_petrovay_2020	petrovay2020solar	Living_Reviews_in_Solar_Physics	68	x	Solar Cycle Prediction
+Living_Reviews_in_Solar_Physics/papers/69_pontin_2020	pontin2020parker	Living_Reviews_in_Solar_Physics	69	x	The Parker Problem: Existence of Smooth Force-Free Fields and Coronal Heating
+Living_Reviews_in_Solar_Physics/papers/70_leenaarts_2020	leenaarts2020radiation	Living_Reviews_in_Solar_Physics	70	x	Radiation Hydrodynamics in Simulations of the Solar Atmosphere
+Living_Reviews_in_Solar_Physics/papers/71_charbonneau_2020	charbonneau2020dynamo	Living_Reviews_in_Solar_Physics	71	x	Dynamo Models of the Solar Cycle (update)
+Living_Reviews_in_Solar_Physics/papers/72_wiegelmann_2021	wiegelmann2021solar	Living_Reviews_in_Solar_Physics	72	x	Solar Force-Free Magnetic Fields
+Living_Reviews_in_Solar_Physics/papers/73_christensendalsgaard_2021	christensendalsgaard2021solar	Living_Reviews_in_Solar_Physics	73	x	Solar Structure and Evolution
+Living_Reviews_in_Solar_Physics/papers/74_vidotto_2021	vidotto2021evolution	Living_Reviews_in_Solar_Physics	74	x	The Evolution of the Solar Wind
+Living_Reviews_in_Solar_Physics/papers/75_temmer_2021	temmer2021space	Living_Reviews_in_Solar_Physics	75	x	Space Weather: The Solar Perspective (update)
+Living_Reviews_in_Solar_Physics/papers/76_fan_2021	fan2021magnetic	Living_Reviews_in_Solar_Physics	76	x	Magnetic Fields in the Solar Convection Zone (update)
+Living_Reviews_in_Solar_Physics/papers/77_pontin_2022	pontin2022magnetic	Living_Reviews_in_Solar_Physics	77	x	Magnetic Reconnection: MHD Theory and Modelling
+Living_Reviews_in_Solar_Physics/papers/78_cliver_2022	cliver2022extreme	Living_Reviews_in_Solar_Physics	78	x	Extreme Solar Events
+Living_Reviews_in_Solar_Physics/papers/79_hanasoge_2022	hanasoge2022surface	Living_Reviews_in_Solar_Physics	79	x	Surface and Interior Meridional Circulation in the Sun
+Living_Reviews_in_Solar_Physics/papers/80_jess_2023	jess2023waves	Living_Reviews_in_Solar_Physics	80	x	Waves in the Lower Solar Atmosphere: The Dawn of Next-Generation Solar Telescopes
+Living_Reviews_in_Solar_Physics/papers/81_usoskin_2023	usoskin2023history	Living_Reviews_in_Solar_Physics	81	x	A History of Solar Activity over Millennia (update)
+Living_Reviews_in_Solar_Physics/papers/82_karak_2023	karak2023models	Living_Reviews_in_Solar_Physics	82	x	Models for the Long-Term Variations of Solar Activity
+Living_Reviews_in_Solar_Physics/papers/83_ramos_2023	ramos2023machine	Living_Reviews_in_Solar_Physics	83	x	Machine Learning in Solar Physics
+Living_Reviews_in_Solar_Physics/papers/84_kowalski_2024	kowalski2024stellar	Living_Reviews_in_Solar_Physics	84	x	Stellar Flares
+Living_Reviews_in_Solar_Physics/papers/85_kopp_2025	kopp2025solar	Living_Reviews_in_Solar_Physics	85	x	Solar Irradiance Measurements
+Living_Reviews_in_Solar_Physics/papers/86_veronig_2025	veronig2025coronal	Living_Reviews_in_Solar_Physics	86	x	Coronal Dimmings and What They Tell Us About Solar and Stellar Coronal Mass Ejections
+Living_Reviews_in_Solar_Physics/papers/87_keppens_2025	keppens2025modeling	Living_Reviews_in_Solar_Physics	87	x	Modeling Multiphase Plasma in the Corona: Prominences and Rain
+Low_SNR_Imaging/papers/01_donoho_1994	donoho1994ideal	Low_SNR_Imaging	1	x	Ideal Spatial Adaptation by Wavelet Shrinkage (VisuShrink)
+Low_SNR_Imaging/papers/02_donoho_1995	donoho1995adapting	Low_SNR_Imaging	2	x	Adapting to Unknown Smoothness via Wavelet Shrinkage (SureShrink)
+Low_SNR_Imaging/papers/03_chang_2000	chang2000adaptive	Low_SNR_Imaging	3	x	Adaptive Wavelet Thresholding for Image Denoising and Compression (BayesShrink)
+Low_SNR_Imaging/papers/04_buades_2005	buades2005nonlocal	Low_SNR_Imaging	4	x	A Non-Local Algorithm for Image Denoising (NLM)
+Low_SNR_Imaging/papers/05_do_2005	do2005contourlet	Low_SNR_Imaging	5	x	The Contourlet Transform: An Efficient Directional Multiresolution Image Representation
+Low_SNR_Imaging/papers/06_candes_2006	candes2006fast	Low_SNR_Imaging	6	x	Fast Discrete Curvelet Transforms
+Low_SNR_Imaging/papers/07_dabov_2007	dabov2007image	Low_SNR_Imaging	7	x	Image Denoising by Sparse 3-D Transform-Domain Collaborative Filtering (BM3D)
+Low_SNR_Imaging/papers/08_easley_2008	easley2008sparse	Low_SNR_Imaging	8	x	Sparse Directional Image Representations using the Discrete Shearlet Transform
+Low_SNR_Imaging/papers/09_maggioni_2012	maggioni2012video	Low_SNR_Imaging	9	x	Video Denoising, Deblocking, and Enhancement Through Separable 4-D Nonlocal Spatiotemporal Transforms (V-BM4D)
+Low_SNR_Imaging/papers/10_maggioni_2013	maggioni2013nonlocal	Low_SNR_Imaging	10	x	Nonlocal Transform-Domain Filter for Volumetric Data Denoising and Reconstruction (BM4D)
+Low_SNR_Imaging/papers/11_anscombe_1948	anscombe1948transformation	Low_SNR_Imaging	11	x	The Transformation of Poisson, Binomial and Negative-Binomial Data (Anscombe Transform)
+Low_SNR_Imaging/papers/12_deledalle_2010	deledalle2010poisson	Low_SNR_Imaging	12	x	Poisson NL Means: Unsupervised Non-local Means for Poisson Noise
+Low_SNR_Imaging/papers/13_luisier_2011	luisier2011image	Low_SNR_Imaging	13	x	Image Denoising in Mixed Poisson–Gaussian Noise (PURE-LET)
+Low_SNR_Imaging/papers/14_makitalo_2013	makitalo2013optimal	Low_SNR_Imaging	14	x	Optimal Inversion of the Generalized Anscombe Transformation for Poisson–Gaussian Noise
+Low_SNR_Imaging/papers/15_buchholz_2019	buchholz2019cryocare	Low_SNR_Imaging	15	x	Cryo-CARE: Content-Aware Image Restoration for Cryo-Electron Tomography
+Low_SNR_Imaging/papers/16_lehtinen_2018	lehtinen2018noise2noise	Low_SNR_Imaging	16	x	Noise2Noise: Learning Image Restoration without Clean Data
+Low_SNR_Imaging/papers/17_krull_2019	krull2019noise2void	Low_SNR_Imaging	17	x	Noise2Void — Learning Denoising from Single Noisy Images
+Low_SNR_Imaging/papers/18_batson_2019	batson2019noise2self	Low_SNR_Imaging	18	x	Noise2Self: Blind Denoising by Self-Supervision
+Low_SNR_Imaging/papers/19_quan_2020	quan2020self2self	Low_SNR_Imaging	19	x	Self2Self with Dropout: Learning Self-Supervised Denoising from Single Image
+Low_SNR_Imaging/papers/20_huang_2021	huang2021neighbor2neighbor	Low_SNR_Imaging	20	x	Neighbor2Neighbor: Self-Supervised Denoising from Single Noisy Images
+Low_SNR_Imaging/papers/21_pang_2021	pang2021recorruptedtorecorrupted	Low_SNR_Imaging	21	x	Recorrupted-to-Recorrupted: Unsupervised Deep Learning for Image Denoising (R2R)
+Low_SNR_Imaging/papers/22_wang_2022	wang2022blind2unblind	Low_SNR_Imaging	22	x	Blind2Unblind: Self-Supervised Image Denoising with Visible Blind Spots
+Low_SNR_Imaging/papers/23_van_dokkum_2001	vandokkum2001cosmicray	Low_SNR_Imaging	23	x	Cosmic-Ray Rejection by Laplacian Edge Detection (L.A.Cosmic)
+Low_SNR_Imaging/papers/24_zhang_2020	zhang2020deepcr	Low_SNR_Imaging	24	x	deepCR: Cosmic Ray Rejection with Deep Learning
+Low_SNR_Imaging/papers/25_kadkhodaie_2021	kadkhodaie2021stochastic	Low_SNR_Imaging	25	x	Stochastic Solutions for Linear Inverse Problems Using the Prior Implicit in a Denoiser
+Low_SNR_Imaging/papers/26_kawar_2022	kawar2022denoising	Low_SNR_Imaging	26	x	Denoising Diffusion Restoration Models (DDRM)
+Low_SNR_Imaging/papers/27_bansal_2023	bansal2023cold	Low_SNR_Imaging	27	x	Cold Diffusion: Inverting Arbitrary Image Transforms without Noise
+Low_SNR_Imaging/papers/28_chung_2023	chung2023diffusion	Low_SNR_Imaging	28	x	Diffusion Posterior Sampling for General Noisy Inverse Problems (DPS)
+Low_SNR_Imaging/papers/29_daras_2023	daras2023ambient	Low_SNR_Imaging	29	x	Ambient Diffusion: Learning Clean Distributions from Corrupted Data
+Low_SNR_Imaging/papers/30_zhu_2023	zhu2023denoising	Low_SNR_Imaging	30	x	Denoising Diffusion Models for Plug-and-Play Image Restoration (DiffPIR)
+Low_SNR_Imaging/papers/31_jiang_2023	jiang2023lowlight	Low_SNR_Imaging	31	x	Low-Light Image Enhancement with Wavelet-Based Diffusion Models (DiffLL)
+Low_SNR_Imaging/papers/32_stenborg_2003	stenborg2003wavelet	Low_SNR_Imaging	32	x	A Wavelet Packets Equalization Technique to Reveal the Multiple Spatial-Scale Nature of Coronal Structures
+Low_SNR_Imaging/papers/33_starck_2003	starck2003gray	Low_SNR_Imaging	33	x	Gray and Color Image Contrast Enhancement by the Curvelet Transform
+Low_SNR_Imaging/papers/34_yashiro_2004	yashiro2004catalog	Low_SNR_Imaging	34	x	A Catalog of White Light Coronal Mass Ejections Observed by the SOHO Spacecraft (CDAW Catalog)
+Low_SNR_Imaging/papers/35_morgan_2006	morgan2006depiction	Low_SNR_Imaging	35	x	The Depiction of Coronal Structure in White-Light Images (NRGF)
+Low_SNR_Imaging/papers/36_starck_2007	starck2007undecimated	Low_SNR_Imaging	36	x	The Undecimated Wavelet Decomposition and Its Reconstruction (à-trous)
+Low_SNR_Imaging/papers/37_candes_2011	candes2011robust	Low_SNR_Imaging	37	x	Robust Principal Component Analysis? (RPCA)
+Low_SNR_Imaging/papers/38_morgan_2014	morgan2014multiscale	Low_SNR_Imaging	38	x	Multi-Scale Gaussian Normalization for Solar Image Processing (MGN)
+Low_SNR_Imaging/papers/39_patel_2022	patel2022sirgraf	Low_SNR_Imaging	39	x	SiRGraF: A Simple Radial Gradient Filter for Batch-Processing of Coronagraph Images
+Low_SNR_Imaging/papers/40_lore_2017	lore2017llnet	Low_SNR_Imaging	40	x	LLNet: A Deep Autoencoder Approach to Natural Low-Light Image Enhancement
+Low_SNR_Imaging/papers/41_guo_2020	guo2020zeroreference	Low_SNR_Imaging	41	x	Zero-Reference Deep Curve Estimation for Low-Light Image Enhancement (Zero-DCE)
+Low_SNR_Imaging/papers/42_zamir_2020	zamir2020learning	Low_SNR_Imaging	42	x	Learning Enriched Features for Real Image Restoration and Enhancement (MIRNet)
+Low_SNR_Imaging/papers/43_jiang_2021	jiang2021enlightengan	Low_SNR_Imaging	43	x	EnlightenGAN: Deep Light Enhancement without Paired Supervision
+Low_SNR_Imaging/papers/44_ma_2022	ma2022toward	Low_SNR_Imaging	44	x	Toward Fast, Flexible, and Robust Low-Light Image Enhancement (SCI)
+Low_SNR_Imaging/papers/45_xu_2022	xu2022snraware	Low_SNR_Imaging	45	x	SNR-Aware Low-Light Image Enhancement
+Solar_Observation/papers/01_pierce_1964	pierce1964mcmath	Solar_Observation	1	x	The McMath Solar Telescope of Kitt Peak National Observatory
+Solar_Observation/papers/02_dunn_1964	dunn1964evacuated	Solar_Observation	2	x	An Evacuated Tower Telescope
+Solar_Observation/papers/03_scharmer_2003	scharmer2003meter	Solar_Observation	3	x	The 1-meter Swedish Solar Telescope
+Solar_Observation/papers/04_goode_2012	goode2012offaxis	Solar_Observation	4	x	The 1.6 m Off-Axis New Solar Telescope (NST) in Big Bear
+Solar_Observation/papers/05_harvey_1996	harvey1996global	Solar_Observation	5	x	The Global Oscillation Network Group (GONG) Project
+Solar_Observation/papers/06_chaplin_1996	chaplin1996bison	Solar_Observation	6	x	BiSON Performance
+Solar_Observation/papers/07_tomczyk_2016	tomczyk2016scientific	Solar_Observation	7	x	Scientific Objectives and Capabilities of the Coronal Solar Magnetism Observatory
+Solar_Observation/papers/08_domingo_1995	domingo1995soho	Solar_Observation	8	x	The SOHO Mission: An Overview
+Solar_Observation/papers/09_delaboudiniere_1995	delaboudiniere1995eit	Solar_Observation	9	x	EIT: Extreme-Ultraviolet Imaging Telescope for the SOHO Mission
+Solar_Observation/papers/10_brueckner_1995	brueckner1995large	Solar_Observation	10	x	The Large Angle Spectroscopic Coronagraph (LASCO)
+Solar_Observation/papers/11_handy_1999	handy1999transition	Solar_Observation	11	x	The Transition Region and Coronal Explorer
+Solar_Observation/papers/12_lemen_2012	lemen2012atmospheric	Solar_Observation	12	x	The Atmospheric Imaging Assembly (AIA) on the Solar Dynamics Observatory (SDO)
+Solar_Observation/papers/13_scherrer_2012	scherrer2012helioseismic	Solar_Observation	13	x	The Helioseismic and Magnetic Imager (HMI) Investigation for the Solar Dynamics Observatory (SDO)
+Solar_Observation/papers/14_tsuneta_2008	tsuneta2008solar	Solar_Observation	14	x	The Solar Optical Telescope for the Hinode Mission: An Overview
+Solar_Observation/papers/15_culhane_2007	culhane2007euv	Solar_Observation	15	x	The EUV Imaging Spectrometer for Hinode
+Solar_Observation/papers/16_de_pontieu_2014	depontieu2014interface	Solar_Observation	16	x	The Interface Region Imaging Spectrograph (IRIS)
+Solar_Observation/papers/17_wuelser_2004	wuelser2004euvi	Solar_Observation	17	x	EUVI: The STEREO-SECCHI Extreme Ultraviolet Imager
+Solar_Observation/papers/18_anderson_2020	anderson2020solar	Solar_Observation	18	x	The Solar Orbiter SPICE Instrument — An Extreme UV Imaging Spectrometer
+Solar_Observation/papers/19_rochus_2020	rochus2020solar	Solar_Observation	19	x	The Solar Orbiter EUI Instrument: The Extreme Ultraviolet Imager
+Solar_Observation/papers/20_rimmele_2011	rimmele2011solar	Solar_Observation	20	x	Solar Adaptive Optics
+Solar_Observation/papers/21_woger_2008	woger2008speckle	Solar_Observation	21	x	Speckle Interferometry with Adaptive Optics Corrected Solar Data
+Solar_Observation/papers/22_scharmer_2008	scharmer2008crisp	Solar_Observation	22	x	CRISP Spectropolarimetric Imaging of Penumbral Fine Structure
+Solar_Observation/papers/23_rimmele_2020	rimmele2020daniel	Solar_Observation	23	x	The Daniel K. Inouye Solar Telescope — Observatory Overview
+Solar_Observation/papers/24_de_wijn_2022	dewijn2022visible	Solar_Observation	24	x	The Visible Spectro-Polarimeter of the Daniel K. Inouye Solar Telescope
+Solar_Observation/papers/25_jaeggli_2022	jaeggli2022diffractionlimited	Solar_Observation	25	x	The Diffraction-Limited Near-Infrared Spectropolarimeter (DL-NIRSP) of the Daniel K. Inouye Solar Telescope (DKIST)
+Solar_Observation/papers/26_bastian_1998	bastian1998radio	Solar_Observation	26	x	Radio Emission from Solar Flares
+Solar_Observation/papers/27_wedemeyer_2016	wedemeyer2016solar	Solar_Observation	27	x	Solar Science with the Atacama Large Millimeter/Submillimeter Array — A New View of Our Sun
+Solar_Observation/papers/28_morosan_2014	morosan2014lofar	Solar_Observation	28	x	LOFAR Tied-Array Imaging of Type III Solar Radio Bursts
+Solar_Observation/papers/29_nakajima_1994	nakajima1994nobeyama	Solar_Observation	29	x	The Nobeyama Radioheliograph
+Solar_Observation/papers/30_cheung_2015	cheung2015thermal	Solar_Observation	30	 	Cheung+ 2015 (Sparse DEM for AIA) → migrated
+Solar_Observation/papers/31_couvidat_2016	couvidat2016observables	Solar_Observation	31	x	Observables Processing for the Helioseismic and Magnetic Imager Instrument on the Solar Dynamics Observatory
+Solar_Observation/papers/32_lofdahl_2002	lofdahl2002multiframe	Solar_Observation	32	x	Multi-Frame Blind Deconvolution with Linear Equality Constraints
+Solar_Observation/papers/33_cobo_1992	cobo1992inversion	Solar_Observation	33	x	Inversion of Stokes Profiles
+Solar_Observation/papers/34_tomczyk_2008	tomczyk2008instrument	Solar_Observation	34	x	An Instrument to Measure Coronal Emission Line Polarization
+Solar_Observation/papers/35_pesnell_2012	pesnell2012solar	Solar_Observation	35	x	The Solar Dynamics Observatory (SDO)
+Solar_Observation/papers/36_muller_2020	muller2020solar	Solar_Observation	36	x	The Solar Orbiter mission — Science overview
+Solar_Observation/papers/37_inceoglu_2022	inceoglu2022identification	Solar_Observation	37	x	Identification of Coronal Holes on AIA/SDO Images Using Unsupervised Machine Learning
+Solar_Observation/papers/38_tsuneta_1991	tsuneta1991soft	Solar_Observation	38	x	The Soft X-ray Telescope for the Solar-A Mission (Yohkoh/SXT)
+Solar_Observation/papers/39_lin_2002	lin2002reuven	Solar_Observation	39	x	The Reuven Ramaty High-Energy Solar Spectroscopic Imager (RHESSI)
+Solar_Observation/papers/40_fox_2016	fox2016solar	Solar_Observation	40	x	The Solar Probe Plus Mission: Humanity's First Visit to Our Star (Parker Solar Probe)
+Solar_Observation/papers/41_ogawara_1991	ogawara1991solara	Solar_Observation	41	x	The SOLAR-A Mission: An Overview (Yohkoh)
+Solar_Observation/papers/42_kosugi_1991	kosugi1991hard	Solar_Observation	42	x	The Hard X-ray Telescope (HXT) for the SOLAR-A Mission
+Solar_Observation/papers/43_scherrer_1995	scherrer1995solar	Solar_Observation	43	x	The Solar Oscillations Investigation — Michelson Doppler Imager (SOHO/MDI)
+Solar_Observation/papers/44_harrison_1995	harrison1995coronal	Solar_Observation	44	x	The Coronal Diagnostic Spectrometer for the Solar and Heliospheric Observatory (SOHO/CDS)
+Solar_Observation/papers/45_kohl_1995	kohl1995ultraviolet	Solar_Observation	45	x	The Ultraviolet Coronagraph Spectrometer for the Solar and Heliospheric Observatory (SOHO/UVCS)
+Solar_Observation/papers/46_bertaux_1995	bertaux1995swan	Solar_Observation	46	x	SWAN: A Study of Solar Wind Anisotropies on SOHO with Lyman Alpha Sky Mapping
+Solar_Observation/papers/47_kosugi_2007	kosugi2007hinode	Solar_Observation	47	x	The Hinode (Solar-B) Mission: An Overview
+Solar_Observation/papers/48_golub_2007	golub2007xray	Solar_Observation	48	x	The X-Ray Telescope (XRT) for the Hinode Mission
+Solar_Observation/papers/49_kaiser_2008	kaiser2008stereo	Solar_Observation	49	x	The STEREO Mission: An Introduction
+Solar_Observation/papers/50_howard_2008	howard2008sun	Solar_Observation	50	x	Sun Earth Connection Coronal and Heliospheric Investigation (SECCHI)
+Solar_Observation/papers/51_woods_2012	woods2012extreme	Solar_Observation	51	x	Extreme Ultraviolet Variability Experiment (EVE) on the Solar Dynamics Observatory (SDO)
+Solar_Observation/papers/52_bale_2016	bale2016fields	Solar_Observation	52	x	The FIELDS Instrument Suite for Solar Probe Plus (PSP/FIELDS)
+Solar_Observation/papers/53_vourlidas_2016	vourlidas2016widefield	Solar_Observation	53	x	The Wide-Field Imager for Solar Probe Plus (PSP/WISPR)
+Solar_Observation/papers/54_kasper_2016	kasper2016solar	Solar_Observation	54	x	Solar Wind Electrons Alphas and Protons (SWEAP) Investigation for PSP
+Solar_Observation/papers/55_mccomas_2016	mccomas2016integrated	Solar_Observation	55	x	Integrated Science Investigation of the Sun (IS☉IS) for PSP
+Solar_Observation/papers/56_solanki_2020	solanki2020polarimetric	Solar_Observation	56	x	The Polarimetric and Helioseismic Imager on Solar Orbiter (PHI)
+Solar_Observation/papers/57_antonucci_2020	antonucci2020metis	Solar_Observation	57	x	Metis: the Solar Orbiter Visible Light and Ultraviolet Coronal Imager
+Solar_Observation/papers/58_howard_2020	howard2020solar	Solar_Observation	58	x	The Solar Orbiter Heliospheric Imager (SoloHI)
+Solar_Observation/papers/59_krucker_2020	krucker2020spectrometer	Solar_Observation	59	x	The Spectrometer/Telescope for Imaging X-rays (STIX) on Solar Orbiter
+Solar_Observation/papers/60_li_2022	li2022chinese	Solar_Observation	60	x	The Chinese H-alpha Solar Explorer (CHASE) mission: An overview
+Solar_Observation/papers/61_abbo_2025	abbo2025combined	Solar_Observation	61	x	Combined coronal observations of the streamer belt with Metis and EUI instruments on Solar Orbiter
+Solar_Observation/papers/62_van_de_hulst_1950	vandehulst1950electron	Solar_Observation	62	x	The electron density of the solar corona
+Solar_Observation/papers/63_dere_1997	dere1997chianti	Solar_Observation	63	 	Dere+ 1997 (CHIANTI v1) → migrated
+Solar_Observation/papers/64_dere_2023	dere2023chianti	Solar_Observation	64	 	Dere+ 2023 (CHIANTI v10.1) → migrated
+Solar_Observation/papers/65_mason_1994	mason1994spectroscopic	Solar_Observation	65	 	Mason & Monsignori-Fossi 1994 (VUV Diagnostics) → migrated
+Solar_Observation/papers/81_eyles_2009	eyles2009heliospheric	Solar_Observation	81	 	The Heliospheric Imagers Onboard the STEREO Mission
+Solar_Physics/papers/01_galilei_1613	galilei1613istoria	Solar_Physics	1	x	Istoria e Dimostrazioni Intorno Alle Macchie Solari (Letters on Sunspots)
+Solar_Physics/papers/02_von_fraunhofer_1814	vonfraunhofer1814bestimmung	Solar_Physics	2	x	Bestimmung des Brechungs- und Farbenzerstreuungs-Vermogens verschiedener Glasarten (Determination of the Refractive and Dispersive Power of Different Kinds of Glass)
+Solar_Physics/papers/03_kirchhoff_1860	kirchhoff1860chemische	Solar_Physics	3	x	Chemische Analyse durch Spectralbeobachtungen (Chemical Analysis by Spectral Observations)
+Solar_Physics/papers/04_schwarzschild_1906	schwarzschild1906gleichgewicht	Solar_Physics	4	x	Uber das Gleichgewicht der Sonnenatmosphare (On the Equilibrium of the Solar Atmosphere)
+Solar_Physics/papers/05_hale_1908	hale1908probable	Solar_Physics	5	x	On the Probable Existence of a Magnetic Field in Sun-Spots
+Solar_Physics/papers/06_evershed_1909	evershed1909radial	Solar_Physics	6	x	Radial Movement in Sun-Spots
+Solar_Physics/papers/07_hale_1925	hale1925law	Solar_Physics	7	x	The Law of Sun-Spot Polarity
+Solar_Physics/papers/08_alfven_1942	alfven1942existence	Solar_Physics	8	x	Existence of Electromagnetic-Hydrodynamic Waves
+Solar_Physics/papers/09_babcock_1961	babcock1961topology	Solar_Physics	9	x	The Topology of the Sun's Magnetic Field and the 22-Year Cycle
+Solar_Physics/papers/10_leighton_1969	leighton1969magnetokinematic	Solar_Physics	10	x	A Magneto-Kinematic Model of the Solar Cycle
+Solar_Physics/papers/11_biermann_1951	biermann1951kometenschweife	Solar_Physics	11	 	Biermann 1951 (Comet Tails) → migrated
+Solar_Physics/papers/12_parker_1958	parker1958dynamics	Solar_Physics	12	 	Parker 1958 (Solar Wind Theory) → migrated
+Solar_Physics/papers/13_leighton_1962	leighton1962velocity	Solar_Physics	13	 	Leighton+ 1962 (5-minute oscillation) → migrated
+Solar_Physics/papers/14_ulrich_1970	ulrich1970fiveminute	Solar_Physics	14	 	Ulrich 1970 (p-mode interpretation) → migrated
+Solar_Physics/papers/15_deubner_1975	deubner1975observations	Solar_Physics	15	 	Deubner 1975 (k-ω diagram) → migrated
+Solar_Physics/papers/16_christensendalsgaard_1996	christensendalsgaard1996current	Solar_Physics	16	 	Christensen-Dalsgaard+ 1996 (Solar Modeling) → migrated
+Solar_Physics/papers/17_schou_1998	schou1998helioseismic	Solar_Physics	17	 	Schou+ 1998 (Differential Rotation, MDI) → migrated
+Solar_Physics/papers/18_giovanelli_1946	giovanelli1946theory	Solar_Physics	18	 	Giovanelli 1946 (Chromospheric Flare Theory) → migrated
+Solar_Physics/papers/19_parker_1957	parker1957sweets	Solar_Physics	19	 	Parker 1957 (Sweet-Parker Reconnection) → migrated
+Solar_Physics/papers/20_petschek_1964	petschek1964magnetic	Solar_Physics	20	 	Petschek 1964 (Fast Reconnection) → migrated
+Solar_Physics/papers/21_parker_1988	parker1988nanoflares	Solar_Physics	21	 	Parker 1988 (Nanoflares) → migrated
+Solar_Physics/papers/22_gosling_1993	gosling1993solar	Solar_Physics	22	 	Gosling 1993 (Solar Flare Myth) → migrated
+Solar_Physics/papers/23_aulanier_1998	aulanier1998magnetic	Solar_Physics	23	 	Aulanier & Démoulin 1998 (Prominence Flux Rope) → migrated
+Solar_Physics/papers/24_nakariakov_1999	nakariakov1999trace	Solar_Physics	24	x	TRACE Observation of Damped Coronal Loop Oscillations: Implications for Coronal Heating
+Solar_Physics/papers/25_antiochos_1999	antiochos1999model	Solar_Physics	25	 	Antiochos+ 1999 (CME Breakout Model) → migrated
+Solar_Physics/papers/26_kliem_2006	kliem2006torus	Solar_Physics	26	 	Kliem & Török 2006 (Torus Instability) → migrated
+Solar_Physics/papers/27_reames_1999	reames1999particle	Solar_Physics	27	 	Reames 1999 (SEP two-class paradigm) → migrated
+Solar_Physics/papers/28_schrijver_2000	schrijver2000solar	Solar_Physics	28	x	Solar and Stellar Magnetic Activity (monograph)
+Solar_Physics/papers/29_kaiser_2008	kaiser2008stereo	Solar_Physics	29	 	Kaiser+ 2008 (STEREO Mission) → see canonical
+Solar_Physics/papers/30_de_wijn_2009	dewijn2009smallscale	Solar_Physics	30	x	Small-Scale Solar Magnetic Fields
+Solar_Physics/papers/31_charbonneau_2010	charbonneau2010dynamo	Solar_Physics	31	 	Charbonneau 2010 (Dynamo Models, LRSP) → see canonical
+Solar_Physics/papers/32_kopp_2011	kopp2011lower	Solar_Physics	32	x	A New, Lower Value of Total Solar Irradiance: Evidence and Climate Significance
+Solar_Physics/papers/33_pesnell_2012	pesnell2012solar	Solar_Physics	33	 	Pesnell+ 2012 (SDO Mission) → see canonical
+Solar_Physics/papers/34_emslie_2012	emslie2012global	Solar_Physics	34	 	Emslie+ 2012 (Flare Global Energetics) → migrated
+Solar_Physics/papers/35_wiegelmann_2012	wiegelmann2012solar	Solar_Physics	35	 	Wiegelmann & Sakurai 2012 (NLFFF, LRSP) → see canonical
+Solar_Physics/papers/36_woods_2012	woods2012extreme	Solar_Physics	36	 	Woods+ 2012 (SDO/EVE) → see canonical
+Solar_Physics/papers/37_fox_2016	fox2016solar	Solar_Physics	37	 	Fox+ 2016 (Parker Solar Probe Mission) → see canonical
+Solar_Physics/papers/38_kasper_2021	kasper2021parker	Solar_Physics	38	 	Kasper+ 2021 (PSP Crosses Alfvén Surface) → migrated
+Solar_Physics/papers/39_yang_1998	yang1998evidence	Solar_Physics	39	x	Evidence for the Solar Cycle in the Sunspot and Aurora Records of Goryer Dynasty
+Solar_Physics/papers/40_lee_2004	lee2004sunspot	Solar_Physics	40	x	The Sunspot and Auroral Activity Cycle Derived from Korean Historical Records of the 11th-18th Century
+Solar_Physics/papers/41_lee_2007	lee2007features	Solar_Physics	41	x	Features of great minima in solar activity during the last 1000 years
+Solar_Physics/papers/42_yang_2019	yang2019solar	Solar_Physics	42	x	Solar activities and climate change during the last millennium recorded in Korean chronicles
+Solar_Physics/papers/43_miyake_2012	miyake2012signature	Solar_Physics	43	x	A Signature of Cosmic-Ray Increase in AD 774-775 from Tree Rings in Japan
+Solar_Physics/papers/44_eddy_1976	eddy1976maunder	Solar_Physics	44	 	The Maunder Minimum: The Reign of Louis XIV Appears to Have Been a Time of Real Anomaly in the Behavior of the Sun
+Solar_Physics/papers/45_carlsson_1995	carlsson1995does	Solar_Physics	45	 	Does a Nonmagnetic Solar Chromosphere Exist?
+Solar_Physics/papers/46_aschwanden_2000	aschwanden2000time	Solar_Physics	46	 	Time Variability of the "Quiet" Sun Observed with TRACE. II. Physical Parameters, Temperature Evolution, and Energetics of EUV Nanoflares
+Solar_Physics/papers/47_bahcall_2001	bahcall2001	Solar_Physics	47	 	Bahcall+ 2001 (Standard Solar Model) → migrated
+Solar_Physics/papers/48_solanki_2003	solanki2003sunspots	Solar_Physics	48	 	Sunspots: An Overview
+Solar_Physics/papers/49_allred_2005	allred2005	Solar_Physics	49	 	Allred+ 2005 (RADYN Flare RHD) → migrated
+Solar_Physics/papers/50_klimchuk_2006	klimchuk2006solving	Solar_Physics	50	 	On Solving the Coronal Heating Problem
+Solar_Physics/papers/51_de_pontieu_2007	depontieu2007pontieu	Solar_Physics	51	 	De Pontieu+ 2007 (Chromospheric Alfvén Waves) → migrated
+Solar_Physics/papers/52_cirtain_2007	cirtain2007evidence	Solar_Physics	52	 	Evidence for Alfvén Waves in Solar X-Ray Jets
+Solar_Physics/papers/53_kosugi_2007	kosugi2007hinode	Solar_Physics	53	 	Kosugi+ 2007 (Hinode Mission) → see canonical
+Solar_Physics/papers/54_asplund_2009	asplund2009	Solar_Physics	54	 	Asplund+ 2009 (Solar Chemical Composition) → migrated
+Solar_Physics/papers/55_rempel_2009	rempel2009	Solar_Physics	55	 	Rempel+ 2009 (3D Sunspot Simulation) → migrated
+Solar_Physics/papers/56_hanasoge_2012	hanasoge2012	Solar_Physics	56	 	Hanasoge+ 2012 (Anomalously Weak Convection) → migrated
+Solar_Physics/papers/57_de_pontieu_2014	depontieu2014interface	Solar_Physics	57	 	De Pontieu+ 2014 (IRIS Mission) → see canonical
+Solar_Physics/papers/58_muller_2020	muller2020solar	Solar_Physics	58	 	Müller+ 2020 (Solar Orbiter Mission) → see canonical
+Solar_Physics/papers/59_rimmele_2020	rimmele2020daniel	Solar_Physics	59	 	Rimmele+ 2020 (DKIST Observatory) → see canonical
+Solar_Physics/papers/60_berghmans_2021	berghmans2021extremeuv	Solar_Physics	60	 	Extreme-UV Quiet Sun Brightenings Observed by the Solar Orbiter/EUI ("Campfires")
+Space_Weather/papers/01_birkeland_1908	birkeland1908norwegian	Space_Weather	1	x	The Norwegian Aurora Polaris Expedition 1902–1903
+Space_Weather/papers/02_chapman_1931	chapman1931theory	Space_Weather	2	x	A New Theory of Magnetic Storms, Part I: The Initial Phase
+Space_Weather/papers/03_chapman_1940	chapman1940geomagnetism	Space_Weather	3	x	Geomagnetism (monograph)
+Space_Weather/papers/04_parker_1958	parker1958dynamics	Space_Weather	4	x	Dynamics of the Interplanetary Gas and Magnetic Fields
+Space_Weather/papers/05_van_allen_1958	vanallen1958observation	Space_Weather	5	x	Observation of High Intensity Radiation by Satellites 1958 Alpha and Gamma
+Space_Weather/papers/06_dungey_1961	dungey1961interplanetary	Space_Weather	6	x	Interplanetary Magnetic Field and the Auroral Zones
+Space_Weather/papers/07_axford_1961	axford1961unifying	Space_Weather	7	x	A Unifying Theory of High-Latitude Geophysical Phenomena and Geomagnetic Storms
+Space_Weather/papers/08_akasofu_1964	akasofu1964development	Space_Weather	8	x	The Development of the Auroral Substorm
+Space_Weather/papers/09_ness_1965	ness1965earths	Space_Weather	9	x	The Earth's Magnetic Tail
+Space_Weather/papers/10_mcpherron_1973	mcpherron1973satellite	Space_Weather	10	x	Satellite Studies of Magnetospheric Substorms on August 15, 1968
+Space_Weather/papers/11_burton_1975	burton1975empirical	Space_Weather	11	x	An Empirical Relationship between Interplanetary Conditions and Dst
+Space_Weather/papers/12_cowley_1982	cowley1982causes	Space_Weather	12	x	The Causes of Convection in the Earth's Magnetosphere: A Review of Developments During the IMS
+Space_Weather/papers/13_richmond_1988	richmond1988mapping	Space_Weather	13	x	Mapping Electrodynamic Features of the High-Latitude Ionosphere from Localized Observations (AMIE)
+Space_Weather/papers/14_tsyganenko_1989	tsyganenko1989magnetospheric	Space_Weather	14	x	A Magnetospheric Magnetic Field Model with a Warped Tail Current Sheet
+Space_Weather/papers/15_gonzalez_1994	gonzalez1994what	Space_Weather	15	x	What Is a Geomagnetic Storm?
+Space_Weather/papers/16_fullerrowell_1994	fullerrowell1994response	Space_Weather	16	x	Response of the Thermosphere and Ionosphere to Geomagnetic Storms
+Space_Weather/papers/17_allen_1989	allen1989effects	Space_Weather	17	x	Effects of the March 1989 Solar Activity
+Space_Weather/papers/18_arge_2000	arge2000improvement	Space_Weather	18	x	Improvement in the Prediction of Solar Wind Conditions Using Near-Real Time Solar Magnetic Field Updates (WSA)
+Space_Weather/papers/19_baker_2000	baker2000effects	Space_Weather	19	x	Effects of the Sun on the Earth's Environment and the Consequences for Mankind
+Space_Weather/papers/20_kintner_2007	kintner2007gps	Space_Weather	20	x	GPS and Ionospheric Scintillations
+Space_Weather/papers/21_odstrcil_2003	odstrcil2003modeling	Space_Weather	21	x	Modeling 3-D Solar Wind Structure
+Space_Weather/papers/22_tsurutani_2004	tsurutani2004global	Space_Weather	22	x	The Global Dayside Ionospheric Uplift and Enhancement Associated with Interplanetary Electric Fields
+Space_Weather/papers/23_gopalswamy_2005	gopalswamy2005introduction	Space_Weather	23	x	Introduction to Violent Sun–Earth Connection Events of October–November 2003
+Space_Weather/papers/24_pulkkinen_2007	pulkkinen2007space	Space_Weather	24	x	Space Weather: Terrestrial Perspective
+Space_Weather/papers/25_kappenman_2010	kappenman2010geomagnetic	Space_Weather	25	x	Geomagnetic Storms and Their Impacts on the U.S. Power Grid
+Space_Weather/papers/26_thorne_2010	thorne2010radiation	Space_Weather	26	x	Radiation Belt Dynamics: The Importance of Wave-Particle Interactions
+Space_Weather/papers/27_angelopoulos_2008	angelopoulos2008themis	Space_Weather	27	x	The THEMIS Mission
+Space_Weather/papers/28_mauk_2013	mauk2013science	Space_Weather	28	x	Science Objectives and Rationale for the Radiation Belt Storm Probes Mission (Van Allen Probes)
+Space_Weather/papers/29_baker_2013	baker2013major	Space_Weather	29	x	A Major Solar Eruptive Event in July 2012: Defining Extreme Space Weather Scenarios
+Space_Weather/papers/30_baker_2014	baker2014impenetrable	Space_Weather	30	x	An Impenetrable Barrier to Ultrarelativistic Electrons in the Van Allen Radiation Belts
+Space_Weather/papers/31_biesecker_2015	biesecker2015space	Space_Weather	31	x	Space Weather Operations: The NOAA Space Weather Prediction Center
+Space_Weather/papers/32_pulkkinen_2017	pulkkinen2017geomagnetically	Space_Weather	32	x	Geomagnetically Induced Currents: Science, Engineering, and Applications Readiness
+Space_Weather/papers/33_camporeale_2019	camporeale2019challenge	Space_Weather	33	x	The Challenge of Machine Learning in Space Weather: Nowcasting and Forecasting
+Space_Weather/papers/34_leka_2019	leka2019comparison	Space_Weather	34	x	A Comparison of Flare Forecasting Methods
+Space_Weather/papers/35_upendran_2020	upendran2020solar	Space_Weather	35	x	Solar Wind Prediction Using Deep Learning
+Space_Weather/papers/36_owens_2021	owens2021extreme	Space_Weather	36	x	Extreme Space-Weather Events and the Solar Cycle
+Space_Weather/papers/37_billcliff_2026	billcliff2026extended	Space_Weather	37	x	Extended Lead-Time Geomagnetic Storm Forecasting With Solar Wind Ensembles and Machine Learning
+Space_Weather/papers/38_abduallah_2024	abduallah2024prediction	Space_Weather	38	x	Prediction of the SYM-H Index Using a Bayesian Deep Learning Method With Uncertainty Quantification
+Space_Weather/papers/39_wang_2026	wang2026daily	Space_Weather	39	x	Daily Predictions of F10.7 and F30 Solar Indices With Deep Learning
+Space_Weather/papers/40_lin_2025	lin2025automatic	Space_Weather	40	x	Automatic 3D Reconstruction of Coronal Mass Ejections Based on Dual-viewpoint Observations and Machine Learning
+Space_Weather/papers/41_guesmi_2026	guesmi2026cmegnets	Space_Weather	41	x	CMEGNets: A self-supervised framework for coronal mass ejection detection & region segmentation
+Space_Weather/papers/42_stone_1998	stone1998advanced	Space_Weather	42	x	The Advanced Composition Explorer (ACE)
+Space_Weather/papers/43_ogilvie_1997	ogilvie1997wind	Space_Weather	43	x	The WIND Spacecraft and Its Early Scientific Results
+Space_Weather/papers/44_burt_2012	burt2012deep	Space_Weather	44	x	Deep Space Climate Observatory: The DSCOVR Mission
+Space_Weather/papers/45_goodman_2019	goodman2019goesr	Space_Weather	45	x	The GOES-R Series: A New Generation of Geostationary Environmental Satellites (Chapter 1)
+Space_Weather/papers/46_onsager_1996	onsager1996operational	Space_Weather	46	x	Operational Uses of the GOES Energetic Particle Detectors
+Space_Weather/papers/47_frank_1988	frank1988imaging	Space_Weather	47	x	Imaging Results from Dynamics Explorer 1
+Space_Weather/papers/48_anger_1987	anger1987ultraviolet	Space_Weather	48	x	An Ultraviolet Auroral Imager for the Viking Spacecraft
+Space_Weather/papers/49_torr_1995	torr1995far	Space_Weather	49	x	A Far Ultraviolet Imager for the International Solar-Terrestrial Physics Mission (Polar/UVI)
+Space_Weather/papers/50_burch_2000	burch2000image	Space_Weather	50	x	IMAGE Mission Overview
+Space_Weather/papers/51_mende_2000	mende2000far	Space_Weather	51	x	Far Ultraviolet Imaging from the IMAGE Spacecraft. 1. System Design
+Space_Weather/papers/52_frey_2004	frey2004substorm	Space_Weather	52	x	Substorm Onset Observations by IMAGE-FUV
+Space_Weather/papers/53_paxton_2004	paxton2004guvi	Space_Weather	53	x	GUVI: A Hyperspectral Imager for Geospace (TIMED/GUVI)
+Space_Weather/papers/54_paxton_1992	paxton1992special	Space_Weather	54	x	Special Sensor Ultraviolet Spectrographic Imager (SSUSI): An Instrument Description
+Space_Weather/papers/55_carlson_1998	carlson1998fast	Space_Weather	55	x	The Fast Auroral SnapshoT (FAST) Mission
+Space_Weather/papers/56_mende_2008	mende2008themis	Space_Weather	56	x	The THEMIS Array of Ground-Based Observatories for the Study of Auroral Substorms
+Space_Weather/papers/57_donovan_2006	donovan2006themis	Space_Weather	57	x	The THEMIS All-Sky Imaging Array — System Design and Initial Results from the Prototype Imager
+Space_Weather/papers/58_greenwald_1995	greenwald1995darn	Space_Weather	58	x	DARN/SuperDARN: A Global View of the Dynamics of High-Latitude Convection
+Space_Weather/papers/59_folkestad_1983	folkestad1983eiscat	Space_Weather	59	x	EISCAT: An Updated Description of Technical Characteristics and Operational Capabilities
+Space_Weather/papers/60_gillies_2019	gillies2019first	Space_Weather	60	x	First Observations From the TREx Spectrograph: The Optical Spectrum of STEVE and the Picket Fence Phenomena
+Space_Weather/papers/61_lepping_1995	lepping1995wind	Space_Weather	61	x	The WIND Magnetic Field Investigation (Wind/MFI)
+Space_Weather/papers/62_ogilvie_1995	ogilvie1995swe	Space_Weather	62	x	SWE: A Comprehensive Plasma Instrument for the Wind Spacecraft
+Space_Weather/papers/63_lin_1995	lin1995threedimensional	Space_Weather	63	x	A Three-Dimensional Plasma and Energetic Particle Investigation for the Wind Spacecraft (Wind/3DP)
+Space_Weather/papers/64_bougeret_1995	bougeret1995waves	Space_Weather	64	x	WAVES: The Radio and Plasma Wave Investigation on the WIND Spacecraft
+Space_Weather/papers/65_smith_1998	smith1998ace	Space_Weather	65	x	The ACE Magnetic Fields Experiment (ACE/MAG)
+Space_Weather/papers/66_mccomas_1998	mccomas1998solar	Space_Weather	66	x	Solar Wind Electron Proton Alpha Monitor (SWEPAM) for ACE
+Space_Weather/papers/69_mason_1998	mason1998ultralowenergy	Space_Weather	69	x	The Ultra-Low-Energy Isotope Spectrometer (ACE/ULEIS)
+Space_Weather/papers/70_gold_1998	gold1998electron	Space_Weather	70	x	Electron, Proton, and Alpha Monitor on ACE (ACE/EPAM)
+Space_Weather/papers/71_gloeckler_1998	gloeckler1998swics	Space_Weather	71	x	SWICS and SWIMS on ACE: Solar and Interstellar Composition via Solar Wind and Pickup Ions
+Space_Weather/papers/72_mitchell_2000	mitchell2000high	Space_Weather	72	x	High Energy Neutral Atom Imager (IMAGE/HENA)
+Space_Weather/papers/73_pollock_2000	pollock2000medium	Space_Weather	73	x	Medium Energy Neutral Atom Imager (IMAGE/MENA)
+Space_Weather/papers/74_moore_2000	moore2000lowenergy	Space_Weather	74	x	The Low-Energy Neutral Atom Imager for IMAGE (LENA)
+Space_Weather/papers/75_sandel_2000	sandel2000extreme	Space_Weather	75	x	The Extreme Ultraviolet Imager Investigation for IMAGE (EUV)
+Space_Weather/papers/76_reinisch_2000	reinisch2000radio	Space_Weather	76	x	The Radio Plasma Imager Investigation on IMAGE (RPI)
+Space_Weather/papers/77_angelopoulos_2008	angelopoulos2008themis	Space_Weather	77	x	The THEMIS Mission (Satellite Suite Overview)
+Space_Weather/papers/78_auster_2008	auster2008themis	Space_Weather	78	x	The THEMIS Fluxgate Magnetometer (THEMIS/FGM)
+Space_Weather/papers/79_roux_2008	roux2008search	Space_Weather	79	x	The Search Coil Magnetometer for THEMIS (THEMIS/SCM)
+Space_Weather/papers/80_mcfadden_2008	mcfadden2008themis	Space_Weather	80	x	The THEMIS ESA Plasma Instrument and In-flight Calibration (THEMIS/ESA)
+Space_Weather/papers/81_bonnell_2008	bonnell2008electric	Space_Weather	81	x	The Electric Field Instrument (EFI) for THEMIS
+Artificial_Intelligence/papers/56_wei_2022b	wei2022emergent	Artificial_Intelligence	56	x	Emergent Abilities of Large Language Models
+Space_Weather/papers/67_stone_1998_sis	stone1998solar	Space_Weather	67	x	The Solar Isotope Spectrometer (ACE/SIS)
+Space_Weather/papers/68_stone_1998_cris	stone1998cosmicray	Space_Weather	68	x	The Cosmic-Ray Isotope Spectrometer (ACE/CRIS)
